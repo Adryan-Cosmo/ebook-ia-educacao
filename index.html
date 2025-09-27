@@ -1,0 +1,1519 @@
+<!DOCTYPE html><html
+    lang="pt-BR"
+    data-theme="light"
+    class="chapters-mode">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0" />
+        <title>Ebook Digital: Ferramentas de IA na Educação Básica</title>
+        <meta
+            name="description"
+            content="Ebook interativo para professores: ferramentas de IA com guias práticos, exemplos pedagógicos, ética e acessibilidade." />
+        <meta
+            name="ebook:author"
+            content="Adryan Cavalcante Cosmo" />
+        <meta
+            name="ebook:authorGithub"
+            content="https://github.com/Adryan-Cosmo" />
+        <meta
+            name="ebook:version"
+            content="1.0.0" />
+        <meta
+            name="license"
+            content="CC BY 4.0" />
+        <link
+            rel="icon"
+            href="assets/favicon.svg"
+            type="image/svg+xml" />
+        <link
+            rel="stylesheet"
+            href="style.css"
+            media="all" />
+        <link
+            rel="stylesheet"
+            href="print.css"
+            media="print" />
+    </head>
+    <body>
+        <!-- Banner de Créditos (preenchido dinamicamente) -->
+        <div class="author-banner">
+            <div class="author-banner-left">
+                <strong>Autor:</strong>
+                <a
+                    href="https://github.com/Adryan-Cosmo"
+                    target="_blank"
+                    rel="noopener"
+                    class="author-link"
+                    ><span class="author-name">Adryan Cavalcante Cosmo</span></a
+                >
+                <span
+                    class="author-version"
+                    title="Versão do ebook"
+                    >v<span data-ebook-version>1.0.0</span></span
+                >
+            </div>
+            <div class="author-banner-right">
+                <strong>Licença:</strong> CC BY 4.0 (Atribuição). Cite:
+                <span class="citation-inline"
+                    >Material adaptado de Adryan Cavalcante Cosmo – Ebook
+                    Ferramentas de IA na Educação.</span
+                >
+                <button
+                    type="button"
+                    class="copy-citation-btn"
+                    id="copyCitation"
+                    title="Copiar citação">
+                    Copiar
+                </button>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div
+                class="progress-bar"
+                id="progressBar"></div>
+        </div>
+        <button
+            class="theme-toggle"
+            id="themeToggle"
+            title="Alternar tema">
+            <span id="themeIcon">🌙</span>
+        </button>
+        <button
+            class="print-button"
+            id="printButton"
+            title="Imprimir capítulo atual">
+            🖨
+        </button>
+        <nav
+            class="sidebar"
+            id="sidebar">
+            <div class="sidebar-header">
+                <h3>Sumário</h3>
+                <button
+                    class="sidebar-toggle"
+                    id="sidebarToggle"
+                    aria-label="Fechar menu">
+                    ×
+                </button>
+            </div>
+            <ul class="nav-menu">
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#capa"
+                        >Capa</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#introducao"
+                        >Introdução</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#chatgpt"
+                        >ChatGPT</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#kahoot"
+                        >Kahoot!</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#canva"
+                        >Canva Educação</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#mentimeter"
+                        >Mentimeter</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#nearpod"
+                        >Nearpod</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#extras"
+                        >Blocos Extras</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#exercicios"
+                        >Exercícios</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#quiz-pratico"
+                        >Quiz Prático</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#implementacao"
+                        >Implementação</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#etica"
+                        >Ética e LGPD</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#recursos"
+                        >Recursos</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="nav-link"
+                        href="#conclusao"
+                        >Conclusão</a
+                    >
+                </li>
+            </ul>
+        </nav>
+        <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Abrir menu">
+            ☰
+        </button>
+        <main class="main-content">
+            <div class="chapter-toolbar">
+                <div class="chapter-meta">
+                    <span class="chapter-label">Capítulo atual</span>
+                    <h2
+                        class="chapter-title"
+                        id="currentChapterTitle">
+                        Capa
+                    </h2>
+                </div>
+                <div class="chapter-progress">
+                    <div class="chapter-counter">
+                        <span id="chapterPosition">1 / 12</span>
+                        <span
+                            class="chapter-progress-pill"
+                            id="chapterPercent"
+                            >0%</span
+                        >
+                    </div>
+                    <div class="chapter-actions">
+                        <button
+                            id="viewModeToggle"
+                            class="btn small"
+                            type="button"
+                            title="Alternar entre visão linear (um capítulo) e completa">
+                            Visão Completa
+                        </button>
+                        <button
+                            id="progressModeToggle"
+                            class="btn small"
+                            type="button"
+                            title="Alternar modo da barra superior">
+                            Progresso: Desbloqueio
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <section
+                id="capa"
+                class="section section-cover active"
+                data-title="Capa">
+                <div class="cover-gradient"></div>
+                <div class="cover-content">
+                    <h1>Ebook Digital: Ferramentas de IA na Educação Básica</h1>
+                    <p>Um Guia Completo e Interativo para Professores</p>
+                    <button
+                        class="cta-button"
+                        id="startJourney"
+                        type="button">
+                        Começar Jornada
+                    </button>
+                </div>
+            </section>
+            <section
+                id="introducao"
+                class="section"
+                data-title="Introdução">
+                <h2>Introdução</h2>
+                <p>
+                    A Inteligência Artificial potencializa, não substitui, a
+                    docência. Este ebook reúne ferramentas essenciais, com guias
+                    práticos, exemplos e boas práticas para aplicação imediata
+                    em sala de aula.
+                </p>
+                <div class="callout info">
+                    <strong>Curiosidade:</strong> escolas que adotam recursos
+                    digitais com intencionalidade pedagógica relatam maior
+                    engajamento, economia de tempo em planejamento e avaliações
+                    mais ágeis.
+                </div>
+                <div class="pill-grid">
+                    <span class="pill">Criação de conteúdo</span>
+                    <span class="pill">Gamificação</span>
+                    <span class="pill">Interatividade</span>
+                    <span class="pill">Realidade Virtual</span>
+                    <span class="pill">Acessibilidade</span>
+                </div>
+            </section>
+            <section
+                id="chatgpt"
+                class="section"
+                data-title="ChatGPT">
+                <h2>ChatGPT <span class="tag">🤖 Assistente de IA</span></h2>
+                <h3>Apresentação</h3>
+                <p>
+                    O ChatGPT, desenvolvido pela OpenAI, é uma ferramenta de
+                    inteligência artificial baseada em modelos de linguagem
+                    avançados que compreende e gera respostas em linguagem
+                    natural, sendo útil para explicar conteúdos, criar textos e
+                    apoiar o planejamento pedagógico.
+                </p>
+                <p>
+                    Seu uso pedagógico é amplo: elaboração de questões de
+                    múltipla escolha, rubricas, resumos e planos de aula. Muitos
+                    professores o utilizam como “copiloto de ensino”, acelerando
+                    a criação de conteúdo e permitindo adaptação rápida ao
+                    contexto da turma.
+                </p>
+                <p>
+                    Como toda tecnologia, exige mediação crítica. O ChatGPT é
+                    excelente para ideação, revisão de textos, geração de
+                    debates, listas de exercícios e adaptações para necessidades
+                    especiais, mas pode errar, estar desatualizado ou reproduzir
+                    vieses. Por isso, a revisão docente é essencial.
+                </p>
+                <div class="cards two">
+                    <div class="card">
+                        <h4>Principais funcionalidades</h4>
+                        <ul>
+                            <li>
+                                Geração de textos, questões, planos e resumos
+                                personalizados
+                            </li>
+                            <li>Revisão ortográfica e gramatical</li>
+                            <li>Sugestões de atividades e dinâmicas</li>
+                            <li>Explicações detalhadas de conceitos</li>
+                            <li>Listas e roteiros de estudo</li>
+                            <li>Suporte multilíngue</li>
+                            <li>Personalização por faixa etária e objetivos</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Vantagens e limitações</h4>
+                        <div class="badges-row">
+                            <span class="badge success">Agilidade</span>
+                            <span class="badge success">Adaptação</span>
+                            <span class="badge success">Criatividade</span>
+                            <span class="badge warn">Revisão necessária</span>
+                            <span class="badge warn"
+                                >Versão gratuita limitada</span
+                            >
+                        </div>
+                        <ul>
+                            <li>
+                                <strong>Vantagens:</strong> produção ágil;
+                                adaptação instantânea; ideias criativas; uso
+                                gratuito básico; apoio a avaliações e feedback.
+                            </li>
+                            <li>
+                                <strong>Limitações:</strong> pode trazer dados
+                                desatualizados; requer revisão crítica; recursos
+                                avançados são pagos; não substitui a docência;
+                                atenção à privacidade.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4>Guia prático</h4>
+                <ol>
+                    <li>Acesse: chat.openai.com</li>
+                    <li>Crie conta gratuita (e-mail ou Google)</li>
+                    <li>Faça pedidos objetivos e contextualizados</li>
+                    <li>Peça ajustes e adequações</li>
+                    <li>Revise e adapte ao seu contexto</li>
+                </ol>
+                <h4>Passo a passo rápido</h4>
+                <ol>
+                    <li>Digite a solicitação</li>
+                    <li>Leia a resposta</li>
+                    <li>Refine (“refaça em múltipla escolha”)</li>
+                    <li>Revise criticamente</li>
+                    <li>Use o histórico</li>
+                </ol>
+                <h4>Exemplos pedagógicos</h4>
+                <ul>
+                    <li>Quiz personalizado sobre conteúdo recente</li>
+                    <li>Roteiro de debate (ex.: ética na internet)</li>
+                    <li>Resumos acessíveis para alunos com dificuldades</li>
+                    <li>Feedback individualizado em tarefas</li>
+                    <li>Atividades adaptadas para inclusão</li>
+                </ul>
+                <div class="media-grid">
+                    <div
+                        class="media-slot"
+                        data-tooltip="Planos de aula no ChatGPT (Parte 4)">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=M0Vbwbh-Sf0"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Como criar planos de aula no ChatGPT (Parte
+                                4)</span
+                            >
+                            <span class="video-meta"
+                                >12:49 • Tutorial focado em planos</span
+                            >
+                        </a>
+                    </div>
+                    <div
+                        class="media-slot"
+                        data-tooltip="Guia longo com prompts educacionais">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=Xo--SD6QiSw"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >ChatGPT para Professores: Guia Completo</span
+                            >
+                            <span class="video-meta"
+                                >Duração longa • Prompts e aplicação
+                                prática</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="kahoot"
+                class="section"
+                data-title="Kahoot!">
+                <h2>Kahoot! <span class="tag">🎮 Gamificação</span></h2>
+                <h3>Apresentação</h3>
+                <p>
+                    O Kahoot! transforma revisões de conteúdo em jogos
+                    interativos, tornando a avaliação formativa divertida e
+                    engajadora. É amplamente utilizado no mundo todo para
+                    quizzes, competições e rankings em tempo real.
+                </p>
+                <p>
+                    Funciona em computador e celular: cada aluno entra com um
+                    PIN e responde às questões simultaneamente. Professores
+                    criam quizzes do zero ou utilizam a biblioteca com
+                    atividades prontas, o que facilita o planejamento.
+                </p>
+                <p>
+                    Favorece aprendizagem ativa e colaborativa, com foco não
+                    apenas no acerto, mas no trabalho em equipe e protagonismo
+                    estudantil. Relatórios permitem acompanhar progresso e
+                    dificuldades para personalizar intervenções.
+                </p>
+                <div class="cards two">
+                    <div class="card">
+                        <h4>Principais funcionalidades</h4>
+                        <ul>
+                            <li>Criação de quizzes customizados</li>
+                            <li>Banco de jogos prontos por tema/disciplina</li>
+                            <li>Participação em tempo real por PIN</li>
+                            <li>Modo desafio (lição de casa)</li>
+                            <li>Relatórios automatizados</li>
+                            <li>Ranking e pontuação instantânea</li>
+                            <li>Suporte a imagens e vídeos</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Vantagens e limitações</h4>
+                        <div class="badges-row">
+                            <span class="badge success">Engajamento</span>
+                            <span class="badge success">Feedback rápido</span>
+                            <span class="badge success">Fácil uso</span>
+                            <span class="badge warn">Internet estável</span>
+                            <span class="badge warn"
+                                >Recursos free limitados</span
+                            >
+                        </div>
+                        <ul>
+                            <li>
+                                <strong>Vantagens:</strong> gamificação; criação
+                                simples; relatórios em tempo real; suporte
+                                mobile; biblioteca pronta.
+                            </li>
+                            <li>
+                                <strong>Limitações:</strong> versão free
+                                limitada; não ideal para perguntas discursivas;
+                                exige internet estável; experiência ideal com
+                                tela do professor + dispositivos.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4>Guia prático</h4>
+                <ol>
+                    <li>Acesse: kahoot.com e cadastre-se</li>
+                    <li>Clique em “Criar” e monte o quiz</li>
+                    <li>Defina tipos de pergunta, alternativas, mídia</li>
+                    <li>Salve e compartilhe o PIN com a turma</li>
+                    <li>Inicie ao vivo e analise relatórios</li>
+                </ol>
+                <h4>Passo a passo rápido</h4>
+                <ol>
+                    <li>“Criar” → “Novo Kahoot”</li>
+                    <li>Escolha mídia e adicione perguntas</li>
+                    <li>Ajuste tempo e pontuação</li>
+                    <li>Compartilhe PIN</li>
+                    <li>Acompanhe ranking</li>
+                </ol>
+                <h4>Exemplos pedagógicos</h4>
+                <ul>
+                    <li>Revisão pré-prova em formato de competição</li>
+                    <li>Diagnóstico inicial de conhecimentos</li>
+                    <li>Quiz temático para engajar</li>
+                    <li>Feedback imediato em aulas expositivas</li>
+                    <li>Grupos para colaboração</li>
+                </ul>
+                <div class="media-grid">
+                    <div
+                        class="media-slot"
+                        data-tooltip="Tutorial completo Kahoot">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=J_oEUnze81M"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Tutorial completo para o professor usar o
+                                Kahoot</span
+                            >
+                            <span class="video-meta"
+                                >12:01 • Uso em aulas presenciais e online</span
+                            >
+                        </a>
+                    </div>
+                    <div
+                        class="media-slot"
+                        data-tooltip="Criação de questões no plano gratuito">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=P9ICPuYSmi0"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Como criar questões no Kahoot (versão
+                                gratuita)</span
+                            >
+                            <span class="video-meta"
+                                >10:24 • Passo a passo detalhado</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="canva"
+                class="section"
+                data-title="Canva Educação">
+                <h2>Canva Educação <span class="tag">🎨 Design</span></h2>
+                <h3>Apresentação</h3>
+                <p>
+                    O Canva Educação é uma plataforma para criar materiais
+                    visuais e apresentações pedagógicas com milhares de
+                    templates gratuitos e recursos profissionais. Ideal para
+                    dinamizar aulas com materiais atrativos e inclusivos.
+                </p>
+                <p>
+                    Permite cartazes, infográficos, videoaulas, planos de aula e
+                    avaliações personalizadas, com interface de arraste-e-solte.
+                    Mesmo sem experiência prévia em design, é possível criar
+                    arte educacional de qualidade.
+                </p>
+                <p>
+                    Recursos recentes de IA otimizam o fluxo: geração automática
+                    de planos, tradução, checagem de acessibilidade e edição
+                    colaborativa em tempo real — aumentando a produtividade e a
+                    qualidade dos materiais.
+                </p>
+                <div class="cards two">
+                    <div class="card">
+                        <h4>Principais funcionalidades</h4>
+                        <ul>
+                            <li>
+                                Editor drag-and-drop e templates educacionais
+                            </li>
+                            <li>IA para planos, tradução e variações</li>
+                            <li>Criação de vídeos e infográficos</li>
+                            <li>Verificador de acessibilidade</li>
+                            <li>Colaboração em tempo real</li>
+                            <li>Integração com LMS e Classroom</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Vantagens e limitações</h4>
+                        <div class="badges-row">
+                            <span class="badge success"
+                                >Gratuito p/ docentes</span
+                            >
+                            <span class="badge success">Inclusivo</span>
+                            <span class="badge success">Fácil</span>
+                            <span class="badge warn">Internet</span>
+                            <span class="badge warn">Premium restrito</span>
+                        </div>
+                        <ul>
+                            <li>
+                                <strong>Vantagens:</strong> gratuito para
+                                professores; personalização; acessibilidade;
+                                economia de tempo; multi-etapas curriculares.
+                            </li>
+                            <li>
+                                <strong>Limitações:</strong> precisa de
+                                internet; alguns recursos são premium; pequena
+                                curva de aprendizado.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4>Guia prático</h4>
+                <ol>
+                    <li>Acesse: canva.com/educacao</li>
+                    <li>Cadastre-se com e-mail institucional/Google</li>
+                    <li>Escolha um template adequado</li>
+                    <li>Personalize, verifique acessibilidade</li>
+                    <li>Exporte (PDF/PNG/MP4) ou compartilhe link</li>
+                </ol>
+                <h4>Passo a passo rápido</h4>
+                <ol>
+                    <li>Selecione o formato (apresentação/infográfico/quiz)</li>
+                    <li>Edite textos e imagens; use IA</li>
+                    <li>Organize elementos visuais</li>
+                    <li>Revise contraste e legibilidade</li>
+                    <li>Compartilhe/baixe/imprima</li>
+                </ol>
+                <h4>Exemplos pedagógicos</h4>
+                <ul>
+                    <li>Materiais multimídia (ciências, história, etc.)</li>
+                    <li>Planos de aula e apresentações ilustradas</li>
+                    <li>Cartazes informativos</li>
+                    <li>Atividades impressas e digitais</li>
+                    <li>Jogos visuais educativos</li>
+                </ul>
+                <div class="media-grid">
+                    <div
+                        class="media-slot"
+                        data-tooltip="Acesso gratuito e visão geral">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=0WI_fFuAggQ"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Canva for Education (curto)</span
+                            >
+                            <span class="video-meta"
+                                >Curto • Acesso e recursos</span
+                            >
+                        </a>
+                    </div>
+                    <div
+                        class="media-slot"
+                        data-tooltip="Criação profissional de atividades">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=Js-SSftUG40"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Tutorial completo para criar atividades
+                                pedagógicas</span
+                            >
+                            <span class="video-meta"
+                                >10:54 • Materiais para imprimir</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="mentimeter"
+                class="section"
+                data-title="Mentimeter">
+                <h2>Mentimeter <span class="tag">📊 Interatividade</span></h2>
+                <h3>Apresentação</h3>
+                <p>
+                    O Mentimeter transforma apresentações em experiências
+                    interativas com nuvem de palavras, enquetes, quizzes e
+                    perguntas abertas. Excelente para engajar e coletar feedback
+                    instantâneo.
+                </p>
+                <p>
+                    Democratiza a voz dos estudantes, tanto em aulas presenciais
+                    quanto remotas, por código ou QR Code. Útil para sondagens,
+                    construção coletiva e avaliação diagnóstica.
+                </p>
+                <p>
+                    Funciona em tempo real, com visual atraente e
+                    multi-dispositivo. É intuitivo e promove participação
+                    inclusive de alunos tímidos, com opção de respostas
+                    anônimas.
+                </p>
+                <div class="cards two">
+                    <div class="card">
+                        <h4>Principais funcionalidades</h4>
+                        <ul>
+                            <li>Perguntas rápidas e resultados ao vivo</li>
+                            <li>Nuvem de palavras colaborativa</li>
+                            <li>Escalas, abertas e quizzes</li>
+                            <li>Exportação de resultados</li>
+                            <li>Personalização visual</li>
+                            <li>Compatível com qualquer dispositivo</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Vantagens e limitações</h4>
+                        <div class="badges-row">
+                            <span class="badge success">Participação</span>
+                            <span class="badge success">Anonimato</span>
+                            <span class="badge success">Versátil</span>
+                            <span class="badge warn">Free limitado</span>
+                            <span class="badge warn">Internet</span>
+                        </div>
+                        <ul>
+                            <li>
+                                <strong>Vantagens:</strong> interatividade
+                                ampla; acesso simples; relatórios exportáveis;
+                                anonimato encoraja participação.
+                            </li>
+                            <li>
+                                <strong>Limitações:</strong> versão gratuita
+                                limita perguntas/recursos; exige internet
+                                estável; menos recursos visuais avançados no
+                                plano free.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4>Guia prático</h4>
+                <ol>
+                    <li>Acesse: mentimeter.com</li>
+                    <li>Crie conta gratuita</li>
+                    <li>“New Presentation” e adicione perguntas</li>
+                    <li>Compartilhe o código/QR</li>
+                    <li>Projete resultados e exporte</li>
+                </ol>
+                <h4>Passo a passo rápido</h4>
+                <ol>
+                    <li>Crie a apresentação e nomeie</li>
+                    <li>Adicione slides e tipos de pergunta</li>
+                    <li>Personalize visual</li>
+                    <li>“Present” e compartilhe o código</li>
+                    <li>Use respostas para revisão e debate</li>
+                </ol>
+                <h4>Exemplos pedagógicos</h4>
+                <ul>
+                    <li>Diagnóstico (ex.: palavras sobre biodiversidade)</li>
+                    <li>Brainstorm para projetos interdisciplinares</li>
+                    <li>Feedback pós-atividade</li>
+                    <li>Revisão por quizzes</li>
+                    <li>Leitura de clima da turma</li>
+                </ul>
+                <div class="media-grid">
+                    <div
+                        class="media-slot"
+                        data-tooltip="Uso educacional do Mentimeter 2024">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=sKJiYttP4Ac"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Tutorial 2024: Mentimeter como ferramenta
+                                educacional</span
+                            >
+                            <span class="video-meta"
+                                >Foco: nuvem de palavras / sondagem</span
+                            >
+                        </a>
+                    </div>
+                    <div
+                        class="media-slot"
+                        data-tooltip="Enquetes e quiz de classificação">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=BZsg6gGjZ_Y"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Enquete e Quiz de Classificação no
+                                Mentimeter</span
+                            >
+                            <span class="video-meta"
+                                >17:55 • Tutorial completo + dicas</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="nearpod"
+                class="section"
+                data-title="Nearpod">
+                <h2>Nearpod <span class="tag">🥽 VR e 3D</span></h2>
+                <h3>Apresentação</h3>
+                <p>
+                    O Nearpod integra apresentações interativas, avaliações
+                    formativas, simulações 3D, VR e colaboração. Transforma
+                    slides em experiências ativas e imersivas.
+                </p>
+                <p>
+                    Permite importar Google Slides/PowerPoint/PDF e inserir
+                    quiz, jogos, enquetes, desenho e mural colaborativo. Há
+                    biblioteca de VR para “viagens de estudo” e simulações
+                    científicas.
+                </p>
+                <p>
+                    Funciona em modo “Sessão ao Vivo” (síncrono) ou “Ritmo do
+                    Aluno” (assíncrono/híbrido). Relatórios detalhados dão visão
+                    individual do engajamento e da aprendizagem.
+                </p>
+                <div class="cards two">
+                    <div class="card">
+                        <h4>Principais funcionalidades</h4>
+                        <ul>
+                            <li>Lições com quizzes, mural e desenho</li>
+                            <li>Realidade virtual e simulações 3D</li>
+                            <li>Avaliação formativa em tempo real</li>
+                            <li>Sessão ao vivo e ritmo do aluno</li>
+                            <li>Importação de materiais</li>
+                            <li>Relatórios de participação e desempenho</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Vantagens e limitações</h4>
+                        <div class="badges-row">
+                            <span class="badge success">Imersão</span>
+                            <span class="badge success">Personalização</span>
+                            <span class="badge success">Inclusão</span>
+                            <span class="badge warn">Internet</span>
+                            <span class="badge warn"
+                                >Plano pago (avançado)</span
+                            >
+                        </div>
+                        <ul>
+                            <li>
+                                <strong>Vantagens:</strong> engajamento alto;
+                                personalização; recursos inclusivos; muitas
+                                funções gratuitas; biblioteca rica.
+                            </li>
+                            <li>
+                                <strong>Limitações:</strong> depende de
+                                internet; funcionalidades avançadas pagas;
+                                alunos podem precisar de adaptação inicial.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4>Guia prático</h4>
+                <ol>
+                    <li>Acesse: nearpod.com e registre-se</li>
+                    <li>Importe slides/PDF ou crie do zero</li>
+                    <li>Insira atividades (quiz, desenho, mural, VR)</li>
+                    <li>Selecione Sessão ao Vivo ou Ritmo do Aluno</li>
+                    <li>Compartilhe código</li>
+                    <li>Analise relatórios</li>
+                </ol>
+                <h4>Passo a passo rápido</h4>
+                <ol>
+                    <li>Crie a lição e adicione interações</li>
+                    <li>Defina distribuição síncrona/assíncrona</li>
+                    <li>Compartilhe o código</li>
+                    <li>Alunos interagem nos dispositivos</li>
+                    <li>Use dados para ajustar a prática</li>
+                </ol>
+                <h4>Exemplos pedagógicos</h4>
+                <ul>
+                    <li>Biodiversidade com quizzes e VR</li>
+                    <li>Visita virtual ao Coliseu</li>
+                    <li>Diagnóstico de novos conteúdos</li>
+                    <li>Desenho colaborativo ao vivo</li>
+                    <li>Atividades adaptativas para inclusão</li>
+                </ul>
+                <div class="media-grid">
+                    <div
+                        class="media-slot"
+                        data-tooltip="Apresentações interativas Nearpod">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=ar74WNQH0J0"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Como tornar as aulas mais dinâmicas com
+                                Nearpod</span
+                            >
+                            <span class="video-meta"
+                                >Apresentações e recursos dinâmicos</span
+                            >
+                        </a>
+                    </div>
+                    <div
+                        class="media-slot"
+                        data-tooltip="Criação de apresentações engajadoras">
+                        <a
+                            class="video-link"
+                            href="https://www.youtube.com/watch?v=D2lma6ph_zk"
+                            target="_blank"
+                            rel="noopener">
+                            <span class="video-thumb">▶</span>
+                            <span class="video-title"
+                                >Aprenda como usar o Nearpod para enriquecer
+                                suas aulas</span
+                            >
+                            <span class="video-meta"
+                                >08:08 • Passos práticos</span
+                            >
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="extras"
+                class="section"
+                data-title="Blocos Extras">
+                <h2>Planejamento, Avaliação e Apoio com IA</h2>
+                <div class="card">
+                    <h3>
+                        Uso das Ferramentas de IA para Planejamento e Avaliação
+                        de Projetos
+                    </h3>
+                    <h4>Potencializando o Trabalho do Docente</h4>
+                    <p>
+                        Ferramentas de IA como o ChatGPT atuam como assistentes
+                        pedagógicos: geram planos de aula detalhados, roteiros,
+                        atividades diferenciadas e materiais acessíveis.
+                        Automatizando etapas repetitivas, liberam tempo para o
+                        professor acompanhar o desenvolvimento crítico, o
+                        engajamento e a criatividade dos estudantes.
+                    </p>
+                    <p>
+                        Relatórios e dashboards (quando disponíveis em
+                        plataformas como Nearpod ou Kahoot!) ajudam a mapear
+                        competências e identificar lacunas rapidamente,
+                        favorecendo intervenções pedagógicas personalizadas e
+                        formativas.
+                    </p>
+                    <h4>IA no Suporte e Avaliação dos Alunos em Projetos</h4>
+                    <p>
+                        Em projetos, estudantes podem usar IA para explorar
+                        temas, gerar hipóteses, estruturar textos e revisar
+                        versões preliminares. Isso amplia autonomia e
+                        autorregulação. Paralelamente, recursos interativos
+                        (Kahoot!, Mentimeter, Nearpod) permitem monitorar
+                        compreensão em tempo real e fornecer feedback imediato.
+                    </p>
+                    <div class="callout info">
+                        <strong>Equilíbrio:</strong> IA é apoio — a mediação
+                        humana continua central para validação, contextualização
+                        e ética.
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Sugestões de Aplicações Práticas</h3>
+                    <ul>
+                        <li>
+                            <strong>Planejamento dinâmico:</strong> gerar planos
+                            multi-nível com diferenciação e inclusão.
+                        </li>
+                        <li>
+                            <strong>Desenvolvimento autônomo:</strong> orientar
+                            alunos a usar IA para brainstorm, estruturação e
+                            revisão crítica.
+                        </li>
+                        <li>
+                            <strong>Avaliação formativa contínua:</strong>
+                            quizzes e enquetes (Kahoot!/Mentimeter) para ajustar
+                            percurso.
+                        </li>
+                        <li>
+                            <strong>Inclusão:</strong> verificar acessibilidade
+                            (Canva, recursos de leitura/VR do Nearpod) e adaptar
+                            linguagens.
+                        </li>
+                        <li>
+                            <strong>Reflexão ética:</strong> promover debate
+                            sobre autoria, honestidade acadêmica e uso
+                            responsável.
+                        </li>
+                    </ul>
+                </div>
+                <div class="cards two">
+                    <div class="card">
+                        <h3>Rubrica Sintética (Apresentações & Projetos)</h3>
+                        <ul>
+                            <li>
+                                <strong>Domínio do conteúdo</strong> –
+                                profundidade e precisão.
+                            </li>
+                            <li>
+                                <strong>Clareza e organização</strong> – lógica,
+                                sequência, coesão.
+                            </li>
+                            <li>
+                                <strong
+                                    >Recursos visuais & acessibilidade</strong
+                                >
+                                – legibilidade, contraste, alt text.
+                            </li>
+                            <li>
+                                <strong>Participação e tempo</strong> –
+                                colaboração e gestão do tempo.
+                            </li>
+                            <li>
+                                <strong>Reflexão crítica</strong> – análise,
+                                argumentação, propostas.
+                            </li>
+                        </ul>
+                        <p class="muted">
+                            Sugestão: disponibilize a rubrica antes e incentive
+                            auto e coavaliação.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>Checklist Essencial de Acessibilidade</h3>
+                        <ul>
+                            <li>Contraste adequado (WCAG AA).</li>
+                            <li>Fonte ≥ 12pt e espaçamento confortável.</li>
+                            <li>Alt text em todas as imagens.</li>
+                            <li>Navegação por teclado sempre que possível.</li>
+                            <li>Linguagem clara e inclusiva.</li>
+                        </ul>
+                        <p class="muted">
+                            Revise materiais com verificadores (Canva,
+                            PowerPoint, Google Slides).
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Biblioteca Multimídia de Apoio</h3>
+                    <ul>
+                        <li>
+                            ChatGPT: do zero ao sucesso (planejamento e
+                            prompts).
+                        </li>
+                        <li>Kahoot!: revisão gamificada e engajamento.</li>
+                        <li>Canva Educação: criação visual acessível.</li>
+                        <li>Mentimeter: sondagem e participação ao vivo.</li>
+                        <li>
+                            Nearpod: interatividade, VR e avaliação integrada.
+                        </li>
+                    </ul>
+                    <p class="muted">
+                        Sugestão: mantenha planilha compartilhada com links e
+                        anotações pedagógicas.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Como Integrar no Fluxo da Aula</h3>
+                    <ol>
+                        <li>
+                            <strong>Planeje</strong> com apoio da IA
+                            (estruturas, diferenciação, recursos).
+                        </li>
+                        <li>
+                            <strong>Crie</strong> materiais acessíveis e
+                            multimodais (Canva / Nearpod).
+                        </li>
+                        <li>
+                            <strong>Implemente</strong> interações e checagens
+                            rápidas (Mentimeter / Kahoot!).
+                        </li>
+                        <li>
+                            <strong>Monitore</strong> desempenho e engajamento
+                            (relatórios / observação).
+                        </li>
+                        <li>
+                            <strong>Realimente</strong> com rubrica + feedback
+                            formativo adaptado.
+                        </li>
+                        <li>
+                            <strong>Reflexão final</strong> com breve debate
+                            ético sobre uso da IA.
+                        </li>
+                    </ol>
+                    <p>
+                        Adapte cada instrumento à maturidade digital da turma e
+                        aos recursos disponíveis na escola.
+                    </p>
+                </div>
+            </section>
+            <section
+                id="exercicios"
+                class="section"
+                data-title="Exercícios">
+                <h2>Exercícios e Desafios</h2>
+                <div class="cards three">
+                    <div class="card">
+                        <h3>Quiz: ChatGPT</h3>
+                        <p>
+                            Qual é a melhor estratégia para obter respostas
+                            específicas?
+                        </p>
+                        <div
+                            class="quiz-options"
+                            data-quiz="q1">
+                            <button class="option">Perguntas genéricas</button>
+                            <button
+                                class="option"
+                                data-correct="true">
+                                Prompts claros e específicos
+                            </button>
+                            <button class="option">Textos longos</button>
+                            <button class="option">
+                                Apenas palavras-chave
+                            </button>
+                        </div>
+                        <div
+                            class="quiz-feedback"
+                            id="q1-feedback"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Desafios (Bronze → Ouro)</h3>
+                        <ul>
+                            <li>
+                                Bronze: crie um plano de aula de 45 min
+                                (ChatGPT)
+                            </li>
+                            <li>
+                                Prata: gere 10 questões e transforme em Kahoot
+                            </li>
+                            <li>Ouro: aula Nearpod com 3 interações + 1 VR</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Checklist de Implementação</h3>
+                        <ul
+                            class="checklist"
+                            id="checklist">
+                            <li>
+                                <label
+                                    ><input type="checkbox" /> Diagnóstico de
+                                    infraestrutura</label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /> Perfil digital
+                                    dos alunos</label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /> Seleção de 2–3
+                                    ferramentas</label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /> Testes
+                                    piloto</label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /> Tutoriais
+                                    simples</label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /> Planos
+                                    alternativos (offline)</label
+                                >
+                            </li>
+                        </ul>
+                        <button
+                            class="btn small"
+                            id="clearChecklist">
+                            Limpar progresso
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="quiz-pratico"
+                class="section"
+                data-title="Quiz Prático">
+                <h2>Quiz: Avalie seu Conhecimento Prático do Guia</h2>
+                <div class="card">
+                    <h3>
+                        1. Onde você acessa o ChatGPT para começar a criar
+                        planos de aula?
+                    </h3>
+                    <div
+                        class="quiz-options"
+                        data-quiz="p1">
+                        <button class="option">google.com</button>
+                        <button
+                            class="option"
+                            data-correct="true">
+                            chat.openai.com
+                        </button>
+                        <button class="option">openai.org</button>
+                        <button class="option">classroom.openai.com</button>
+                    </div>
+                    <div
+                        class="quiz-feedback"
+                        id="p1-feedback"></div>
+                </div>
+                <div class="card">
+                    <h3>
+                        2. Qual destes passos é correto para usar ferramentas de
+                        IA no ambiente educacional?
+                    </h3>
+                    <div
+                        class="quiz-options"
+                        data-quiz="p2">
+                        <button class="option">
+                            Solicitar assistência técnica sempre
+                        </button>
+                        <button
+                            class="option"
+                            data-correct="true">
+                            Criar conta, fazer prompt, ajustar respostas,
+                            revisar
+                        </button>
+                        <button class="option">
+                            Copiar todo conteúdo sem revisão
+                        </button>
+                        <button class="option">
+                            Deixar os alunos usarem livremente
+                        </button>
+                    </div>
+                    <div
+                        class="quiz-feedback"
+                        id="p2-feedback"></div>
+                </div>
+                <div class="card">
+                    <h3>
+                        3. O que é fundamental fazer após receber uma resposta
+                        do ChatGPT?
+                    </h3>
+                    <div
+                        class="quiz-options"
+                        data-quiz="p3">
+                        <button class="option">Publicar imediatamente</button>
+                        <button
+                            class="option"
+                            data-correct="true">
+                            Revisar e adaptar conforme o contexto
+                        </button>
+                        <button class="option">
+                            Ignorar e pedir nova resposta
+                        </button>
+                        <button class="option">Tradução automática</button>
+                    </div>
+                    <div
+                        class="quiz-feedback"
+                        id="p3-feedback"></div>
+                </div>
+                <div class="card">
+                    <h3>
+                        4. A criação de quizzes no Kahoot! exige que cada aluno
+                        tenha o quê?
+                    </h3>
+                    <div
+                        class="quiz-options"
+                        data-quiz="p4">
+                        <button
+                            class="option"
+                            data-correct="true">
+                            Dispositivo com internet para inserir o código PIN
+                        </button>
+                        <button class="option">Modelo impresso do quiz</button>
+                        <button class="option">Conta gratuita no Kahoot</button>
+                        <button class="option">
+                            Programa instalado no celular
+                        </button>
+                    </div>
+                    <div
+                        class="quiz-feedback"
+                        id="p4-feedback"></div>
+                </div>
+                <div class="card">
+                    <h3>
+                        5. Ao criar materiais no Canva Educação, qual é um passo
+                        importante para garantir acessibilidade?
+                    </h3>
+                    <div
+                        class="quiz-options"
+                        data-quiz="p5">
+                        <button class="option">
+                            Usar fontes pequenas e cores claras
+                        </button>
+                        <button
+                            class="option"
+                            data-correct="true">
+                            Usar o verificador de acessibilidade para contraste
+                            e legibilidade
+                        </button>
+                        <button class="option">
+                            Adicionar muitas imagens coloridas
+                        </button>
+                        <button class="option">
+                            Usar sempre fontes cursivas
+                        </button>
+                    </div>
+                    <div
+                        class="quiz-feedback"
+                        id="p5-feedback"></div>
+                </div>
+                <div
+                    id="quizPraticoScore"
+                    class="quiz-score-summary"
+                    hidden>
+                    <div class="score-line">
+                        <strong>Pontuação:</strong>
+                        <span id="quizPraticoAcertos">0</span>/<span
+                            id="quizPraticoTotal"
+                            >5</span
+                        >
+                        (<span id="quizPraticoPercent">0%</span>)
+                    </div>
+                    <div class="score-bar-wrapper">
+                        <div class="score-bar-track">
+                            <div
+                                class="score-bar-fill"
+                                id="quizPraticoFill"></div>
+                        </div>
+                    </div>
+                    <div class="score-actions">
+                        <button
+                            id="resetQuizPratico"
+                            class="btn small"
+                            type="button">
+                            Refazer Quiz
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="implementacao"
+                class="section"
+                data-title="Implementação">
+                <h2>Linha do Tempo (12 Semanas)</h2>
+                <div class="timeline">
+                    <div class="time-block">
+                        <h4>Semanas 1–2</h4>
+                        <ul>
+                            <li>Infraestrutura e perfil</li>
+                            <li>Escolha de ferramentas</li>
+                            <li>Configuração</li>
+                        </ul>
+                    </div>
+                    <div class="time-block">
+                        <h4>Semanas 3–4</h4>
+                        <ul>
+                            <li>Testes piloto</li>
+                            <li>Tutoriais e planos B</li>
+                            <li>Feedback inicial</li>
+                        </ul>
+                    </div>
+                    <div class="time-block">
+                        <h4>Semanas 5–8</h4>
+                        <ul>
+                            <li>Implementação gradual</li>
+                            <li>Ajustes contínuos</li>
+                            <li>Documentação</li>
+                        </ul>
+                    </div>
+                    <div class="time-block">
+                        <h4>Semanas 9–12</h4>
+                        <ul>
+                            <li>Integração de ferramentas</li>
+                            <li>Monitores</li>
+                            <li>Planejamento futuro</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="etica"
+                class="section"
+                data-title="Ética e LGPD">
+                <h2>Ética, LGPD e Uso Responsável</h2>
+                <div class="cards two">
+                    <div class="card">
+                        <h3>Princípios</h3>
+                        <ul>
+                            <li>Transparência</li>
+                            <li>Proteção de dados</li>
+                            <li>Revisão e verificação</li>
+                            <li>Equilíbrio pedagógico</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Boas práticas</h3>
+                        <ul>
+                            <li>Evite dados sensíveis</li>
+                            <li>Use plataformas confiáveis</li>
+                            <li>Cite uso de IA</li>
+                            <li>Promova pensamento crítico</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="recursos"
+                class="section"
+                data-title="Recursos">
+                <h2>Recursos e Comunidades</h2>
+                <ul>
+                    <li>IA para Educadores (MEC/UFRN)</li>
+                    <li>Google for Education e Microsoft Educator</li>
+                    <li>Professores Inovadores, Educadores Digitais</li>
+                    <li>Porvir, CIEB, Nova Escola Tecnologia</li>
+                </ul>
+            </section>
+            <section
+                id="conclusao"
+                class="section"
+                data-title="Conclusão">
+                <h2>Conclusão</h2>
+                <p>
+                    Comece pequeno, avance consistentemente e documente
+                    aprendizagens. IA amplia a capacidade docente quando
+                    alinhada a objetivos pedagógicos claros.
+                </p>
+                <div class="callout success">
+                    <strong>Plano imediato:</strong> escolha 1 ferramenta,
+                    explore por 1 hora e aplique em 1 aula na próxima semana.
+                </div>
+            </section>
+            <nav class="chapter-nav">
+                <button
+                    class="chapter-button"
+                    id="prevChapter"
+                    type="button">
+                    <span aria-hidden="true">←</span>
+                    <span>Capítulo anterior</span>
+                </button>
+                <div class="chapter-indicator">
+                    <span class="chapter-indicator-label"
+                        >Progresso da leitura</span
+                    >
+                    <div class="chapter-indicator-bar">
+                        <div class="chapter-indicator-track">
+                            <div
+                                class="chapter-indicator-fill"
+                                id="chapterNavProgress"></div>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="chapter-button"
+                    id="nextChapter"
+                    type="button">
+                    <span>Próximo capítulo</span>
+                    <span aria-hidden="true">→</span>
+                </button>
+            </nav>
+        </main>
+        <div
+            id="modal"
+            class="modal"
+            aria-hidden="true">
+            <div class="modal-content">
+                <button
+                    class="modal-close"
+                    id="modalClose"
+                    aria-label="Fechar">
+                    ×
+                </button>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+        <script src="app.js"></script>
+        <footer class="ebook-footer">
+            <p>
+                <strong>Créditos:</strong> Conteúdo e organização por
+                <a
+                    href="https://github.com/Adryan-Cosmo"
+                    target="_blank"
+                    rel="noopener"
+                    class="author-link"
+                    ><span class="author-name">Adryan Cavalcante Cosmo</span></a
+                >. Versão <span data-ebook-version>1.0.0</span>.
+            </p>
+            <p>
+                Licenciado sob <strong>Creative Commons CC BY 4.0</strong>: você
+                pode compartilhar e adaptar para qualquer fim (inclusive
+                comercial), desde que atribua o crédito apropriado. Perfil:
+                <a
+                    href="https://github.com/Adryan-Cosmo"
+                    target="_blank"
+                    rel="noopener"
+                    class="author-link"
+                    >GitHub</a
+                >.
+            </p>
+            <div class="citation-box">
+                <div class="citation-label">Citação sugerida:</div>
+                <code id="citationText"
+                    >COSMO, Adryan Cavalcante. Ebook Ferramentas de IA na
+                    Educação (v1.0.0). Acesso em: ${new
+                    Date().getFullYear()}.</code
+                >
+                <button
+                    type="button"
+                    class="copy-citation-btn"
+                    id="copyCitationFooter">
+                    Copiar citação
+                </button>
+            </div>
+            <p class="license-note">
+                Texto da licença:
+                <a
+                    href="https://creativecommons.org/licenses/by/4.0/deed.pt"
+                    target="_blank"
+                    rel="noopener"
+                    >https://creativecommons.org/licenses/by/4.0/</a
+                >
+            </p>
+        </footer>
+    </body>
+</html>
