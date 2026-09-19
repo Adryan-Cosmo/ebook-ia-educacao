@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FAF7F0;--paper-2:#F1ECDF;--ink:#1C1B16;--ink-soft:#3A3730;--muted:#6E685A;--rule:#E1DBCC;--accent:#1D6A46;--crit:#8F3529;--mod:#7A5D12;--min:#274794}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper)}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--crit) !important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</helmet>
+<article style="width:100%;min-height:100vh;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:clamp(24px,5vw,64px) clamp(16px,4vw,40px) 96px">
+
+  <header style="max-width:880px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:14px;color:var(--muted);font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+      <span style="color:var(--accent)">Auditoria de UX/UI</span>
+      <span style="flex:1;height:1px;background:var(--rule)"></span>
+      <span>14 set 2026</span>
+    </div>
+    <h1 style="font:600 clamp(32px,6vw,56px)/1.06 'Lora',Georgia,serif;letter-spacing:-.02em;margin:.4em 0 0">Trilha formativa <span style="font-style:italic;color:var(--accent)">IA na Educação Básica</span></h1>
+    <p style="font:400 clamp(17px,2.2vw,21px)/1.6 'Lora',serif;color:var(--ink-soft);max-width:680px;margin:.7em 0 0">Auditoria completa em 6 dimensões do ebook-trilha v2.0 — 7 módulos, tema claro/escuro, caderno persistente, busca, quiz e declaração de conclusão. Base: heurísticas de Nielsen, WCAG 2.1 AA e as diretrizes de alvo de toque de HIG e Material.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:32px">
+      <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:12px;padding:15px 17px"><div style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Produto</div><div style="font:400 15px/1.45 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Ebook-trilha web: leitura longa somada a interações de aprendizagem</div></div>
+      <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:12px;padding:15px 17px"><div style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Público</div><div style="font:400 15px/1.45 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Docentes da básica ao lato sensu, familiaridade digital de baixa a alta, celular e desktop, uso em sala</div></div>
+      <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:12px;padding:15px 17px"><div style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Estágio</div><div style="font:400 15px/1.45 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Refinamento — conteúdo fechado, camada de interação em ajuste</div></div>
+      <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:12px;padding:15px 17px"><div style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Design system</div><div style="font:400 15px/1.45 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Tokens próprios em CSS vars (paper/ink/accent + c1–c4), sem biblioteca externa</div></div>
+    </div>
+    <p style="font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:16px 0 0;max-width:680px">O espectro de público que você marcou é largo — de baixa a alta familiaridade digital, celular e desktop. Isso empurra dois grupos de achados para o topo: <strong style="color:var(--ink-soft)">alvo de toque</strong> e <strong style="color:var(--ink-soft)">visibilidade de estado</strong>. Quem tem pouca familiaridade não recupera de um controle que mente sobre o próprio estado.</p>
+  </header>
+
+  <section style="max-width:880px;margin:46px auto 0;border-top:1px solid var(--rule);padding-top:32px">
+    <h2 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;margin:0 0 .5em">Veredito</h2>
+    <p style="font:400 19px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.2em">A trilha acerta onde a maioria dos materiais formativos falha: propósito legível em segundos, hierarquia tipográfica disciplinada, conteúdo fundamentado e citável, e interações que exigem produção do cursista em vez de leitura passiva. Os problemas encontrados são concentrados e corrigíveis — nenhum é estrutural.</p>
+    <p style="font:400 19px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.4em">Três frentes concentram o risco. <strong style="color:var(--ink)">Estado do sistema que se desfaz sozinho</strong>: o rótulo do botão de tema e os contadores de palavras são escritos direto no DOM e voltam ao valor inicial a cada re-render — marcar um item da checklist faz o botão dizer "Escuro" no modo escuro. <strong style="color:var(--ink)">Contraste e alvo de toque abaixo do AA no modo claro</strong>: o token <code style="font:400 15px 'IBM Plex Mono',monospace">--muted</code> falha em texto de 13–15px e os botões "Copiar" têm ~23px de altura. <strong style="color:var(--ink)">Busca e menu mobile sem semântica de diálogo e sem gestão de foco</strong>. Além disso, o DOI segue como <code style="font:400 15px 'IBM Plex Mono',monospace;color:var(--crit)">XXXXXXX</code> dentro do bloco "Como citar".</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:2px;border:1px solid var(--rule);border-radius:12px;overflow:hidden">
+      <div style="padding:17px 19px;background:var(--paper-2);border-top:3px solid var(--crit)"><div style="font:600 30px/1 'Lora',serif;color:var(--crit)">{{ nCrit }}</div><div style="font:500 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted);margin-top:6px">Críticos</div></div>
+      <div style="padding:17px 19px;background:var(--paper-2);border-top:3px solid var(--mod)"><div style="font:600 30px/1 'Lora',serif;color:var(--mod)">{{ nMod }}</div><div style="font:500 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted);margin-top:6px">Moderados</div></div>
+      <div style="padding:17px 19px;background:var(--paper-2);border-top:3px solid var(--min)"><div style="font:600 30px/1 'Lora',serif;color:var(--min)">{{ nMin }}</div><div style="font:500 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted);margin-top:6px">Minor</div></div>
+      <div style="padding:17px 19px;background:var(--paper-2);border-top:3px solid var(--accent)"><div style="font:600 30px/1 'Lora',serif;color:var(--accent)">{{ nStrong }}</div><div style="font:500 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted);margin-top:6px">Fortes a preservar</div></div>
+    </div>
+  </section>
+
+  <section style="max-width:880px;margin:46px auto 0;border-top:1px solid var(--rule);padding-top:32px">
+    <h2 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;margin:0 0 .6em">Top 5 — nesta ordem</h2>
+    <div style="display:grid;gap:10px">
+      <sc-for list="{{ priorities }}" as="p" hint-placeholder-count="5">
+        <div style="display:grid;grid-template-columns:36px 1fr;gap:16px;align-items:baseline;padding:16px 18px;background:var(--paper-2);border:1px solid var(--rule);border-radius:12px">
+          <span style="font:400 26px/1 'Lora',serif;color:var(--accent)">{{ p.n }}</span>
+          <span><span style="font:600 17px/1.35 'Lora',serif;color:var(--ink)">{{ p.t }}</span><br><span style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">{{ p.d }}</span></span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:880px;margin:46px auto 0;border-top:1px solid var(--rule);padding-top:32px">
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:14px">
+      <h2 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;margin:0">Achados por dimensão</h2>
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ countLabel }}</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0">
+      <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+        <button type="button" onClick="{{ f.onPick }}" style="{{ f.style }}">{{ f.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;gap:36px;margin-top:32px">
+      <sc-for list="{{ dimensions }}" as="d" hint-placeholder-count="6">
+        <div style="{{ d.wrapStyle }}">
+          <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--rule)">
+            <span style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--accent)">{{ d.num }}</span>
+            <h3 style="font:600 clamp(20px,3vw,26px)/1.25 'Lora',serif;margin:0;color:var(--ink)">{{ d.title }}</h3>
+          </div>
+          <p style="font:400 17px/1.7 'Lora',serif;color:var(--ink-soft);margin:14px 0 0">{{ d.summary }}</p>
+          <div style="display:grid;gap:10px;margin-top:18px">
+            <sc-for list="{{ d.items }}" as="it" hint-placeholder-count="3">
+              <div style="{{ it.cardStyle }}">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+                  <span style="{{ it.badgeStyle }}">{{ it.badge }}</span>
+                  <span style="font:600 16px/1.4 'IBM Plex Sans',sans-serif;color:var(--ink)">{{ it.title }}</span>
+                </div>
+                <p style="font:400 15.5px/1.65 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:10px 0 0">{{ it.body }}</p>
+                <p style="{{ it.fixStyle }}"><strong style="color:var(--accent)">Correção —</strong> {{ it.fix }}</p>
+                <p style="{{ it.refStyle }}">{{ it.ref }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <p style="{{ emptyStyle }}">Nenhum achado nesta severidade.</p>
+  </section>
+
+  <section style="max-width:880px;margin:46px auto 0;border-top:1px solid var(--rule);padding-top:32px">
+    <h2 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;margin:0 0 .6em">Preservar</h2>
+    <p style="font:400 17px/1.7 'Lora',serif;color:var(--ink-soft);margin:0 0 1.2em">O que já funciona e não deve ser tocado em nome de "melhorar".</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:10px">
+      <sc-for list="{{ strengths }}" as="s" hint-placeholder-count="9">
+        <div style="padding:15px 17px;background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:0 12px 12px 0">
+          <div style="font:600 15px/1.35 'IBM Plex Sans',sans-serif;color:var(--ink)">{{ s.t }}</div>
+          <p style="font:400 14.5px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:7px 0 0">{{ s.d }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:880px;margin:46px auto 0;border-top:1px solid var(--rule);padding-top:32px">
+    <h2 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;margin:0 0 .6em">Medições de contraste</h2>
+    <p style="font:400 17px/1.7 'Lora',serif;color:var(--ink-soft);margin:0 0 1.2em">Razões calculadas sobre os tokens declarados no arquivo. Corpo de texto exige 4.5:1; texto grande (≥24px ou ≥19px semibold) e componentes de UI exigem 3:1.</p>
+    <div style="display:grid;gap:2px;border:1px solid var(--rule);border-radius:12px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr .8fr .9fr;gap:12px;padding:12px 16px;background:var(--paper-2);font:600 10.5px/1.3 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">
+        <span>Par de cores</span><span>Onde aparece</span><span>Razão</span><span>AA</span>
+      </div>
+      <sc-for list="{{ contrast }}" as="c" hint-placeholder-count="7">
+        <div style="display:grid;grid-template-columns:1.6fr 1fr .8fr .9fr;gap:12px;padding:13px 16px;background:var(--paper);align-items:baseline">
+          <span style="font:400 13.5px/1.5 'IBM Plex Mono',monospace;color:var(--ink-soft)">{{ c.pair }}</span>
+          <span style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted)">{{ c.where }}</span>
+          <span style="font:500 14px/1.5 'IBM Plex Mono',monospace;color:var(--ink)">{{ c.ratio }}</span>
+          <span style="{{ c.verdictStyle }}">{{ c.verdict }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:880px;margin:46px auto 0;border-top:1px solid var(--rule);padding-top:32px">
+    <h2 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;margin:0 0 .6em">Checklist WCAG 2.1 AA</h2>
+    <div style="display:grid;gap:2px;border:1px solid var(--rule);border-radius:12px;overflow:hidden">
+      <sc-for list="{{ wcag }}" as="w" hint-placeholder-count="8">
+        <div style="display:grid;grid-template-columns:34px 1fr;gap:14px;padding:14px 16px;background:var(--paper);align-items:baseline">
+          <span style="{{ w.markStyle }}">{{ w.mark }}</span>
+          <span><span style="font:600 15px/1.4 'IBM Plex Sans',sans-serif;color:var(--ink)">{{ w.t }}</span><br><span style="font:400 14.5px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">{{ w.d }}</span></span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:880px;margin:46px auto 0;border-top:1px solid var(--rule);padding-top:32px">
+    <h2 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;margin:0 0 .6em">Plano de correção</h2>
+    <div style="display:grid;gap:20px">
+      <sc-for list="{{ phases }}" as="ph" hint-placeholder-count="3">
+        <div style="padding:20px 22px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px">
+            <span style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)">{{ ph.tag }}</span>
+            <span style="font:400 13px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ ph.effort }}</span>
+          </div>
+          <div style="font:600 19px/1.35 'Lora',serif;color:var(--ink);margin:10px 0 0">{{ ph.title }}</div>
+          <ul style="margin:12px 0 0;padding-left:20px;display:grid;gap:8px;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">
+            <sc-for list="{{ ph.items }}" as="i" hint-placeholder-count="4">
+              <li>{{ i.t }}</li>
+            </sc-for>
+          </ul>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="max-width:880px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:22px;font:400 13.5px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">
+    Auditoria heurística por inspeção de código e interface — não substitui teste com usuários. Recomendo validar os Módulos 1 e 6 com 5 docentes de baixa familiaridade digital em celular próprio antes de publicar.
+  </footer>
+</article>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { sev: 'all' };
+
+  SEV = {
+    crit: { label: 'Crítico', color: 'var(--crit)', bg: 'rgba(143,53,41,.09)' },
+    mod:  { label: 'Moderado', color: 'var(--mod)', bg: 'rgba(122,93,18,.10)' },
+    min:  { label: 'Minor', color: 'var(--min)', bg: 'rgba(39,71,148,.08)' }
+  };
+
+  DIMS = [
+    { num: '01', title: 'Primeira impressão', summary: 'A capa entrega o que é, para quem e quanto custa de tempo em menos de cinco segundos: título, subtítulo com as três âncoras teóricas, autor, sete módulos, duas horas de leitura. O peso visual cai no lugar certo — o título serif domina e o botão escuro "Começar a trilha" é o único elemento de alto contraste na dobra. O tom emocional (livro impresso, papel creme, sem estridência) é coerente com formação docente e evita o visual de curso de infoproduto.', items: [
+      { sev: 'mod', title: 'O bloco "Como citar" vem antes da trilha', body: 'Entre a capa e o índice há uma seção de citação ABNT/BibTeX com DOI. Para o leitor que acabou de decidir começar, essa é a informação menos urgente da página — e é a primeira que ele encontra ao rolar. Ela serve a um segundo público (quem cita o material), não a quem vai estudar.', fix: 'Mover o bloco para o fim, junto às referências, e deixar um link discreto "Como citar" no rodapé da capa.' },
+      { sev: 'crit', title: 'DOI de placeholder visível', body: 'O bloco exibe "DOI 10.5281/zenodo.XXXXXXX" em três lugares (linha de metadados, ABNT e BibTeX), com botões que copiam a string inválida. Num material acadêmico, isso desmonta a credibilidade justo no elemento que existe para construí-la.', fix: 'Substituir pelo DOI real; se ainda não houver, remover o bloco em vez de mostrar placeholder.' },
+      { sev: 'min', title: 'A barra de progresso em 0% é o segundo elemento da página', body: 'No topo, antes de qualquer leitura, aparece "0%". Como indicador de rolagem ele é correto, mas na primeira impressão soa como "você não fez nada" — abertura desmotivadora para formação de adultos.', fix: 'Exibir a porcentagem somente após a primeira rolagem, ou trocá-la pelo número de módulos concluídos.' }
+    ]},
+    { num: '02', title: 'Usabilidade — heurísticas de Nielsen', summary: 'O material é consistente e navegável, mas a camada interativa tem dois problemas de fundo: controles cujo estado visível se perde, e ações sem caminho de volta. Para um público que inclui baixa familiaridade digital, esses são os achados mais caros da auditoria.', items: [
+      { sev: 'crit', title: 'O botão de tema volta a dizer "Escuro" no modo escuro', body: 'O rótulo é trocado por escrita direta no DOM (b.textContent), mas o template declara o texto "Escuro". Qualquer re-render — marcar um item da checklist, responder o quiz, digitar na busca — restaura o rótulo original enquanto o tema permanece escuro. O controle passa a mentir sobre o próprio estado.', fix: 'Guardar o tema no state e renderizar o rótulo a partir dele; acrescentar aria-pressed.', ref: 'Nielsen 1 — visibilidade do estado do sistema' },
+      { sev: 'crit', title: 'Os contadores "0 palavras · salvo" também se desfazem', body: 'Mesma causa: updateCount escreve em textContent, e o template declara "0 palavras". Depois de um re-render, um caderno com 300 palavras digitadas exibe "0 palavras" — e o cursista não tem outro sinal de que o texto foi salvo. Pior: a palavra "salvo" aparece mesmo com o campo vazio, ou seja, confirma um salvamento que não ocorreu.', fix: 'Levar os contadores ao state e mostrar "salvo" apenas depois de uma escrita bem-sucedida em localStorage.', ref: 'Nielsen 1' },
+      { sev: 'crit', title: 'Perda silenciosa das anotações', body: 'Todas as chamadas a localStorage estão em try/catch vazio. Em navegação privada, com armazenamento cheio ou cookies de terceiros bloqueados, o cursista digita um módulo inteiro, vê "salvo" na tela e perde tudo ao recarregar, sem nenhum aviso.', fix: 'Testar a disponibilidade no mount e, em caso de falha, exibir um aviso persistente no cabeçalho do caderno recomendando exportar em PDF ao final.', ref: 'Nielsen 5 e 9 — prevenção de erros e recuperação' },
+      { sev: 'mod', title: 'O quiz não pode ser refeito', body: 'Ao tocar uma alternativa a resposta é registrada e não há como desmarcar ou reiniciar. Um toque acidental em celular fixa um erro permanente na pontuação, que fica salva em localStorage. Numa avaliação formativa, a segunda tentativa é parte do aprendizado.', fix: 'Permitir troca de resposta e incluir um botão "Refazer quiz".', ref: 'Nielsen 3 — controle e liberdade do usuário' },
+      { sev: 'mod', title: 'O menu mobile não fecha pelo overlay nem por Esc', body: 'O escurecimento de fundo é um box-shadow de 100vmax, portanto não recebe clique. Com o menu aberto, só o próprio botão ☰ ou a escolha de um item fecha. Esc não fecha, e o menu aberto não avisa tecnologia assistiva que abriu.', fix: 'Trocar por um elemento de overlay clicável, fechar com Esc e alternar aria-expanded no botão.', ref: 'Nielsen 3' },
+      { sev: 'mod', title: 'Dois indicadores de progresso concorrentes', body: 'A barra do topo mede rolagem; os tiques na barra lateral e o contador do certificado medem módulos concluídos. Estar em 100% de rolagem com zero módulos marcados (ou o inverso) é normal e confuso. Nenhum dos dois é rotulado.', fix: 'Rotular a barra do topo como posição de leitura e dar destaque ao indicador de módulos concluídos, que é o progresso real.', ref: 'Nielsen 4 — consistência' },
+      { sev: 'mod', title: 'A busca não é navegável pelo teclado', body: 'O overlay abre com Ctrl+K e filtra em tempo real, mas os resultados não respondem a setas nem a Enter: é preciso tabular por todos eles ou usar o mouse. Para quem chamou a busca por atalho, a interação quebra no meio.', fix: 'Setas para percorrer, Enter para abrir, primeiro resultado pré-selecionado.', ref: 'Nielsen 7 — flexibilidade e eficiência' },
+      { sev: 'min', title: 'Os atalhos existem mas não são ensinados', body: 'A tecla ⌘K aparece num kbd de 10px no botão de busca, e Esc só dentro do overlay. Em Windows, o rótulo ⌘K está errado, embora Ctrl+K funcione. Nada disso está documentado no módulo "Como usar este material".', fix: 'Detectar a plataforma para o rótulo e listar os atalhos no módulo 0.', ref: 'Nielsen 10 — ajuda e documentação' },
+      { sev: 'min', title: 'O exercício de checar alucinações não explica a mecânica', body: 'O enunciado diz "toque nos trechos que você desconfia", mas nada indica que os trechos clicáveis são exatamente os três sublinhados pontilhados, nem que há como desmarcar. A pontuação "0 de 3 problemas identificados" aparece antes de qualquer tentativa.', fix: 'Dizer quantos trechos são clicáveis e só revelar o contador após o primeiro toque.', ref: 'Nielsen 6 — reconhecimento em vez de memorização' },
+      { sev: 'min', title: 'A exportação do caderno depende de pop-up', body: 'exportCaderno usa window.open e retorna em silêncio se o navegador bloquear. O cursista clica, nada acontece e não há explicação — cenário comum em celular.', fix: 'Detectar o bloqueio e exibir instrução para liberar pop-ups ou oferecer download direto do arquivo.', ref: 'Nielsen 9' }
+    ]},
+    { num: '03', title: 'Hierarquia visual e layout', summary: 'Esta é a dimensão mais bem resolvida. A medida de 672px para o corpo de texto está na faixa ideal de leitura (cerca de 70 caracteres por linha), a escala tipográfica é clara em três níveis e o ritmo entre módulos usa alternância de fundo em vez de ornamento. A ordem de leitura é uma coluna única, sem competição pelo olhar.', items: [
+      { sev: 'mod', title: 'Blocos de código e prompts extrapolam a medida do texto', body: 'Os cartões de prompt usam monoespaçada de 14px dentro da mesma coluna de 672px do corpo serif de 20px. A diferença de cor e densidade funciona, mas em telas estreitas as linhas de prompt quebram em pontos arbitrários no meio de marcadores como [disciplina/ano], dificultando a leitura do padrão.', fix: 'Aumentar a monoespaçada para 15px e usar hyphens e overflow-wrap para controlar a quebra.' },
+      { sev: 'min', title: 'A anatomia do prompt usa quatro cores sem legenda persistente', body: 'O exemplo marca papel, contexto, tarefa e formato em quatro cores com sobrescritos numerados; a legenda vem abaixo, em cartões. Ao rolar para os cartões, o exemplo sai da tela e o vínculo cor-elemento se perde.', fix: 'Repetir o número da parte no cartão correspondente, já feito, e reduzir a distância vertical entre exemplo e legenda em telas grandes.' },
+      { sev: 'min', title: 'O par "prompt vago" / "prompt específico" não sinaliza qual é o bom', body: 'Os dois cartões têm o mesmo fundo e peso; a distinção está apenas na cor do rótulo (vermelho e verde) e no texto. Sem percepção de cor, os dois parecem equivalentes.', fix: 'Acrescentar um símbolo textual de recusa e aprovação aos rótulos.' }
+    ]},
+    { num: '04', title: 'Consistência e design system', summary: 'Existe um sistema real: paleta em CSS vars com paper, paper-2, ink, ink-soft, muted, rule, accent e quatro cores semânticas, duplicado para o tema escuro. Raios de 8 a 16px, pílulas de 999px e a régua de 1px são aplicados com regularidade rara em material autoral. Os desvios são pontuais.', items: [
+      { sev: 'mod', title: 'Botões iguais em função, diferentes em tamanho', body: 'Coexistem quatro escalas de botão-secundário: "Copiar" nos cartões de prompt (11px, padding 6/11), "Copiar ABNT" (13px, 9/14), "Marcar como concluído" (13px, 11/18) e os controles do topo (12px, 7/12). Nenhuma diferença hierárquica justifica isso, e as duas menores ficam abaixo do alvo de toque.', fix: 'Reduzir a dois tamanhos declarados — 44px de altura para toque e 36px para desktop — e reusar em todos os secundários.' },
+      { sev: 'mod', title: 'Estilos de componente construídos em dois lugares', body: 'Checklists, quiz e botões de conclusão têm seus estilos montados como objetos em renderVals, enquanto os demais vivem inline no template. Ajustar o raio ou o estado ativo de um botão exige editar os dois lugares, e eles já divergem: o quiz usa transição de 120ms com borda de 1px, a checklist usa caixa de 2px.', fix: 'Centralizar os estilos de estado interativo em um único helper do logic e usá-lo nos dois casos.' },
+      { sev: 'min', title: 'Campos de texto sem afordância de campo', body: 'As textareas do caderno não têm borda nem fundo próprio — a borda é do cartão tracejado em volta. Quem tem menos familiaridade digital não reconhece a área como editável até tocar, sobretudo no celular, onde não há cursor de texto pairando.', fix: 'Dar fundo e borda de 1px à área editável, como já acontece no campo do certificado.' },
+      { sev: 'min', title: 'Ícones em caracteres tipográficos', body: 'A interface usa ⏱ ◷ ✎ ▤ ↔ ⌕ ☰ ✓ como glifos de texto. A renderização varia entre sistemas (alguns viram emoji colorido no Android, outros somem em fontes restritas) e os leitores de tela anunciam nomes inesperados.', fix: 'Substituir os funcionais por SVG inline com aria-hidden e manter os decorativos apenas se testados nos alvos.' }
+    ]},
+    { num: '05', title: 'Acessibilidade — WCAG 2.1 AA', summary: 'A base é melhor que a média: focus-visible global, prefers-reduced-motion respeitado, hierarquia de headings correta (um h1 na capa, h2 por módulo, h3 por seção) e nenhuma imagem sem alternativa, porque não há imagens. As falhas se concentram em contraste no tema claro, tamanho de alvo e semântica dos componentes interativos.', items: [
+      { sev: 'crit', title: 'O token --muted falha em corpo de texto no tema claro', body: '#847E6E sobre #FAF7F0 dá cerca de 3.4:1, abaixo do mínimo de 4.5:1. Ele não é usado só em metadados: carrega as descrições de 14px de todos os sete módulos no índice, as definições do glossário, os textos dos cartões de anatomia e as legendas dos exercícios. É o achado de acessibilidade com maior alcance no material.', fix: 'Escurecer para algo em torno de #6E685A (cerca de 4.9:1) mantendo o mesmo matiz.', ref: 'WCAG 1.4.3' },
+      { sev: 'crit', title: 'Alvos de toque abaixo de 44px', body: 'Os botões "Copiar" dos quatro cartões de prompt têm cerca de 23px de altura; o botão ☰ tem 34×34px; os controles de busca e tema, cerca de 30px. Você indicou o celular como acesso principal de parte do público — nesse contexto, são os controles mais usados do material.', fix: 'Levar a 44×44px de área efetiva, com padding se preciso, mantendo o visual compacto.', ref: 'WCAG 2.5.5 / HIG 44pt / Material 48dp' },
+      { sev: 'crit', title: 'O overlay de busca não é um diálogo', body: 'Falta role="dialog" e aria-modal, o campo tem placeholder mas nenhum rótulo acessível, o foco não está contido no overlay (tabular sai para a página atrás) e ao fechar o foco não volta ao botão de busca. Para usuário de leitor de tela ou só teclado, a busca é praticamente inutilizável.', fix: 'Marcar como diálogo modal, rotular o campo com aria-label, conter o foco e devolvê-lo ao gatilho no fechamento.', ref: 'WCAG 4.1.2 / 2.4.3' },
+      { sev: 'mod', title: 'A barra lateral fica focável quando está escondida', body: 'Abaixo de 1080px o nav é deslocado com translateX(-100%) mas continua no fluxo de tabulação. Quem navega por teclado no celular percorre onze links invisíveis antes de chegar ao conteúdo.', fix: 'Aplicar visibility:hidden ou inert enquanto estiver fechado.', ref: 'WCAG 2.4.3' },
+      { sev: 'mod', title: 'Sem link para saltar ao conteúdo e sem landmarks rotulados', body: 'Não há skip link, e as onze seções não têm aria-label, então a lista de regiões do leitor de tela não distingue um módulo do outro. Em um documento de duas horas de leitura, isso pesa.', fix: 'Acrescentar um skip link no topo e aria-labelledby em cada section, apontando para seu h2.', ref: 'WCAG 2.4.1' },
+      { sev: 'mod', title: 'Progresso e conclusão não são anunciados', body: 'A barra de progresso não tem role="progressbar" nem valor; o tique de módulo concluído é um pseudo-elemento ::after com o caractere ✓, invisível para tecnologia assistiva; e o resultado do quiz e o contador de problemas encontrados aparecem sem região viva, portanto não são lidos quando mudam.', fix: 'Dar papel e valores à barra, trocar o tique por texto acessível e marcar os retornos como aria-live="polite".', ref: 'WCAG 1.3.1 / 4.1.3' },
+      { sev: 'mod', title: 'Rótulos de campo inconsistentes', body: 'Os dois exercícios têm label associado, mas as sete textareas do caderno e o campo de nome do certificado só têm placeholder — que desaparece ao digitar e não é rótulo. Cada caderno é anunciado apenas como "editar texto".', fix: 'Dar label visível a todos os campos, reusando o título já presente no cartão.', ref: 'WCAG 3.3.2' },
+      { sev: 'min', title: 'Vazamento de listener de teclado', body: 'A classe declara componentWillUnmount duas vezes; a segunda sobrescreve a primeira, então o listener de keydown da busca nunca é removido — só o de scroll. É um defeito de código sem sintoma visível hoje, que aparece assim que o componente for montado mais de uma vez.', fix: 'Unificar os dois métodos em um só.' }
+    ]},
+    { num: '06', title: 'Responsividade e conforto de uso', summary: 'O layout é fluido de verdade: clamp em todos os paddings e escalas de título, medida máxima de 672px para o texto e um único ponto de quebra em 1080px para a barra lateral. Em celular o material continua legível sem zoom, com corpo de 20px. Os problemas são de toque e de faixas intermediárias, não de reflow.', items: [
+      { sev: 'mod', title: 'Grades de duas colunas fixas em telas estreitas', body: 'A comparação "prompt vago / prompt específico" e o cabeçalho de alguns cartões usam grid-template-columns:1fr 1fr sem minmax. Em 320–360px cada coluna fica com cerca de 120px úteis de texto, e as frases de exemplo quebram em duas ou três palavras por linha.', fix: 'Usar repeat(auto-fit,minmax(220px,1fr)), como já é feito nos cartões de anatomia.' },
+      { sev: 'mod', title: 'O overlay de busca ocupa a tela toda no celular sem parecer tela cheia', body: 'Com padding de 12vh no topo e max-height de 74vh, o painel abre no meio da tela e o teclado virtual cobre boa parte dos resultados. Em iOS, o campo de 17px ainda evita o zoom automático, mas a área útil de resultado fica em poucas linhas.', fix: 'Abrir em tela cheia abaixo de 640px, com o campo fixo no topo e a lista rolando sob ele.' },
+      { sev: 'min', title: 'Cartões de prompt com rolagem horizontal implícita', body: 'Os prompts são parágrafos monoespaçados sem overflow-wrap declarado. Marcadores longos como [nível/necessidade] podem empurrar a largura e provocar rolagem lateral em telas pequenas.', fix: 'Declarar overflow-wrap:anywhere nos blocos de prompt.', ref: 'WCAG 1.4.10' },
+      { sev: 'min', title: 'Faixa de 1080 a 1280px com pouco ar', body: 'Ao aparecer a barra lateral de 248px, o conteúdo passa a dividir o espaço restante, mas a medida de texto permanece centralizada no que sobrou — nessa faixa a coluna encosta visualmente no nav.', fix: 'Acrescentar padding-inline mínimo de 32px ao conteúdo acima de 1080px.' }
+    ]}
+  ];
+
+  PRIORITIES = [
+    { n: '1', t: 'Levar tema, contadores e "salvo" para o state', d: 'Três controles que hoje mentem sobre o próprio estado depois de qualquer re-render. Corrigir isso é uma mudança pequena de código com o maior ganho de confiança do material.' },
+    { n: '2', t: 'Escurecer --muted e padronizar alvos de toque em 44px', d: 'Uma linha de token resolve a maior parte das falhas de contraste; dois tamanhos de botão resolvem o toque. Atende diretamente o público de celular e de baixa familiaridade digital.' },
+    { n: '3', t: 'Transformar a busca em diálogo modal acessível', d: 'Papel de diálogo, rótulo no campo, foco contido, retorno do foco e navegação por setas. A busca é o atalho que você ofereceu para um documento longo; hoje ela só funciona com mouse e visão.' },
+    { n: '4', t: 'Avisar quando o armazenamento falhar', d: 'O caderno é o que o cursista produz de próprio. Perder isso em silêncio é a pior falha possível neste material — e o aviso é barato.' },
+    { n: '5', t: 'Substituir o DOI de placeholder e mover o bloco de citação para o fim', d: 'Resolve a credibilidade acadêmica e devolve a segunda dobra da página a quem vai estudar.' }
+  ];
+
+  STRENGTHS = [
+    { t: 'Propósito imediato', d: 'Capa diz o que é, para quem, por quem e em quanto tempo, sem promessa vaga.' },
+    { t: 'Medida de leitura', d: '672px e corpo de 20px em Lora colocam o texto na faixa confortável para leitura longa.' },
+    { t: 'Progressão declarada', d: 'Cada módulo anuncia duração, pré-requisito e recursos antes de começar.' },
+    { t: 'Interação que exige produção', d: 'Caderno, exercícios e checklists pedem escrita e decisão, não cliques de avanço.' },
+    { t: 'Exercício de alucinação', d: 'A melhor peça didática do material: ensina desconfiança pela prática, não pelo aviso.' },
+    { t: 'Rastreabilidade acadêmica', d: 'Referências por módulo, ABNT e BibTeX prontos, licença CC explícita.' },
+    { t: 'Tema escuro com paleta própria', d: 'Não é inversão automática; os tokens foram recalculados, e o contraste melhora no escuro.' },
+    { t: 'Movimento contido', d: 'prefers-reduced-motion respeitado e transições curtas, entre 120 e 250ms.' },
+    { t: 'Linguagem do professor', d: 'Nenhum jargão de tecnologia sem tradução pedagógica; exemplos são de sala de aula real.' }
+  ];
+
+  CONTRAST = [
+    { pair: '--muted #847E6E / --paper #FAF7F0', where: 'Descrições de módulo, glossário, legendas (14–15px)', ratio: '3.4:1', ok: false },
+    { pair: '--muted #847E6E / --paper-2 #F1ECDF', where: 'Metadados dentro de cartões', ratio: '3.2:1', ok: false },
+    { pair: '--ink-soft #403D34 / --paper #FAF7F0', where: 'Corpo de texto serif', ratio: '9.8:1', ok: true },
+    { pair: '--accent #1D6A46 / --paper #FAF7F0', where: 'Rótulos, links, numeração', ratio: '5.3:1', ok: true },
+    { pair: '--paper #FAF7F0 / --accent #1D6A46', where: 'Texto do botão de conclusão ativo', ratio: '5.3:1', ok: true },
+    { pair: '--rule #E1DBCC / --paper #FAF7F0', where: 'Bordas de campo, caixas de checklist', ratio: '1.2:1', ok: false, note: 'componente' },
+    { pair: '--muted #8F8875 / --paper #141310 (escuro)', where: 'Mesmos textos no tema escuro', ratio: '5.1:1', ok: true },
+    { pair: '--c4 #8A6A15 / --paper #FAF7F0', where: 'Rótulo "4 · FORMATO" na anatomia', ratio: '4.6:1', ok: true }
+  ];
+
+  WCAG = [
+    { s: 'fail', t: 'Contraste de texto normal — 4.5:1', d: 'Falha no token --muted em todo o tema claro; aprovado no tema escuro.' },
+    { s: 'pass', t: 'Contraste de texto grande — 3:1', d: 'Títulos e subtítulos passam com margem nos dois temas.' },
+    { s: 'fail', t: 'Contraste de componentes — 3:1', d: 'Bordas --rule em 1.2:1 deixam campos e caixas de checklist sem limite perceptível.' },
+    { s: 'fail', t: 'Alvo de toque — 44×44px', d: 'Botões de copiar (~23px), ☰ (34px) e controles do topo (~30px) abaixo do mínimo.' },
+    { s: 'warn', t: 'Rótulos visíveis em formulário', d: 'Dois exercícios com label; sete cadernos e o campo do certificado só com placeholder.' },
+    { s: 'pass', t: 'Texto alternativo em imagens', d: 'Não há imagens. Ao inserir capturas dos Módulos 2 e 3, cada uma precisará de alt descritivo.' },
+    { s: 'warn', t: 'Navegação só por teclado', d: 'Toda a leitura funciona, mas resultados de busca não respondem a setas e o nav oculto permanece focável.' },
+    { s: 'pass', t: 'Foco visível', d: 'focus-visible global com contorno de 2px no accent e offset de 2px.' },
+    { s: 'pass', t: 'Hierarquia semântica de headings', d: 'Um h1, h2 por módulo, h3 por seção, sem salto de nível.' },
+    { s: 'fail', t: 'Nome, função e valor dos componentes', d: 'Overlay de busca sem role de diálogo, barra de progresso sem role/valor, tique de conclusão como pseudo-elemento.' }
+  ];
+
+  PHASES = [
+    { tag: 'Fase 1 · bloqueadores', effort: 'meio dia', title: 'Estado honesto e conteúdo publicável', items: [
+      { t: 'Tema, contadores de palavras e indicador "salvo" renderizados a partir do state.' },
+      { t: 'Aviso visível quando localStorage não estiver disponível, com recomendação de exportar em PDF.' },
+      { t: 'DOI real no bloco de citação — ou remoção do bloco até haver um.' },
+      { t: 'Unificar os dois componentWillUnmount para encerrar o listener de teclado.' }
+    ]},
+    { tag: 'Fase 2 · acessibilidade AA', effort: 'um dia', title: 'Contraste, toque e semântica', items: [
+      { t: '--muted para ~#6E685A e --rule com variante escura para bordas de componente.' },
+      { t: 'Dois tamanhos de botão secundário: 44px de altura no toque, 36px no desktop.' },
+      { t: 'Busca como diálogo modal: role, aria-modal, rótulo no campo, foco contido e devolvido, setas e Enter.' },
+      { t: 'Nav oculto com inert; skip link; aria-label nas seções; role="progressbar" na barra; aria-live nos retornos de quiz e exercício.' },
+      { t: 'Label visível nas sete textareas do caderno e no campo do certificado.' }
+    ]},
+    { tag: 'Fase 3 · refinamento', effort: 'um dia', title: 'Fluxo, mobile e didática', items: [
+      { t: 'Bloco "Como citar" movido para o fim, com link no rodapé da capa.' },
+      { t: 'Quiz com resposta trocável e botão de refazer.' },
+      { t: 'Menu mobile com overlay clicável, Esc e aria-expanded.' },
+      { t: 'Grades 1fr 1fr trocadas por auto-fit/minmax; overflow-wrap nos blocos de prompt; busca em tela cheia abaixo de 640px.' },
+      { t: 'Progresso de leitura e progresso de conclusão rotulados e visualmente distintos.' },
+      { t: 'Termos do glossário linkados a partir da primeira menção no corpo dos módulos.' }
+    ]}
+  ];
+
+  renderVals(){
+    const sev = this.state.sev;
+    const chip = (on) => ({ cursor:'pointer', font:"600 13px/1 'IBM Plex Sans',sans-serif", borderRadius:'999px', padding:'12px 18px', minHeight:'44px', border:'1px solid ' + (on ? 'var(--accent)' : 'var(--rule)'), background: on ? 'var(--accent)' : 'transparent', color: on ? 'var(--paper)' : 'var(--ink)', transition:'background .12s,border-color .12s,color .12s' });
+
+    const all = [];
+    this.DIMS.forEach(d => d.items.forEach(i => all.push(i)));
+    const counts = { all: all.length, crit:0, mod:0, min:0 };
+    all.forEach(i => { counts[i.sev]++; });
+
+    const filters = [
+      { key:'all', label:'Todos · ' + counts.all },
+      { key:'crit', label:'Crítico · ' + counts.crit },
+      { key:'mod', label:'Moderado · ' + counts.mod },
+      { key:'min', label:'Minor · ' + counts.min }
+    ].map(f => ({ label: f.label, style: chip(sev === f.key), onPick: () => this.setState({ sev: f.key }) }));
+
+    const dimensions = this.DIMS.map(d => {
+      const items = d.items.filter(i => sev === 'all' || i.sev === sev).map(i => {
+        const s = this.SEV[i.sev];
+        return {
+          title: i.title, body: i.body, badge: s.label,
+          badgeStyle: { font:"600 10.5px/1 'IBM Plex Sans',sans-serif", letterSpacing:'.14em', textTransform:'uppercase', color:s.color, background:s.bg, border:'1px solid ' + s.color, borderRadius:'999px', padding:'5px 10px' },
+          fix: i.fix || '',
+          fixStyle: { display: i.fix ? 'block' : 'none', margin:'12px 0 0', font:"400 15px/1.6 'IBM Plex Sans',sans-serif", color:'var(--ink-soft)' },
+          ref: i.ref || '',
+          refStyle: { display: i.ref ? 'block' : 'none', margin:'10px 0 0', font:"400 12.5px/1 'IBM Plex Mono',monospace", color:'var(--muted)' },
+          cardStyle: { padding:'18px 20px', background:'var(--paper)', border:'1px solid var(--rule)', borderLeft:'3px solid ' + s.color, borderRadius:'0 12px 12px 0' }
+        };
+      });
+      return { num: d.num, title: d.title, summary: d.summary, items, wrapStyle: { display: items.length ? 'block' : 'none' } };
+    });
+
+    const shown = dimensions.filter(d => d.items.length).length;
+
+    return {
+      filters, dimensions,
+      nCrit: counts.crit, nMod: counts.mod, nMin: counts.min, nStrong: this.STRENGTHS.length,
+      countLabel: sev === 'all' ? (counts.all + ' achados · 6 dimensões') : (dimensions.reduce((a,d) => a + d.items.length, 0) + ' achados · ' + shown + ' dimensões'),
+      emptyStyle: { display: shown ? 'none' : 'block', padding:'40px 0', textAlign:'center', font:"400 16px/1.5 'IBM Plex Sans',sans-serif", color:'var(--muted)' },
+      priorities: this.PRIORITIES,
+      strengths: this.STRENGTHS,
+      contrast: this.CONTRAST.map(c => ({
+        pair: c.pair, where: c.where, ratio: c.ratio,
+        verdict: c.ok ? 'Aprovado' : 'Reprovado',
+        verdictStyle: { font:"600 13px/1.4 'IBM Plex Sans',sans-serif", color: c.ok ? 'var(--accent)' : 'var(--crit)' }
+      })),
+      wcag: this.WCAG.map(w => ({
+        t: w.t, d: w.d,
+        mark: w.s === 'pass' ? '\u2713' : (w.s === 'fail' ? '\u2715' : '!'),
+        markStyle: { display:'inline-flex', alignItems:'center', justifyContent:'center', width:'26px', height:'26px', borderRadius:'8px', font:"600 14px/1 'IBM Plex Sans',sans-serif", color: w.s === 'pass' ? 'var(--accent)' : (w.s === 'fail' ? 'var(--crit)' : 'var(--mod)'), background: w.s === 'pass' ? 'rgba(29,106,70,.12)' : (w.s === 'fail' ? 'rgba(143,53,41,.10)' : 'rgba(122,93,18,.12)') }
+      })),
+      phases: this.PHASES
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,1519 +1,1010 @@
-<!DOCTYPE html><html
-    lang="pt-BR"
-    data-theme="light"
-    class="chapters-mode">
-    <head>
-        <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0" />
-        <title>Ebook Digital: Ferramentas de IA na Educação Básica</title>
-        <meta
-            name="description"
-            content="Ebook interativo para professores: ferramentas de IA com guias práticos, exemplos pedagógicos, ética e acessibilidade." />
-        <meta
-            name="ebook:author"
-            content="Adryan Cavalcante Cosmo" />
-        <meta
-            name="ebook:authorGithub"
-            content="https://github.com/Adryan-Cosmo" />
-        <meta
-            name="ebook:version"
-            content="1.0.0" />
-        <meta
-            name="license"
-            content="CC BY 4.0" />
-        <link
-            rel="icon"
-            href="assets/favicon.svg"
-            type="image/svg+xml" />
-        <link
-            rel="stylesheet"
-            href="style.css"
-            media="all" />
-        <link
-            rel="stylesheet"
-            href="print.css"
-            media="print" />
-    </head>
-    <body>
-        <!-- Banner de Créditos (preenchido dinamicamente) -->
-        <div class="author-banner">
-            <div class="author-banner-left">
-                <strong>Autor:</strong>
-                <a
-                    href="https://github.com/Adryan-Cosmo"
-                    target="_blank"
-                    rel="noopener"
-                    class="author-link"
-                    ><span class="author-name">Adryan Cavalcante Cosmo</span></a
-                >
-                <span
-                    class="author-version"
-                    title="Versão do ebook"
-                    >v<span data-ebook-version>1.0.0</span></span
-                >
-            </div>
-            <div class="author-banner-right">
-                <strong>Licença:</strong> CC BY 4.0 (Atribuição). Cite:
-                <span class="citation-inline"
-                    >Material adaptado de Adryan Cavalcante Cosmo – Ebook
-                    Ferramentas de IA na Educação.</span
-                >
-                <button
-                    type="button"
-                    class="copy-citation-btn"
-                    id="copyCitation"
-                    title="Copiar citação">
-                    Copiar
-                </button>
-            </div>
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferramentas de IA na Educação Básica — trilha formativa</title>
+<meta name="description" content="Trilha formativa progressiva para professores: do letramento digital à engenharia de prompts, com base em TPACK, BNCC e no guia da UNESCO.">
+<meta name="author" content="Adryan Cavalcante Cosmo">
+<meta name="license" content="CC BY 4.0">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>
+  // Aplica o tema salvo antes da pintura, para não piscar o tema claro.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('ebook2.theme'); } catch (e) {}
+    if (t !== 'dark') t = 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.style.colorScheme = t;
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="print.css" media="print">
+<script src="app.js" defer></script>
+</head>
+<body>
+
+<!-- Ícones: traço 1.8, referenciados por <use>. -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-resume" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5.5 21V3"/><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"/><path d="M16.5 5.5 19 8"/></symbol>
+  <symbol id="i-lines" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4z"/><path d="M9 4v16M12 9h4M12 13h4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 19V8"/><path d="M7.5 12.5 12 8l4.5 4.5"/><path d="M5 5h14"/></symbol>
+</svg>
+
+<a class="skip" href="#conteudo">Ir direto ao conteúdo</a>
+
+<div class="scrim" id="nav-scrim" hidden></div>
+
+<!-- SUMÁRIO LATERAL -->
+<nav id="sidenav" class="sidenav" aria-label="Sumário">
+  <a class="sidenav__brand" href="#capa">IA na Educação<br><span>Básica · trilha</span></a>
+  <div class="sidenav__label">Sumário</div>
+  <div class="sidenav__list">
+    <a class="snav-link" data-nav="trilha" href="#trilha"><span class="snum">§</span><span>A trilha</span></a>
+    <a class="snav-link" data-nav="modulo-0" href="#modulo-0"><span class="snum">00</span><span>Fundamentos</span></a>
+    <a class="snav-link" data-nav="modulo-1" href="#modulo-1"><span class="snum">01</span><span>Engenharia de Prompts</span></a>
+    <a class="snav-link" data-nav="modulo-2" href="#modulo-2"><span class="snum">02</span><span>Ferramentas de IA</span></a>
+    <a class="snav-link" data-nav="modulo-3" href="#modulo-3"><span class="snum">03</span><span>Ferramentas complementares</span></a>
+    <a class="snav-link" data-nav="modulo-4" href="#modulo-4"><span class="snum">04</span><span>Aplicação pedagógica</span></a>
+    <a class="snav-link" data-nav="modulo-5" href="#modulo-5"><span class="snum">05</span><span>Ética, LGPD e direitos</span></a>
+    <a class="snav-link" data-nav="modulo-6" href="#modulo-6"><span class="snum">06</span><span>Implementação</span></a>
+    <a class="snav-link" data-nav="glossario" href="#glossario"><span class="snum">A–Z</span><span>Glossário</span></a>
+    <a class="snav-link" data-nav="referencias" href="#referencias"><span class="snum">§</span><span>Referências</span></a>
+  </div>
+  <div class="sidenav__foot">v2.0 · CC BY 4.0</div>
+</nav>
+
+<div class="app">
+
+  <!-- CABEÇALHO FIXO -->
+  <header id="topbar" class="topbar">
+    <div class="topbar__row">
+      <div class="topbar__start">
+        <button type="button" class="snav-toggle icon-btn" aria-label="Menu" aria-expanded="false" aria-controls="sidenav"><svg class="icon" width="18" height="18"><use href="#i-menu"/></svg></button>
+        <a class="topbar__title" href="#capa">IA na Educação Básica <span>· trilha formativa</span></a>
+      </div>
+      <div class="topbar__end">
+        <button type="button" class="search-btn" id="search-open" aria-label="Buscar (Ctrl+K)"><svg class="icon" width="15" height="15"><use href="#i-search"/></svg><span class="search-btn__text">Buscar</span><kbd data-kbd>Ctrl K</kbd></button>
+        <span class="done-chip" id="done-chip"><span class="done-chip__dot" aria-hidden="true"></span><span id="done-chip-text">0/7 módulos</span></span>
+        <span class="progress-pct" id="progress-pct" title="Posição de leitura na página" aria-hidden="true">0%</span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false">Escuro</button>
+      </div>
+    </div>
+    <div id="progress-track" class="progress" role="progressbar" aria-label="Posição de leitura na trilha" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill" class="progress__fill"></div></div>
+    <div class="storage-warn" id="storage-warn" role="alert" hidden><strong>Atenção — suas anotações não estão sendo salvas.</strong> Este navegador está bloqueando o armazenamento local (comum em navegação privada). O texto digitado será perdido ao recarregar a página: exporte o caderno em PDF antes de sair.</div>
+  </header>
+
+  <main id="conteudo" tabindex="-1">
+
+  <!-- CAPA -->
+  <section id="capa" class="sec sec--cover" aria-label="Capa">
+    <div class="wide">
+      <div class="kicker kicker--cover">
+        <span class="kicker__label">N.º 01</span>
+        <span class="kicker__rule"></span>
+        <span>Formação docente · v2.0</span>
+      </div>
+      <h1 class="cover-title">Ferramentas de <em>IA</em> na Educação Básica</h1>
+      <p class="cover-sub">Uma trilha formativa progressiva para professores — do letramento digital à engenharia de prompts, com base em TPACK, BNCC e no guia da UNESCO.</p>
+      <div class="cover-actions">
+        <a class="btn-primary" href="#trilha" id="start-link" data-print-hide><span id="start-label">Começar a trilha</span> <span aria-hidden="true">↓</span></a>
+        <a class="btn-resume" href="#trilha" id="resume-link" data-print-hide hidden><svg class="icon" width="15" height="15"><use href="#i-resume"/></svg> <span id="resume-label">Continuar</span></a>
+        <div class="cover-meta">Adryan Cavalcante Cosmo · 7 módulos<br>Licença CC BY 4.0 · leitura ~2 h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A TRILHA -->
+  <section id="trilha" class="sec sec--intro" data-spy="trilha" aria-label="Home da trilha">
+    <div class="measure">
+      <span class="label">A trilha</span>
+      <h2 class="sec-title sec-title--intro">Uma trilha formativa progressiva</h2>
+      <p class="read">Diferente de uma lista de ferramentas, esta segunda edição organiza o percurso em módulos que se apoiam uns nos outros. Cada módulo tem fundamentação teórica, exercícios práticos e um espaço de anotação — para que a leitura vire prática de sala de aula.</p>
+      <p class="read">A estrutura segue o modelo <strong>TPACK</strong> (Mishra e Koehler, 2006), toma o <strong>letramento digital como prática situada</strong> (Moura, Carvalho e Mion, 2019) como eixo, ancora-se na <strong>Competência 5 da BNCC</strong> e adota o <strong>guia da UNESCO</strong> (Holmes et al., 2024) para o uso crítico de IA.</p>
+    </div>
+
+    <ol class="routes wide">
+      <li><a class="route" href="#modulo-0">
+        <span class="route__num">00</span>
+        <span class="route__body"><span class="route__title">Fundamentos</span><span class="route__desc">IA generativa na educação, letramento digital e por que a engenharia de prompts importa.</span></span>
+        <span class="route__tag route__tag--accent">novo</span>
+      </a></li>
+      <li><a class="route" href="#modulo-1">
+        <span class="route__num route__num--current">01</span>
+        <span class="route__body"><span class="route__title">Engenharia de Prompts</span><span class="route__desc">Anatomia de um bom prompt, padrões para tarefas pedagógicas e avaliação crítica de respostas.</span></span>
+        <span class="route__tag route__tag--accent">módulo modelo <span aria-hidden="true">↓</span></span>
+      </a></li>
+      <li><a class="route" href="#modulo-2">
+        <span class="route__num">02</span>
+        <span class="route__body"><span class="route__title">Ferramentas de IA Generativa para Docência</span><span class="route__desc">ChatGPT, Claude, Perplexity e Manus — com foco em prompts pedagógicos.</span></span>
+        <span class="route__tag">reformulado</span>
+      </a></li>
+      <li><a class="route" href="#modulo-3">
+        <span class="route__num">03</span>
+        <span class="route__body"><span class="route__title">Ferramentas Digitais Complementares</span><span class="route__desc">Canva Educação, Kahoot!, Gamma e NotebookLM.</span></span>
+        <span class="route__tag">novo recorte</span>
+      </a></li>
+      <li><a class="route" href="#modulo-4">
+        <span class="route__num">04</span>
+        <span class="route__body"><span class="route__title">Aplicação Pedagógica Integrada</span><span class="route__desc">Planejamento e avaliação com IA (TPACK aplicado), inclusão e fluxo de aula.</span></span>
+        <span class="route__tag">reformulado</span>
+      </a></li>
+      <li><a class="route" href="#modulo-5">
+        <span class="route__num">05</span>
+        <span class="route__body"><span class="route__title">Ética, LGPD e Direitos Autorais</span><span class="route__desc">Privacidade de alunos, LGPD na sala de aula e materiais gerados por IA.</span></span>
+        <span class="route__tag">expandido</span>
+      </a></li>
+      <li><a class="route" href="#modulo-6">
+        <span class="route__num">06</span>
+        <span class="route__body"><span class="route__title">Trilha de Implementação</span><span class="route__desc">Linha do tempo de 12 semanas, checklist, quiz final e fechamento de percurso.</span></span>
+        <span class="route__tag">reformulado</span>
+      </a></li>
+      <li><a class="route" href="#referencias">
+        <span class="route__num route__num--sm">§</span>
+        <span class="route__body"><span class="route__title">Referências Bibliográficas</span><span class="route__desc">BNCC, UNESCO (Holmes et al.), TPACK (Mishra e Koehler) e Moura et al.</span></span>
+        <span class="route__tag route__tag--accent">novo</span>
+      </a></li>
+    </ol>
+  </section>
+
+  <!-- MÓDULO 0 -->
+  <section id="modulo-0" class="sec" data-spy="modulo-0" aria-label="Módulo 0 — Fundamentos">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 00</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">Fundamentos</h2>
+      <p class="lede">Antes de abrir qualquer ferramenta, vale entender o terreno: o que muda na educação básica com a IA generativa, e por que o professor continua no centro da decisão.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m0-ia" tabindex="-1" aria-hidden="true">01</a> <a href="#m0-ia">IA generativa na educação básica</a></li>
+          <li><a class="toc__num" href="#m0-letramento" tabindex="-1" aria-hidden="true">02</a> <a href="#m0-letramento">Letramento digital e a Competência 5 da BNCC</a></li>
+          <li><a class="toc__num" href="#m0-porque" tabindex="-1" aria-hidden="true">03</a> <a href="#m0-porque">Por que a engenharia de prompts importa</a></li>
+          <li><a class="toc__num" href="#m0-comousar" tabindex="-1" aria-hidden="true">04</a> <a href="#m0-comousar">Como usar este material</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~30 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Ponto de partida</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Caderno</span>
         </div>
-        <div class="progress-container">
-            <div
-                class="progress-bar"
-                id="progressBar"></div>
+      </div>
+    </div>
+
+    <div id="m0-ia" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title">IA generativa na educação básica</h3>
+      <p class="read"><strong class="hl">IA generativa</strong> é o nome dado a sistemas que produzem texto, imagem, áudio ou código a partir de instruções em linguagem natural. Na escola, isso significa um assistente capaz de rascunhar planos de aula, gerar exemplos, adaptar textos e simular diálogos — sempre sob a curadoria do professor.</p>
+      <p class="read">O guia da UNESCO (Holmes et al., 2024) é claro quanto ao princípio orientador: a tecnologia deve ampliar — nunca substituir — o julgamento pedagógico e a relação humana no centro da aprendizagem. Ferramentas de IA são meio, não fim.</p>
+      <aside class="note"><strong>Princípio UNESCO.</strong> Abordagem centrada no ser humano: a IA apoia a decisão docente e exige supervisão, transparência e avaliação crítica de seus resultados.</aside>
+    </div>
+
+    <div id="m0-letramento" class="sub">
+      <span class="sub__num">02</span>
+      <h3 class="sub__title">Letramento digital e a Competência 5 da BNCC</h3>
+      <p class="read">Letramento digital não é saber operar botões: é uma <strong>prática situada</strong> (Moura, Carvalho e Mion, 2019) — usar tecnologias de forma crítica, ética e contextualizada para resolver problemas reais da própria prática.</p>
+      <p class="read">É exatamente o que pede a <strong>Competência Geral 5</strong> da BNCC:</p>
+      <blockquote class="quote">“Compreender, utilizar e criar tecnologias digitais de informação e comunicação de forma crítica, significativa, reflexiva e ética […] para se comunicar, acessar e disseminar informações, produzir conhecimentos e resolver problemas.”</blockquote>
+      <p class="read">Trabalhar IA em sala, portanto, não é um extra: é um caminho direto para desenvolver essa competência — no professor e no aluno.</p>
+    </div>
+
+    <div id="m0-porque" class="sub">
+      <span class="sub__num">03</span>
+      <h3 class="sub__title">Por que a engenharia de prompts importa</h3>
+      <p class="read">A qualidade da resposta de uma IA depende quase inteiramente da qualidade do pedido. Um <a class="gloss" href="#termo-prompt" title="Ver no glossário">prompt</a> vago devolve um texto genérico; um prompt bem construído devolve algo pronto para a sua turma. Saber pedir é a habilidade que separa a IA como curiosidade da IA como ferramenta de trabalho.</p>
+      <div class="pair">
+        <div class="pair__cell"><div class="pair__label c3">✕ PROMPT VAGO</div><p class="pair__text pair__text--muted">“Faça uma prova de história.”</p></div>
+        <div class="pair__cell"><div class="pair__label c1">✓ PROMPT ESPECÍFICO</div><p class="pair__text">“Crie 5 questões sobre a Revolução Industrial para o 8.º ano, com gabarito.”</p></div>
+      </div>
+      <p class="after">É esse o foco do <a href="#modulo-1">Módulo 1</a>, o coração desta trilha.</p>
+    </div>
+
+    <div id="m0-comousar" class="sub">
+      <span class="sub__num">04</span>
+      <h3 class="sub__title">Como usar este material</h3>
+      <p class="read">A trilha é progressiva: cada módulo apoia o seguinte. Você pode ler de ponta a ponta ou usar o menu lateral para saltar. Três recursos acompanham cada módulo:</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__icon"><svg class="icon" width="15" height="15"><use href="#i-lines"/></svg></span><span class="row-card__text"><strong>Sumário no topo</strong> — o que você vai ver, o tempo estimado e os pré-requisitos.</span></div>
+        <div class="row-card"><span class="row-card__icon"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg></span><span class="row-card__text"><strong>Exercícios práticos</strong> — para aplicar o conceito na sua realidade, não só ler sobre ele.</span></div>
+        <div class="row-card"><span class="row-card__icon"><svg class="icon" width="15" height="15"><use href="#i-book"/></svg></span><span class="row-card__text"><strong>Caderno do cursista</strong> — um espaço de anotação salvo no seu dispositivo e exportável em PDF.</span></div>
+      </div>
+      <div class="shortcuts" data-print-hide>
+        <div class="label label--tight">Atalhos</div>
+        <dl class="shortcuts__list">
+          <div><dt><kbd data-kbd>Ctrl K</kbd></dt><dd>Abre a busca. Digite para filtrar módulos e termos do glossário; setas para percorrer, Enter para abrir.</dd></div>
+          <div><dt><kbd>Esc</kbd></dt><dd>Fecha a busca ou o menu lateral.</dd></div>
+          <div><dt><kbd>Tab</kbd></dt><dd>Percorre links e controles sem mouse. O item em foco recebe contorno visível.</dd></div>
+        </dl>
+        <p class="shortcuts__note">Termos com <a class="gloss" href="#glossario">sublinhado pontilhado</a> levam ao glossário. Suas anotações, checklists e respostas ficam salvas neste navegador. Ao concluir cada módulo, toque em “Marcar como concluído” — o painel ao fim da trilha reúne o que você produziu.</p>
+      </div>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod0"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 0</label>
+          <span class="count" data-count-for="caderno-mod0">0 palavras</span>
         </div>
-        <button
-            class="theme-toggle"
-            id="themeToggle"
-            title="Alternar tema">
-            <span id="themeIcon">🌙</span>
-        </button>
-        <button
-            class="print-button"
-            id="printButton"
-            title="Imprimir capítulo atual">
-            🖨
-        </button>
-        <nav
-            class="sidebar"
-            id="sidebar">
-            <div class="sidebar-header">
-                <h3>Sumário</h3>
-                <button
-                    class="sidebar-toggle"
-                    id="sidebarToggle"
-                    aria-label="Fechar menu">
-                    ×
-                </button>
-            </div>
-            <ul class="nav-menu">
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#capa"
-                        >Capa</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#introducao"
-                        >Introdução</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#chatgpt"
-                        >ChatGPT</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#kahoot"
-                        >Kahoot!</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#canva"
-                        >Canva Educação</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#mentimeter"
-                        >Mentimeter</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#nearpod"
-                        >Nearpod</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#extras"
-                        >Blocos Extras</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#exercicios"
-                        >Exercícios</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#quiz-pratico"
-                        >Quiz Prático</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#implementacao"
-                        >Implementação</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#etica"
-                        >Ética e LGPD</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#recursos"
-                        >Recursos</a
-                    >
-                </li>
-                <li>
-                    <a
-                        class="nav-link"
-                        href="#conclusao"
-                        >Conclusão</a
-                    >
-                </li>
-            </ul>
-        </nav>
-        <button
-            class="mobile-menu-btn"
-            id="mobileMenuBtn"
-            aria-label="Abrir menu">
-            ☰
-        </button>
-        <main class="main-content">
-            <div class="chapter-toolbar">
-                <div class="chapter-meta">
-                    <span class="chapter-label">Capítulo atual</span>
-                    <h2
-                        class="chapter-title"
-                        id="currentChapterTitle">
-                        Capa
-                    </h2>
-                </div>
-                <div class="chapter-progress">
-                    <div class="chapter-counter">
-                        <span id="chapterPosition">1 / 12</span>
-                        <span
-                            class="chapter-progress-pill"
-                            id="chapterPercent"
-                            >0%</span
-                        >
-                    </div>
-                    <div class="chapter-actions">
-                        <button
-                            id="viewModeToggle"
-                            class="btn small"
-                            type="button"
-                            title="Alternar entre visão linear (um capítulo) e completa">
-                            Visão Completa
-                        </button>
-                        <button
-                            id="progressModeToggle"
-                            class="btn small"
-                            type="button"
-                            title="Alternar modo da barra superior">
-                            Progresso: Desbloqueio
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <section
-                id="capa"
-                class="section section-cover active"
-                data-title="Capa">
-                <div class="cover-gradient"></div>
-                <div class="cover-content">
-                    <h1>Ebook Digital: Ferramentas de IA na Educação Básica</h1>
-                    <p>Um Guia Completo e Interativo para Professores</p>
-                    <button
-                        class="cta-button"
-                        id="startJourney"
-                        type="button">
-                        Começar Jornada
-                    </button>
-                </div>
-            </section>
-            <section
-                id="introducao"
-                class="section"
-                data-title="Introdução">
-                <h2>Introdução</h2>
-                <p>
-                    A Inteligência Artificial potencializa, não substitui, a
-                    docência. Este ebook reúne ferramentas essenciais, com guias
-                    práticos, exemplos e boas práticas para aplicação imediata
-                    em sala de aula.
-                </p>
-                <div class="callout info">
-                    <strong>Curiosidade:</strong> escolas que adotam recursos
-                    digitais com intencionalidade pedagógica relatam maior
-                    engajamento, economia de tempo em planejamento e avaliações
-                    mais ágeis.
-                </div>
-                <div class="pill-grid">
-                    <span class="pill">Criação de conteúdo</span>
-                    <span class="pill">Gamificação</span>
-                    <span class="pill">Interatividade</span>
-                    <span class="pill">Realidade Virtual</span>
-                    <span class="pill">Acessibilidade</span>
-                </div>
-            </section>
-            <section
-                id="chatgpt"
-                class="section"
-                data-title="ChatGPT">
-                <h2>ChatGPT <span class="tag">🤖 Assistente de IA</span></h2>
-                <h3>Apresentação</h3>
-                <p>
-                    O ChatGPT, desenvolvido pela OpenAI, é uma ferramenta de
-                    inteligência artificial baseada em modelos de linguagem
-                    avançados que compreende e gera respostas em linguagem
-                    natural, sendo útil para explicar conteúdos, criar textos e
-                    apoiar o planejamento pedagógico.
-                </p>
-                <p>
-                    Seu uso pedagógico é amplo: elaboração de questões de
-                    múltipla escolha, rubricas, resumos e planos de aula. Muitos
-                    professores o utilizam como “copiloto de ensino”, acelerando
-                    a criação de conteúdo e permitindo adaptação rápida ao
-                    contexto da turma.
-                </p>
-                <p>
-                    Como toda tecnologia, exige mediação crítica. O ChatGPT é
-                    excelente para ideação, revisão de textos, geração de
-                    debates, listas de exercícios e adaptações para necessidades
-                    especiais, mas pode errar, estar desatualizado ou reproduzir
-                    vieses. Por isso, a revisão docente é essencial.
-                </p>
-                <div class="cards two">
-                    <div class="card">
-                        <h4>Principais funcionalidades</h4>
-                        <ul>
-                            <li>
-                                Geração de textos, questões, planos e resumos
-                                personalizados
-                            </li>
-                            <li>Revisão ortográfica e gramatical</li>
-                            <li>Sugestões de atividades e dinâmicas</li>
-                            <li>Explicações detalhadas de conceitos</li>
-                            <li>Listas e roteiros de estudo</li>
-                            <li>Suporte multilíngue</li>
-                            <li>Personalização por faixa etária e objetivos</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h4>Vantagens e limitações</h4>
-                        <div class="badges-row">
-                            <span class="badge success">Agilidade</span>
-                            <span class="badge success">Adaptação</span>
-                            <span class="badge success">Criatividade</span>
-                            <span class="badge warn">Revisão necessária</span>
-                            <span class="badge warn"
-                                >Versão gratuita limitada</span
-                            >
-                        </div>
-                        <ul>
-                            <li>
-                                <strong>Vantagens:</strong> produção ágil;
-                                adaptação instantânea; ideias criativas; uso
-                                gratuito básico; apoio a avaliações e feedback.
-                            </li>
-                            <li>
-                                <strong>Limitações:</strong> pode trazer dados
-                                desatualizados; requer revisão crítica; recursos
-                                avançados são pagos; não substitui a docência;
-                                atenção à privacidade.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <h4>Guia prático</h4>
-                <ol>
-                    <li>Acesse: chat.openai.com</li>
-                    <li>Crie conta gratuita (e-mail ou Google)</li>
-                    <li>Faça pedidos objetivos e contextualizados</li>
-                    <li>Peça ajustes e adequações</li>
-                    <li>Revise e adapte ao seu contexto</li>
-                </ol>
-                <h4>Passo a passo rápido</h4>
-                <ol>
-                    <li>Digite a solicitação</li>
-                    <li>Leia a resposta</li>
-                    <li>Refine (“refaça em múltipla escolha”)</li>
-                    <li>Revise criticamente</li>
-                    <li>Use o histórico</li>
-                </ol>
-                <h4>Exemplos pedagógicos</h4>
-                <ul>
-                    <li>Quiz personalizado sobre conteúdo recente</li>
-                    <li>Roteiro de debate (ex.: ética na internet)</li>
-                    <li>Resumos acessíveis para alunos com dificuldades</li>
-                    <li>Feedback individualizado em tarefas</li>
-                    <li>Atividades adaptadas para inclusão</li>
-                </ul>
-                <div class="media-grid">
-                    <div
-                        class="media-slot"
-                        data-tooltip="Planos de aula no ChatGPT (Parte 4)">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=M0Vbwbh-Sf0"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Como criar planos de aula no ChatGPT (Parte
-                                4)</span
-                            >
-                            <span class="video-meta"
-                                >12:49 • Tutorial focado em planos</span
-                            >
-                        </a>
-                    </div>
-                    <div
-                        class="media-slot"
-                        data-tooltip="Guia longo com prompts educacionais">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=Xo--SD6QiSw"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >ChatGPT para Professores: Guia Completo</span
-                            >
-                            <span class="video-meta"
-                                >Duração longa • Prompts e aplicação
-                                prática</span
-                            >
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="kahoot"
-                class="section"
-                data-title="Kahoot!">
-                <h2>Kahoot! <span class="tag">🎮 Gamificação</span></h2>
-                <h3>Apresentação</h3>
-                <p>
-                    O Kahoot! transforma revisões de conteúdo em jogos
-                    interativos, tornando a avaliação formativa divertida e
-                    engajadora. É amplamente utilizado no mundo todo para
-                    quizzes, competições e rankings em tempo real.
-                </p>
-                <p>
-                    Funciona em computador e celular: cada aluno entra com um
-                    PIN e responde às questões simultaneamente. Professores
-                    criam quizzes do zero ou utilizam a biblioteca com
-                    atividades prontas, o que facilita o planejamento.
-                </p>
-                <p>
-                    Favorece aprendizagem ativa e colaborativa, com foco não
-                    apenas no acerto, mas no trabalho em equipe e protagonismo
-                    estudantil. Relatórios permitem acompanhar progresso e
-                    dificuldades para personalizar intervenções.
-                </p>
-                <div class="cards two">
-                    <div class="card">
-                        <h4>Principais funcionalidades</h4>
-                        <ul>
-                            <li>Criação de quizzes customizados</li>
-                            <li>Banco de jogos prontos por tema/disciplina</li>
-                            <li>Participação em tempo real por PIN</li>
-                            <li>Modo desafio (lição de casa)</li>
-                            <li>Relatórios automatizados</li>
-                            <li>Ranking e pontuação instantânea</li>
-                            <li>Suporte a imagens e vídeos</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h4>Vantagens e limitações</h4>
-                        <div class="badges-row">
-                            <span class="badge success">Engajamento</span>
-                            <span class="badge success">Feedback rápido</span>
-                            <span class="badge success">Fácil uso</span>
-                            <span class="badge warn">Internet estável</span>
-                            <span class="badge warn"
-                                >Recursos free limitados</span
-                            >
-                        </div>
-                        <ul>
-                            <li>
-                                <strong>Vantagens:</strong> gamificação; criação
-                                simples; relatórios em tempo real; suporte
-                                mobile; biblioteca pronta.
-                            </li>
-                            <li>
-                                <strong>Limitações:</strong> versão free
-                                limitada; não ideal para perguntas discursivas;
-                                exige internet estável; experiência ideal com
-                                tela do professor + dispositivos.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <h4>Guia prático</h4>
-                <ol>
-                    <li>Acesse: kahoot.com e cadastre-se</li>
-                    <li>Clique em “Criar” e monte o quiz</li>
-                    <li>Defina tipos de pergunta, alternativas, mídia</li>
-                    <li>Salve e compartilhe o PIN com a turma</li>
-                    <li>Inicie ao vivo e analise relatórios</li>
-                </ol>
-                <h4>Passo a passo rápido</h4>
-                <ol>
-                    <li>“Criar” → “Novo Kahoot”</li>
-                    <li>Escolha mídia e adicione perguntas</li>
-                    <li>Ajuste tempo e pontuação</li>
-                    <li>Compartilhe PIN</li>
-                    <li>Acompanhe ranking</li>
-                </ol>
-                <h4>Exemplos pedagógicos</h4>
-                <ul>
-                    <li>Revisão pré-prova em formato de competição</li>
-                    <li>Diagnóstico inicial de conhecimentos</li>
-                    <li>Quiz temático para engajar</li>
-                    <li>Feedback imediato em aulas expositivas</li>
-                    <li>Grupos para colaboração</li>
-                </ul>
-                <div class="media-grid">
-                    <div
-                        class="media-slot"
-                        data-tooltip="Tutorial completo Kahoot">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=J_oEUnze81M"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Tutorial completo para o professor usar o
-                                Kahoot</span
-                            >
-                            <span class="video-meta"
-                                >12:01 • Uso em aulas presenciais e online</span
-                            >
-                        </a>
-                    </div>
-                    <div
-                        class="media-slot"
-                        data-tooltip="Criação de questões no plano gratuito">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=P9ICPuYSmi0"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Como criar questões no Kahoot (versão
-                                gratuita)</span
-                            >
-                            <span class="video-meta"
-                                >10:24 • Passo a passo detalhado</span
-                            >
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="canva"
-                class="section"
-                data-title="Canva Educação">
-                <h2>Canva Educação <span class="tag">🎨 Design</span></h2>
-                <h3>Apresentação</h3>
-                <p>
-                    O Canva Educação é uma plataforma para criar materiais
-                    visuais e apresentações pedagógicas com milhares de
-                    templates gratuitos e recursos profissionais. Ideal para
-                    dinamizar aulas com materiais atrativos e inclusivos.
-                </p>
-                <p>
-                    Permite cartazes, infográficos, videoaulas, planos de aula e
-                    avaliações personalizadas, com interface de arraste-e-solte.
-                    Mesmo sem experiência prévia em design, é possível criar
-                    arte educacional de qualidade.
-                </p>
-                <p>
-                    Recursos recentes de IA otimizam o fluxo: geração automática
-                    de planos, tradução, checagem de acessibilidade e edição
-                    colaborativa em tempo real — aumentando a produtividade e a
-                    qualidade dos materiais.
-                </p>
-                <div class="cards two">
-                    <div class="card">
-                        <h4>Principais funcionalidades</h4>
-                        <ul>
-                            <li>
-                                Editor drag-and-drop e templates educacionais
-                            </li>
-                            <li>IA para planos, tradução e variações</li>
-                            <li>Criação de vídeos e infográficos</li>
-                            <li>Verificador de acessibilidade</li>
-                            <li>Colaboração em tempo real</li>
-                            <li>Integração com LMS e Classroom</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h4>Vantagens e limitações</h4>
-                        <div class="badges-row">
-                            <span class="badge success"
-                                >Gratuito p/ docentes</span
-                            >
-                            <span class="badge success">Inclusivo</span>
-                            <span class="badge success">Fácil</span>
-                            <span class="badge warn">Internet</span>
-                            <span class="badge warn">Premium restrito</span>
-                        </div>
-                        <ul>
-                            <li>
-                                <strong>Vantagens:</strong> gratuito para
-                                professores; personalização; acessibilidade;
-                                economia de tempo; multi-etapas curriculares.
-                            </li>
-                            <li>
-                                <strong>Limitações:</strong> precisa de
-                                internet; alguns recursos são premium; pequena
-                                curva de aprendizado.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <h4>Guia prático</h4>
-                <ol>
-                    <li>Acesse: canva.com/educacao</li>
-                    <li>Cadastre-se com e-mail institucional/Google</li>
-                    <li>Escolha um template adequado</li>
-                    <li>Personalize, verifique acessibilidade</li>
-                    <li>Exporte (PDF/PNG/MP4) ou compartilhe link</li>
-                </ol>
-                <h4>Passo a passo rápido</h4>
-                <ol>
-                    <li>Selecione o formato (apresentação/infográfico/quiz)</li>
-                    <li>Edite textos e imagens; use IA</li>
-                    <li>Organize elementos visuais</li>
-                    <li>Revise contraste e legibilidade</li>
-                    <li>Compartilhe/baixe/imprima</li>
-                </ol>
-                <h4>Exemplos pedagógicos</h4>
-                <ul>
-                    <li>Materiais multimídia (ciências, história, etc.)</li>
-                    <li>Planos de aula e apresentações ilustradas</li>
-                    <li>Cartazes informativos</li>
-                    <li>Atividades impressas e digitais</li>
-                    <li>Jogos visuais educativos</li>
-                </ul>
-                <div class="media-grid">
-                    <div
-                        class="media-slot"
-                        data-tooltip="Acesso gratuito e visão geral">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=0WI_fFuAggQ"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Canva for Education (curto)</span
-                            >
-                            <span class="video-meta"
-                                >Curto • Acesso e recursos</span
-                            >
-                        </a>
-                    </div>
-                    <div
-                        class="media-slot"
-                        data-tooltip="Criação profissional de atividades">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=Js-SSftUG40"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Tutorial completo para criar atividades
-                                pedagógicas</span
-                            >
-                            <span class="video-meta"
-                                >10:54 • Materiais para imprimir</span
-                            >
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="mentimeter"
-                class="section"
-                data-title="Mentimeter">
-                <h2>Mentimeter <span class="tag">📊 Interatividade</span></h2>
-                <h3>Apresentação</h3>
-                <p>
-                    O Mentimeter transforma apresentações em experiências
-                    interativas com nuvem de palavras, enquetes, quizzes e
-                    perguntas abertas. Excelente para engajar e coletar feedback
-                    instantâneo.
-                </p>
-                <p>
-                    Democratiza a voz dos estudantes, tanto em aulas presenciais
-                    quanto remotas, por código ou QR Code. Útil para sondagens,
-                    construção coletiva e avaliação diagnóstica.
-                </p>
-                <p>
-                    Funciona em tempo real, com visual atraente e
-                    multi-dispositivo. É intuitivo e promove participação
-                    inclusive de alunos tímidos, com opção de respostas
-                    anônimas.
-                </p>
-                <div class="cards two">
-                    <div class="card">
-                        <h4>Principais funcionalidades</h4>
-                        <ul>
-                            <li>Perguntas rápidas e resultados ao vivo</li>
-                            <li>Nuvem de palavras colaborativa</li>
-                            <li>Escalas, abertas e quizzes</li>
-                            <li>Exportação de resultados</li>
-                            <li>Personalização visual</li>
-                            <li>Compatível com qualquer dispositivo</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h4>Vantagens e limitações</h4>
-                        <div class="badges-row">
-                            <span class="badge success">Participação</span>
-                            <span class="badge success">Anonimato</span>
-                            <span class="badge success">Versátil</span>
-                            <span class="badge warn">Free limitado</span>
-                            <span class="badge warn">Internet</span>
-                        </div>
-                        <ul>
-                            <li>
-                                <strong>Vantagens:</strong> interatividade
-                                ampla; acesso simples; relatórios exportáveis;
-                                anonimato encoraja participação.
-                            </li>
-                            <li>
-                                <strong>Limitações:</strong> versão gratuita
-                                limita perguntas/recursos; exige internet
-                                estável; menos recursos visuais avançados no
-                                plano free.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <h4>Guia prático</h4>
-                <ol>
-                    <li>Acesse: mentimeter.com</li>
-                    <li>Crie conta gratuita</li>
-                    <li>“New Presentation” e adicione perguntas</li>
-                    <li>Compartilhe o código/QR</li>
-                    <li>Projete resultados e exporte</li>
-                </ol>
-                <h4>Passo a passo rápido</h4>
-                <ol>
-                    <li>Crie a apresentação e nomeie</li>
-                    <li>Adicione slides e tipos de pergunta</li>
-                    <li>Personalize visual</li>
-                    <li>“Present” e compartilhe o código</li>
-                    <li>Use respostas para revisão e debate</li>
-                </ol>
-                <h4>Exemplos pedagógicos</h4>
-                <ul>
-                    <li>Diagnóstico (ex.: palavras sobre biodiversidade)</li>
-                    <li>Brainstorm para projetos interdisciplinares</li>
-                    <li>Feedback pós-atividade</li>
-                    <li>Revisão por quizzes</li>
-                    <li>Leitura de clima da turma</li>
-                </ul>
-                <div class="media-grid">
-                    <div
-                        class="media-slot"
-                        data-tooltip="Uso educacional do Mentimeter 2024">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=sKJiYttP4Ac"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Tutorial 2024: Mentimeter como ferramenta
-                                educacional</span
-                            >
-                            <span class="video-meta"
-                                >Foco: nuvem de palavras / sondagem</span
-                            >
-                        </a>
-                    </div>
-                    <div
-                        class="media-slot"
-                        data-tooltip="Enquetes e quiz de classificação">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=BZsg6gGjZ_Y"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Enquete e Quiz de Classificação no
-                                Mentimeter</span
-                            >
-                            <span class="video-meta"
-                                >17:55 • Tutorial completo + dicas</span
-                            >
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="nearpod"
-                class="section"
-                data-title="Nearpod">
-                <h2>Nearpod <span class="tag">🥽 VR e 3D</span></h2>
-                <h3>Apresentação</h3>
-                <p>
-                    O Nearpod integra apresentações interativas, avaliações
-                    formativas, simulações 3D, VR e colaboração. Transforma
-                    slides em experiências ativas e imersivas.
-                </p>
-                <p>
-                    Permite importar Google Slides/PowerPoint/PDF e inserir
-                    quiz, jogos, enquetes, desenho e mural colaborativo. Há
-                    biblioteca de VR para “viagens de estudo” e simulações
-                    científicas.
-                </p>
-                <p>
-                    Funciona em modo “Sessão ao Vivo” (síncrono) ou “Ritmo do
-                    Aluno” (assíncrono/híbrido). Relatórios detalhados dão visão
-                    individual do engajamento e da aprendizagem.
-                </p>
-                <div class="cards two">
-                    <div class="card">
-                        <h4>Principais funcionalidades</h4>
-                        <ul>
-                            <li>Lições com quizzes, mural e desenho</li>
-                            <li>Realidade virtual e simulações 3D</li>
-                            <li>Avaliação formativa em tempo real</li>
-                            <li>Sessão ao vivo e ritmo do aluno</li>
-                            <li>Importação de materiais</li>
-                            <li>Relatórios de participação e desempenho</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h4>Vantagens e limitações</h4>
-                        <div class="badges-row">
-                            <span class="badge success">Imersão</span>
-                            <span class="badge success">Personalização</span>
-                            <span class="badge success">Inclusão</span>
-                            <span class="badge warn">Internet</span>
-                            <span class="badge warn"
-                                >Plano pago (avançado)</span
-                            >
-                        </div>
-                        <ul>
-                            <li>
-                                <strong>Vantagens:</strong> engajamento alto;
-                                personalização; recursos inclusivos; muitas
-                                funções gratuitas; biblioteca rica.
-                            </li>
-                            <li>
-                                <strong>Limitações:</strong> depende de
-                                internet; funcionalidades avançadas pagas;
-                                alunos podem precisar de adaptação inicial.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <h4>Guia prático</h4>
-                <ol>
-                    <li>Acesse: nearpod.com e registre-se</li>
-                    <li>Importe slides/PDF ou crie do zero</li>
-                    <li>Insira atividades (quiz, desenho, mural, VR)</li>
-                    <li>Selecione Sessão ao Vivo ou Ritmo do Aluno</li>
-                    <li>Compartilhe código</li>
-                    <li>Analise relatórios</li>
-                </ol>
-                <h4>Passo a passo rápido</h4>
-                <ol>
-                    <li>Crie a lição e adicione interações</li>
-                    <li>Defina distribuição síncrona/assíncrona</li>
-                    <li>Compartilhe o código</li>
-                    <li>Alunos interagem nos dispositivos</li>
-                    <li>Use dados para ajustar a prática</li>
-                </ol>
-                <h4>Exemplos pedagógicos</h4>
-                <ul>
-                    <li>Biodiversidade com quizzes e VR</li>
-                    <li>Visita virtual ao Coliseu</li>
-                    <li>Diagnóstico de novos conteúdos</li>
-                    <li>Desenho colaborativo ao vivo</li>
-                    <li>Atividades adaptativas para inclusão</li>
-                </ul>
-                <div class="media-grid">
-                    <div
-                        class="media-slot"
-                        data-tooltip="Apresentações interativas Nearpod">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=ar74WNQH0J0"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Como tornar as aulas mais dinâmicas com
-                                Nearpod</span
-                            >
-                            <span class="video-meta"
-                                >Apresentações e recursos dinâmicos</span
-                            >
-                        </a>
-                    </div>
-                    <div
-                        class="media-slot"
-                        data-tooltip="Criação de apresentações engajadoras">
-                        <a
-                            class="video-link"
-                            href="https://www.youtube.com/watch?v=D2lma6ph_zk"
-                            target="_blank"
-                            rel="noopener">
-                            <span class="video-thumb">▶</span>
-                            <span class="video-title"
-                                >Aprenda como usar o Nearpod para enriquecer
-                                suas aulas</span
-                            >
-                            <span class="video-meta"
-                                >08:08 • Passos práticos</span
-                            >
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="extras"
-                class="section"
-                data-title="Blocos Extras">
-                <h2>Planejamento, Avaliação e Apoio com IA</h2>
-                <div class="card">
-                    <h3>
-                        Uso das Ferramentas de IA para Planejamento e Avaliação
-                        de Projetos
-                    </h3>
-                    <h4>Potencializando o Trabalho do Docente</h4>
-                    <p>
-                        Ferramentas de IA como o ChatGPT atuam como assistentes
-                        pedagógicos: geram planos de aula detalhados, roteiros,
-                        atividades diferenciadas e materiais acessíveis.
-                        Automatizando etapas repetitivas, liberam tempo para o
-                        professor acompanhar o desenvolvimento crítico, o
-                        engajamento e a criatividade dos estudantes.
-                    </p>
-                    <p>
-                        Relatórios e dashboards (quando disponíveis em
-                        plataformas como Nearpod ou Kahoot!) ajudam a mapear
-                        competências e identificar lacunas rapidamente,
-                        favorecendo intervenções pedagógicas personalizadas e
-                        formativas.
-                    </p>
-                    <h4>IA no Suporte e Avaliação dos Alunos em Projetos</h4>
-                    <p>
-                        Em projetos, estudantes podem usar IA para explorar
-                        temas, gerar hipóteses, estruturar textos e revisar
-                        versões preliminares. Isso amplia autonomia e
-                        autorregulação. Paralelamente, recursos interativos
-                        (Kahoot!, Mentimeter, Nearpod) permitem monitorar
-                        compreensão em tempo real e fornecer feedback imediato.
-                    </p>
-                    <div class="callout info">
-                        <strong>Equilíbrio:</strong> IA é apoio — a mediação
-                        humana continua central para validação, contextualização
-                        e ética.
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>Sugestões de Aplicações Práticas</h3>
-                    <ul>
-                        <li>
-                            <strong>Planejamento dinâmico:</strong> gerar planos
-                            multi-nível com diferenciação e inclusão.
-                        </li>
-                        <li>
-                            <strong>Desenvolvimento autônomo:</strong> orientar
-                            alunos a usar IA para brainstorm, estruturação e
-                            revisão crítica.
-                        </li>
-                        <li>
-                            <strong>Avaliação formativa contínua:</strong>
-                            quizzes e enquetes (Kahoot!/Mentimeter) para ajustar
-                            percurso.
-                        </li>
-                        <li>
-                            <strong>Inclusão:</strong> verificar acessibilidade
-                            (Canva, recursos de leitura/VR do Nearpod) e adaptar
-                            linguagens.
-                        </li>
-                        <li>
-                            <strong>Reflexão ética:</strong> promover debate
-                            sobre autoria, honestidade acadêmica e uso
-                            responsável.
-                        </li>
-                    </ul>
-                </div>
-                <div class="cards two">
-                    <div class="card">
-                        <h3>Rubrica Sintética (Apresentações & Projetos)</h3>
-                        <ul>
-                            <li>
-                                <strong>Domínio do conteúdo</strong> –
-                                profundidade e precisão.
-                            </li>
-                            <li>
-                                <strong>Clareza e organização</strong> – lógica,
-                                sequência, coesão.
-                            </li>
-                            <li>
-                                <strong
-                                    >Recursos visuais & acessibilidade</strong
-                                >
-                                – legibilidade, contraste, alt text.
-                            </li>
-                            <li>
-                                <strong>Participação e tempo</strong> –
-                                colaboração e gestão do tempo.
-                            </li>
-                            <li>
-                                <strong>Reflexão crítica</strong> – análise,
-                                argumentação, propostas.
-                            </li>
-                        </ul>
-                        <p class="muted">
-                            Sugestão: disponibilize a rubrica antes e incentive
-                            auto e coavaliação.
-                        </p>
-                    </div>
-                    <div class="card">
-                        <h3>Checklist Essencial de Acessibilidade</h3>
-                        <ul>
-                            <li>Contraste adequado (WCAG AA).</li>
-                            <li>Fonte ≥ 12pt e espaçamento confortável.</li>
-                            <li>Alt text em todas as imagens.</li>
-                            <li>Navegação por teclado sempre que possível.</li>
-                            <li>Linguagem clara e inclusiva.</li>
-                        </ul>
-                        <p class="muted">
-                            Revise materiais com verificadores (Canva,
-                            PowerPoint, Google Slides).
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>Biblioteca Multimídia de Apoio</h3>
-                    <ul>
-                        <li>
-                            ChatGPT: do zero ao sucesso (planejamento e
-                            prompts).
-                        </li>
-                        <li>Kahoot!: revisão gamificada e engajamento.</li>
-                        <li>Canva Educação: criação visual acessível.</li>
-                        <li>Mentimeter: sondagem e participação ao vivo.</li>
-                        <li>
-                            Nearpod: interatividade, VR e avaliação integrada.
-                        </li>
-                    </ul>
-                    <p class="muted">
-                        Sugestão: mantenha planilha compartilhada com links e
-                        anotações pedagógicas.
-                    </p>
-                </div>
-                <div class="card">
-                    <h3>Como Integrar no Fluxo da Aula</h3>
-                    <ol>
-                        <li>
-                            <strong>Planeje</strong> com apoio da IA
-                            (estruturas, diferenciação, recursos).
-                        </li>
-                        <li>
-                            <strong>Crie</strong> materiais acessíveis e
-                            multimodais (Canva / Nearpod).
-                        </li>
-                        <li>
-                            <strong>Implemente</strong> interações e checagens
-                            rápidas (Mentimeter / Kahoot!).
-                        </li>
-                        <li>
-                            <strong>Monitore</strong> desempenho e engajamento
-                            (relatórios / observação).
-                        </li>
-                        <li>
-                            <strong>Realimente</strong> com rubrica + feedback
-                            formativo adaptado.
-                        </li>
-                        <li>
-                            <strong>Reflexão final</strong> com breve debate
-                            ético sobre uso da IA.
-                        </li>
-                    </ol>
-                    <p>
-                        Adapte cada instrumento à maturidade digital da turma e
-                        aos recursos disponíveis na escola.
-                    </p>
-                </div>
-            </section>
-            <section
-                id="exercicios"
-                class="section"
-                data-title="Exercícios">
-                <h2>Exercícios e Desafios</h2>
-                <div class="cards three">
-                    <div class="card">
-                        <h3>Quiz: ChatGPT</h3>
-                        <p>
-                            Qual é a melhor estratégia para obter respostas
-                            específicas?
-                        </p>
-                        <div
-                            class="quiz-options"
-                            data-quiz="q1">
-                            <button class="option">Perguntas genéricas</button>
-                            <button
-                                class="option"
-                                data-correct="true">
-                                Prompts claros e específicos
-                            </button>
-                            <button class="option">Textos longos</button>
-                            <button class="option">
-                                Apenas palavras-chave
-                            </button>
-                        </div>
-                        <div
-                            class="quiz-feedback"
-                            id="q1-feedback"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Desafios (Bronze → Ouro)</h3>
-                        <ul>
-                            <li>
-                                Bronze: crie um plano de aula de 45 min
-                                (ChatGPT)
-                            </li>
-                            <li>
-                                Prata: gere 10 questões e transforme em Kahoot
-                            </li>
-                            <li>Ouro: aula Nearpod com 3 interações + 1 VR</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3>Checklist de Implementação</h3>
-                        <ul
-                            class="checklist"
-                            id="checklist">
-                            <li>
-                                <label
-                                    ><input type="checkbox" /> Diagnóstico de
-                                    infraestrutura</label
-                                >
-                            </li>
-                            <li>
-                                <label
-                                    ><input type="checkbox" /> Perfil digital
-                                    dos alunos</label
-                                >
-                            </li>
-                            <li>
-                                <label
-                                    ><input type="checkbox" /> Seleção de 2–3
-                                    ferramentas</label
-                                >
-                            </li>
-                            <li>
-                                <label
-                                    ><input type="checkbox" /> Testes
-                                    piloto</label
-                                >
-                            </li>
-                            <li>
-                                <label
-                                    ><input type="checkbox" /> Tutoriais
-                                    simples</label
-                                >
-                            </li>
-                            <li>
-                                <label
-                                    ><input type="checkbox" /> Planos
-                                    alternativos (offline)</label
-                                >
-                            </li>
-                        </ul>
-                        <button
-                            class="btn small"
-                            id="clearChecklist">
-                            Limpar progresso
-                        </button>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="quiz-pratico"
-                class="section"
-                data-title="Quiz Prático">
-                <h2>Quiz: Avalie seu Conhecimento Prático do Guia</h2>
-                <div class="card">
-                    <h3>
-                        1. Onde você acessa o ChatGPT para começar a criar
-                        planos de aula?
-                    </h3>
-                    <div
-                        class="quiz-options"
-                        data-quiz="p1">
-                        <button class="option">google.com</button>
-                        <button
-                            class="option"
-                            data-correct="true">
-                            chat.openai.com
-                        </button>
-                        <button class="option">openai.org</button>
-                        <button class="option">classroom.openai.com</button>
-                    </div>
-                    <div
-                        class="quiz-feedback"
-                        id="p1-feedback"></div>
-                </div>
-                <div class="card">
-                    <h3>
-                        2. Qual destes passos é correto para usar ferramentas de
-                        IA no ambiente educacional?
-                    </h3>
-                    <div
-                        class="quiz-options"
-                        data-quiz="p2">
-                        <button class="option">
-                            Solicitar assistência técnica sempre
-                        </button>
-                        <button
-                            class="option"
-                            data-correct="true">
-                            Criar conta, fazer prompt, ajustar respostas,
-                            revisar
-                        </button>
-                        <button class="option">
-                            Copiar todo conteúdo sem revisão
-                        </button>
-                        <button class="option">
-                            Deixar os alunos usarem livremente
-                        </button>
-                    </div>
-                    <div
-                        class="quiz-feedback"
-                        id="p2-feedback"></div>
-                </div>
-                <div class="card">
-                    <h3>
-                        3. O que é fundamental fazer após receber uma resposta
-                        do ChatGPT?
-                    </h3>
-                    <div
-                        class="quiz-options"
-                        data-quiz="p3">
-                        <button class="option">Publicar imediatamente</button>
-                        <button
-                            class="option"
-                            data-correct="true">
-                            Revisar e adaptar conforme o contexto
-                        </button>
-                        <button class="option">
-                            Ignorar e pedir nova resposta
-                        </button>
-                        <button class="option">Tradução automática</button>
-                    </div>
-                    <div
-                        class="quiz-feedback"
-                        id="p3-feedback"></div>
-                </div>
-                <div class="card">
-                    <h3>
-                        4. A criação de quizzes no Kahoot! exige que cada aluno
-                        tenha o quê?
-                    </h3>
-                    <div
-                        class="quiz-options"
-                        data-quiz="p4">
-                        <button
-                            class="option"
-                            data-correct="true">
-                            Dispositivo com internet para inserir o código PIN
-                        </button>
-                        <button class="option">Modelo impresso do quiz</button>
-                        <button class="option">Conta gratuita no Kahoot</button>
-                        <button class="option">
-                            Programa instalado no celular
-                        </button>
-                    </div>
-                    <div
-                        class="quiz-feedback"
-                        id="p4-feedback"></div>
-                </div>
-                <div class="card">
-                    <h3>
-                        5. Ao criar materiais no Canva Educação, qual é um passo
-                        importante para garantir acessibilidade?
-                    </h3>
-                    <div
-                        class="quiz-options"
-                        data-quiz="p5">
-                        <button class="option">
-                            Usar fontes pequenas e cores claras
-                        </button>
-                        <button
-                            class="option"
-                            data-correct="true">
-                            Usar o verificador de acessibilidade para contraste
-                            e legibilidade
-                        </button>
-                        <button class="option">
-                            Adicionar muitas imagens coloridas
-                        </button>
-                        <button class="option">
-                            Usar sempre fontes cursivas
-                        </button>
-                    </div>
-                    <div
-                        class="quiz-feedback"
-                        id="p5-feedback"></div>
-                </div>
-                <div
-                    id="quizPraticoScore"
-                    class="quiz-score-summary"
-                    hidden>
-                    <div class="score-line">
-                        <strong>Pontuação:</strong>
-                        <span id="quizPraticoAcertos">0</span>/<span
-                            id="quizPraticoTotal"
-                            >5</span
-                        >
-                        (<span id="quizPraticoPercent">0%</span>)
-                    </div>
-                    <div class="score-bar-wrapper">
-                        <div class="score-bar-track">
-                            <div
-                                class="score-bar-fill"
-                                id="quizPraticoFill"></div>
-                        </div>
-                    </div>
-                    <div class="score-actions">
-                        <button
-                            id="resetQuizPratico"
-                            class="btn small"
-                            type="button">
-                            Refazer Quiz
-                        </button>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="implementacao"
-                class="section"
-                data-title="Implementação">
-                <h2>Linha do Tempo (12 Semanas)</h2>
-                <div class="timeline">
-                    <div class="time-block">
-                        <h4>Semanas 1–2</h4>
-                        <ul>
-                            <li>Infraestrutura e perfil</li>
-                            <li>Escolha de ferramentas</li>
-                            <li>Configuração</li>
-                        </ul>
-                    </div>
-                    <div class="time-block">
-                        <h4>Semanas 3–4</h4>
-                        <ul>
-                            <li>Testes piloto</li>
-                            <li>Tutoriais e planos B</li>
-                            <li>Feedback inicial</li>
-                        </ul>
-                    </div>
-                    <div class="time-block">
-                        <h4>Semanas 5–8</h4>
-                        <ul>
-                            <li>Implementação gradual</li>
-                            <li>Ajustes contínuos</li>
-                            <li>Documentação</li>
-                        </ul>
-                    </div>
-                    <div class="time-block">
-                        <h4>Semanas 9–12</h4>
-                        <ul>
-                            <li>Integração de ferramentas</li>
-                            <li>Monitores</li>
-                            <li>Planejamento futuro</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="etica"
-                class="section"
-                data-title="Ética e LGPD">
-                <h2>Ética, LGPD e Uso Responsável</h2>
-                <div class="cards two">
-                    <div class="card">
-                        <h3>Princípios</h3>
-                        <ul>
-                            <li>Transparência</li>
-                            <li>Proteção de dados</li>
-                            <li>Revisão e verificação</li>
-                            <li>Equilíbrio pedagógico</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3>Boas práticas</h3>
-                        <ul>
-                            <li>Evite dados sensíveis</li>
-                            <li>Use plataformas confiáveis</li>
-                            <li>Cite uso de IA</li>
-                            <li>Promova pensamento crítico</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            <section
-                id="recursos"
-                class="section"
-                data-title="Recursos">
-                <h2>Recursos e Comunidades</h2>
-                <ul>
-                    <li>IA para Educadores (MEC/UFRN)</li>
-                    <li>Google for Education e Microsoft Educator</li>
-                    <li>Professores Inovadores, Educadores Digitais</li>
-                    <li>Porvir, CIEB, Nova Escola Tecnologia</li>
-                </ul>
-            </section>
-            <section
-                id="conclusao"
-                class="section"
-                data-title="Conclusão">
-                <h2>Conclusão</h2>
-                <p>
-                    Comece pequeno, avance consistentemente e documente
-                    aprendizagens. IA amplia a capacidade docente quando
-                    alinhada a objetivos pedagógicos claros.
-                </p>
-                <div class="callout success">
-                    <strong>Plano imediato:</strong> escolha 1 ferramenta,
-                    explore por 1 hora e aplique em 1 aula na próxima semana.
-                </div>
-            </section>
-            <nav class="chapter-nav">
-                <button
-                    class="chapter-button"
-                    id="prevChapter"
-                    type="button">
-                    <span aria-hidden="true">←</span>
-                    <span>Capítulo anterior</span>
-                </button>
-                <div class="chapter-indicator">
-                    <span class="chapter-indicator-label"
-                        >Progresso da leitura</span
-                    >
-                    <div class="chapter-indicator-bar">
-                        <div class="chapter-indicator-track">
-                            <div
-                                class="chapter-indicator-fill"
-                                id="chapterNavProgress"></div>
-                        </div>
-                    </div>
-                </div>
-                <button
-                    class="chapter-button"
-                    id="nextChapter"
-                    type="button">
-                    <span>Próximo capítulo</span>
-                    <span aria-hidden="true">→</span>
-                </button>
-            </nav>
-        </main>
-        <div
-            id="modal"
-            class="modal"
-            aria-hidden="true">
-            <div class="modal-content">
-                <button
-                    class="modal-close"
-                    id="modalClose"
-                    aria-label="Fechar">
-                    ×
-                </button>
-                <div id="modalBody"></div>
-            </div>
+        <p class="caderno__hint" id="caderno-mod0-hint">Qual é a sua expectativa com esta trilha? O que você já usa (ou evita) de IA hoje?</p>
+        <textarea id="caderno-mod0" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod0-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure refs">
+      <div class="label label--muted">Referências deste módulo</div>
+      <ol class="refs__list">
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. Paris: UNESCO, 2024.</li>
+        <li>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada. 2019.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em> — Competência Geral 5. Brasília: MEC, 2018.</li>
+      </ol>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-0" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-1">Engenharia de Prompts <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 1 -->
+  <section id="modulo-1" class="sec sec--alt" data-spy="modulo-1" aria-label="Módulo 1 — Engenharia de Prompts">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 01</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">Engenharia de Prompts</h2>
+      <p class="lede">O prompt é o novo caderno de planejamento. Aprender a escrevê-lo bem é o que separa uma IA que atrapalha de uma que economiza sua semana.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m1-oquee" tabindex="-1" aria-hidden="true">01</a> <a href="#m1-oquee">O que é e por que importa</a></li>
+          <li><a class="toc__num" href="#m1-anatomia" tabindex="-1" aria-hidden="true">02</a> <a href="#m1-anatomia">Anatomia de um bom prompt</a></li>
+          <li><a class="toc__num" href="#m1-padroes" tabindex="-1" aria-hidden="true">03</a> <a href="#m1-padroes">Padrões de prompt para tarefas pedagógicas</a></li>
+          <li><a class="toc__num" href="#m1-exercicio" tabindex="-1" aria-hidden="true">04</a> <a href="#m1-exercicio">Exercício prático de construção</a></li>
+          <li><a class="toc__num" href="#m1-critica" tabindex="-1" aria-hidden="true">05</a> <a href="#m1-critica">Avaliação crítica de respostas</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~45 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulo 0</strong></span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Exercício + caderno</span>
         </div>
-        <script src="app.js"></script>
-        <footer class="ebook-footer">
-            <p>
-                <strong>Créditos:</strong> Conteúdo e organização por
-                <a
-                    href="https://github.com/Adryan-Cosmo"
-                    target="_blank"
-                    rel="noopener"
-                    class="author-link"
-                    ><span class="author-name">Adryan Cavalcante Cosmo</span></a
-                >. Versão <span data-ebook-version>1.0.0</span>.
-            </p>
-            <p>
-                Licenciado sob <strong>Creative Commons CC BY 4.0</strong>: você
-                pode compartilhar e adaptar para qualquer fim (inclusive
-                comercial), desde que atribua o crédito apropriado. Perfil:
-                <a
-                    href="https://github.com/Adryan-Cosmo"
-                    target="_blank"
-                    rel="noopener"
-                    class="author-link"
-                    >GitHub</a
-                >.
-            </p>
-            <div class="citation-box">
-                <div class="citation-label">Citação sugerida:</div>
-                <code id="citationText"
-                    >COSMO, Adryan Cavalcante. Ebook Ferramentas de IA na
-                    Educação (v1.0.0). Acesso em: ${new
-                    Date().getFullYear()}.</code
-                >
-                <button
-                    type="button"
-                    class="copy-citation-btn"
-                    id="copyCitationFooter">
-                    Copiar citação
-                </button>
-            </div>
-            <p class="license-note">
-                Texto da licença:
-                <a
-                    href="https://creativecommons.org/licenses/by/4.0/deed.pt"
-                    target="_blank"
-                    rel="noopener"
-                    >https://creativecommons.org/licenses/by/4.0/</a
-                >
-            </p>
-        </footer>
-    </body>
+      </div>
+    </div>
+
+    <div id="m1-oquee" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title">O que é e por que importa</h3>
+      <p class="read">Um modelo de linguagem responde ao que recebe. <strong class="hl"><a class="gloss" href="#termo-engenharia-de-prompt" title="Ver no glossário">Engenharia de prompts</a></strong> é a prática de escrever instruções que levam a IA a produzir algo realmente útil para a sua aula — em vez de um texto genérico que você teria de reescrever inteiro.</p>
+      <p class="read">Para o professor, isso não é detalhe técnico: é a competência que transforma a IA de curiosidade em ferramenta de planejamento, avaliação e diferenciação. É também onde se exerce o julgamento pedagógico — decidir o que pedir, com que intenção e para quais alunos.</p>
+      <aside class="note"><strong>Nota — TPACK.</strong> Escrever um bom prompt combina conhecimento do conteúdo, da pedagogia e da tecnologia. É o encontro dos três que Mishra e Koehler (2006) chamam de conhecimento tecnológico-pedagógico-do-conteúdo.</aside>
+    </div>
+
+    <div id="m1-anatomia" class="sub">
+      <span class="sub__num">02</span>
+      <h3 class="sub__title">Anatomia de um bom prompt</h3>
+      <p class="read">Um prompt eficaz costuma ter quatro partes. Passe o olho pelo exemplo abaixo — cada trecho marcado corresponde a um elemento:</p>
+
+      <div class="anatomy">
+        <span class="anatomy__part c1">Você é um professor de Ciências do 7.º ano.</span><sup class="anatomy__sup c1">1</sup>
+        <span class="anatomy__part c2">Sua turma tem 30 alunos, alguns com dificuldade de leitura.</span><sup class="anatomy__sup c2">2</sup>
+        <span class="anatomy__part c3">Crie 5 questões de múltipla escolha sobre o ciclo da água</span><sup class="anatomy__sup c3">3</sup>
+        <span class="anatomy__part c4">com 4 alternativas cada, gabarito ao final e linguagem simples.</span><sup class="anatomy__sup c4">4</sup>
+      </div>
+      <div class="anatomy-key">
+        <div class="anatomy-key__cell c1"><span class="anatomy-key__label">1 · PAPEL</span><p>Quem a IA deve ser. Define tom e nível.</p></div>
+        <div class="anatomy-key__cell c2"><span class="anatomy-key__label">2 · CONTEXTO</span><p>Sua turma, restrições, realidade da escola.</p></div>
+        <div class="anatomy-key__cell c3"><span class="anatomy-key__label">3 · TAREFA</span><p>O que fazer, de forma específica e mensurável.</p></div>
+        <div class="anatomy-key__cell c4"><span class="anatomy-key__label">4 · FORMATO</span><p>Como entregar: estrutura, tamanho, restrições.</p></div>
+      </div>
+    </div>
+
+    <div id="m1-padroes" class="sub">
+      <span class="sub__num">03</span>
+      <h3 class="sub__title">Padrões de prompt para tarefas pedagógicas</h3>
+      <p class="read read--gap">Quatro padrões cobrem a maior parte do trabalho docente. Adapte os trechos em destaque ao seu contexto.</p>
+
+      <div class="stack">
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Planejar uma aula</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Aja como professor de <span class="slot">[disciplina/ano]</span>. Planeje uma aula de 50 min sobre <span class="slot">[tema]</span> com objetivo, aquecimento, atividade principal e fechamento, alinhada à BNCC.</p>
+        </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Criar uma avaliação</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Crie <span class="slot">[n]</span> questões sobre <span class="slot">[tema]</span> em níveis crescentes de dificuldade, com gabarito comentado e uma rubrica de correção.</p>
+        </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Dar feedback</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Escreva um feedback construtivo para este texto de aluno, em tom encorajador, apontando 2 pontos fortes e 2 a melhorar: <span class="slot">[colar texto]</span>.</p>
+        </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Adaptar conteúdo</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Reescreva este texto para <span class="slot">[nível/necessidade]</span>, mantendo os conceitos essenciais e reduzindo a complexidade da linguagem.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="m1-exercicio" class="sub">
+      <span class="sub__num">04</span>
+      <h3 class="sub__title">Exercício prático de construção</h3>
+      <p class="read">Escreva um prompt para uma tarefa da <em>sua</em> próxima aula. Use as quatro partes: papel, contexto, tarefa e formato. Seu texto fica salvo automaticamente neste dispositivo.</p>
+      <div class="exercise">
+        <div class="field-head field-head--roomy">
+          <label class="exercise__label" for="ex-mod1">Meu prompt</label>
+          <span class="count" data-count-for="ex-mod1">0 palavras</span>
+        </div>
+        <textarea id="ex-mod1" class="exercise__field" data-notebook rows="6" placeholder="Aja como... Minha turma... Crie... no formato..."></textarea>
+      </div>
+    </div>
+
+    <div id="m1-critica" class="sub">
+      <span class="sub__num">05</span>
+      <h3 class="sub__title">Avaliação crítica de respostas</h3>
+      <p class="read">A IA erra com confiança. A resposta abaixo parece boa — mas contém <strong>três problemas</strong>: um dado inventado, uma afirmação enviesada e uma informação desatualizada. Os três trechos sublinhados são clicáveis: toque nos que você desconfia (toque de novo para desmarcar).</p>
+
+      <div class="flagbox">
+        Segundo os dados,
+        <button type="button" class="flag" data-print-keep data-print-text data-k="p1" aria-pressed="false">87% das escolas brasileiras já usam IA em sala</button>,
+        o que mostra que
+        <button type="button" class="flag" data-print-keep data-print-text data-k="p2" aria-pressed="false">professores que não adotam essas ferramentas ficam para trás</button>.
+        Ferramentas como o ChatGPT
+        <button type="button" class="flag" data-print-keep data-print-text data-k="p3" aria-pressed="false">têm conhecimento atualizado até 2021</button>
+        e por isso são fontes confiáveis para qualquer conteúdo.
+      </div>
+
+      <div class="flag-notes">
+        <p class="flag-note" data-flag-note="p1" hidden><strong>Alucinação —</strong> a estatística "87%" não tem fonte. A IA fabrica números plausíveis. Sempre exija a fonte.</p>
+        <p class="flag-note" data-flag-note="p2" hidden><strong><a class="gloss" href="#termo-vies" title="Ver no glossário">Viés</a> —</strong> generalização de valor ("ficam para trás") apresentada como fato. Cuidado com julgamentos embutidos.</p>
+        <p class="flag-note" data-flag-note="p3" hidden><strong>Desatualização —</strong> modelos têm <a class="gloss" href="#termo-data-de-corte" title="Ver no glossário">data de corte</a> e não "sabem" o presente. Verifique informações sensíveis ao tempo.</p>
+        <p class="flag-msg" id="found-msg" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod1"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 1</label>
+          <span class="count" data-count-for="caderno-mod1">0 palavras</span>
+        </div>
+        <p class="caderno__hint" id="caderno-mod1-hint">O que deste módulo você vai aplicar na próxima semana? Anote aqui — fica salvo e poderá ser exportado em PDF.</p>
+        <textarea id="caderno-mod1" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod1-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure refs">
+      <div class="label label--muted">Referências deste módulo</div>
+      <ol class="refs__list">
+        <li>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge: a framework for teacher knowledge. <em>Teachers College Record</em>, 2006.</li>
+        <li>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada. 2019.</li>
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em> — Competência Geral 5. MEC, 2018.</li>
+      </ol>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-1" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-0"><span aria-hidden="true">←</span> Fundamentos</a><a class="pill" href="#modulo-2">Ferramentas de IA <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 2 -->
+  <section id="modulo-2" class="sec" data-spy="modulo-2" aria-label="Módulo 2 — Ferramentas de IA">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 02</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">Ferramentas de IA Generativa</h2>
+      <p class="lede">Quatro assistentes cobrem quase todo o trabalho docente. Não se trata de decorar botões, mas de saber qual ferramenta serve a cada intenção pedagógica.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m2-ecossistema" tabindex="-1" aria-hidden="true">01</a> <a href="#m2-ecossistema">O ecossistema em um olhar</a></li>
+          <li><a class="toc__num" href="#m2-quatro" tabindex="-1" aria-hidden="true">02</a> <a href="#m2-quatro">As quatro ferramentas</a></li>
+          <li><a class="toc__num" href="#m2-qual" tabindex="-1" aria-hidden="true">03</a> <a href="#m2-qual">Qual usar para cada tarefa</a></li>
+          <li><a class="toc__num" href="#m2-conta" tabindex="-1" aria-hidden="true">04</a> <a href="#m2-conta">Conta, versões e privacidade</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~40 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulo 1</strong></span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m2-ecossistema" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title">O ecossistema em um olhar</h3>
+      <p class="read">Todas as ferramentas deste módulo compartilham a mesma base — um <strong>modelo de linguagem</strong> que você conduz por prompts (Módulo 1). O que muda é o recorte: uma prioriza conversa, outra citações verificáveis, outra a execução de tarefas de ponta a ponta.</p>
+      <p class="read">A boa notícia para o professor: dominar bem <em>uma</em> já resolve a maior parte do trabalho. Este módulo ajuda a escolher por onde começar, sem a ansiedade de ter de aprender todas.</p>
+    </div>
+
+    <div id="m2-quatro" class="sub sub--wide">
+      <div class="measure">
+        <span class="sub__num">02</span>
+        <h3 class="sub__title sub__title--grid">As quatro ferramentas</h3>
+      </div>
+      <div class="tools">
+        <div class="tool c1">
+          <div class="tool__head"><span class="tool__name">ChatGPT</span><span class="tool__tag">OpenAI</span></div>
+          <p class="tool__desc">O assistente mais versátil e difundido. Ótimo ponto de partida para planejar, redigir e adaptar materiais.</p>
+          <div class="tool__meta"><strong>Forte em:</strong> conversa geral, brainstorming, redação.<br><strong>Atenção:</strong> pode inventar dados; peça sempre a fonte.</div>
+        </div>
+        <div class="tool c2">
+          <div class="tool__head"><span class="tool__name">Claude</span><span class="tool__tag">Anthropic</span></div>
+          <p class="tool__desc">Bom com textos longos e documentos. Costuma escrever com nuance e explicar o raciocínio pedagógico.</p>
+          <div class="tool__meta"><strong>Forte em:</strong> analisar textos longos, feedback, tom cuidadoso.<br><strong>Atenção:</strong> confirme datas e fatos recentes.</div>
+        </div>
+        <div class="tool c4">
+          <div class="tool__head"><span class="tool__name">Perplexity</span><span class="tool__tag">Busca + IA</span></div>
+          <p class="tool__desc">Responde citando as fontes na tela. Indicado quando você precisa de informação verificável e atualizada.</p>
+          <div class="tool__meta"><strong>Forte em:</strong> pesquisa com referências, checagem, atualidade.<br><strong>Atenção:</strong> ainda assim, leia as fontes citadas.</div>
+        </div>
+        <div class="tool c3">
+          <div class="tool__head"><span class="tool__name">Manus</span><span class="tool__tag"><a class="gloss" href="#termo-agente" title="Ver no glossário">Agente</a></span></div>
+          <p class="tool__desc">Executa tarefas de várias etapas com autonomia — pesquisar, organizar e montar um material do começo ao fim.</p>
+          <div class="tool__meta"><strong>Forte em:</strong> tarefas compostas, produção de artefatos prontos.<br><strong>Atenção:</strong> revise cada etapa; a autonomia exige supervisão.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m2-qual" class="sub">
+      <span class="sub__num">03</span>
+      <h3 class="sub__title sub__title--grid">Qual usar para cada tarefa</h3>
+      <table class="pick">
+        <thead><tr><th scope="col">Se você quer…</th><th scope="col">Comece por</th></tr></thead>
+        <tbody>
+          <tr><td>Planejar aulas e criar atividades do zero</td><td class="pick__tool c1">ChatGPT</td></tr>
+          <tr><td>Dar feedback e analisar textos longos de alunos</td><td class="pick__tool c2">Claude</td></tr>
+          <tr><td>Pesquisar com fontes confiáveis e atuais</td><td class="pick__tool c4">Perplexity</td></tr>
+          <tr><td>Montar um material completo em várias etapas</td><td class="pick__tool c3">Manus</td></tr>
+        </tbody>
+      </table>
+      <p class="after">Regra prática: <strong>domine uma primeiro</strong>. Só migre quando a tarefa pedir algo que ela não faz bem.</p>
+    </div>
+
+    <div id="m2-conta" class="sub">
+      <span class="sub__num">04</span>
+      <h3 class="sub__title">Conta, versões e privacidade</h3>
+      <p class="read">Todas oferecem uma versão gratuita suficiente para começar. As versões pagas ampliam limites e liberam modelos mais capazes — útil, mas não indispensável para a formação.</p>
+      <aside class="note"><strong>Antes de digitar.</strong> Nunca insira nome, nota ou qualquer dado que identifique um aluno. Como fazer isso corretamente é o tema do <a href="#modulo-5">Módulo 5 — Ética e LGPD</a>.</aside>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod2"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 2</label>
+          <span class="count" data-count-for="caderno-mod2">0 palavras</span>
+        </div>
+        <p class="caderno__hint" id="caderno-mod2-hint">Qual ferramenta você vai adotar primeiro e para qual tarefa da sua rotina?</p>
+        <textarea id="caderno-mod2" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod2-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure refs">
+      <div class="label label--muted">Referências deste módulo</div>
+      <ol class="refs__list">
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+        <li>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge. <em>Teachers College Record</em>, 2006.</li>
+      </ol>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-2" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-1"><span aria-hidden="true">←</span> Prompts</a><a class="pill" href="#modulo-3">Complementares <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 3 -->
+  <section id="modulo-3" class="sec sec--alt" data-spy="modulo-3" aria-label="Módulo 3 — Ferramentas complementares">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 03</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">Ferramentas Complementares</h2>
+      <p class="lede">Depois do texto vem o material: slide, quiz, imagem, síntese de estudo. Quatro ferramentas transformam o que a IA escreveu em algo pronto para a turma.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m3-porque" tabindex="-1" aria-hidden="true">01</a> <a href="#m3-porque">Do texto ao material de aula</a></li>
+          <li><a class="toc__num" href="#m3-quatro" tabindex="-1" aria-hidden="true">02</a> <a href="#m3-quatro">Canva, Kahoot!, Gamma e NotebookLM</a></li>
+          <li><a class="toc__num" href="#m3-fluxo" tabindex="-1" aria-hidden="true">03</a> <a href="#m3-fluxo">Um fluxo encadeado</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~35 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulo 2</strong></span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m3-porque" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title">Do texto ao material de aula</h3>
+      <p class="read">As ferramentas do módulo anterior geram <em>texto</em>. As deste módulo geram <strong>forma</strong>: um slide bem diagramado, um quiz gamificado, uma imagem, um resumo em áudio. Elas fecham a distância entre "a IA escreveu" e "levei para a sala".</p>
+      <p class="read">O ganho está em <strong>encadeá-las</strong>: o plano nasce no ChatGPT, vira apresentação no Gamma, ganha um quiz no Kahoot! e uma imagem no Canva. Você orquestra; a IA executa as partes repetitivas.</p>
+    </div>
+
+    <div id="m3-quatro" class="sub sub--wide">
+      <div class="measure">
+        <span class="sub__num">02</span>
+        <h3 class="sub__title sub__title--grid">As quatro ferramentas</h3>
+      </div>
+      <div class="tools">
+        <div class="tool c1">
+          <div class="tool__head"><span class="tool__name">Canva Educação</span><span class="tool__tag">Design</span></div>
+          <p class="tool__desc">Cartazes, slides, atividades e imagens com modelos prontos. A conta de professor é gratuita e traz recursos de IA integrados.</p>
+          <div class="tool__meta"><strong>Use para:</strong> material visual, folhas de atividade, imagens.</div>
+        </div>
+        <div class="tool c2">
+          <div class="tool__head"><span class="tool__name">Kahoot!</span><span class="tool__tag">Gamificação</span></div>
+          <p class="tool__desc">Quizzes ao vivo que engajam a turma. Você pode gerar as perguntas com IA e colá-las aqui em minutos.</p>
+          <div class="tool__meta"><strong>Use para:</strong> revisão, sondagem, avaliação formativa lúdica.</div>
+        </div>
+        <div class="tool c4">
+          <div class="tool__head"><span class="tool__name">Gamma</span><span class="tool__tag">Apresentações</span></div>
+          <p class="tool__desc">Transforma um tema ou um texto em uma apresentação diagramada automaticamente — economiza a montagem manual de slides.</p>
+          <div class="tool__meta"><strong>Use para:</strong> slides de aula a partir de um plano pronto.</div>
+        </div>
+        <div class="tool c3">
+          <div class="tool__head"><span class="tool__name">NotebookLM</span><span class="tool__tag">Estudo</span></div>
+          <p class="tool__desc">Você envia seus documentos e ele responde <em>com base neles</em> — resumos, perguntas e até um áudio no estilo podcast. Reduz <a class="gloss" href="#termo-alucinacao" title="Ver no glossário">alucinação</a> por partir das suas fontes.</p>
+          <div class="tool__meta"><strong>Use para:</strong> estudar material próprio, gerar sínteses e roteiros.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m3-fluxo" class="sub">
+      <span class="sub__num">03</span>
+      <h3 class="sub__title sub__title--grid">Um fluxo encadeado</h3>
+      <p class="read read--gap-sm">Veja como uma única aula pode nascer do encadeamento das ferramentas:</p>
+      <ol class="steps">
+        <li><span class="steps__num">1</span><span class="steps__text"><strong>ChatGPT</strong> — gera o plano de aula e os objetivos.</span></li>
+        <li><span class="steps__num">2</span><span class="steps__text"><strong>Gamma</strong> — transforma o plano em uma apresentação.</span></li>
+        <li><span class="steps__num">3</span><span class="steps__text"><strong>Canva</strong> — cria a folha de atividade e uma imagem de apoio.</span></li>
+        <li><span class="steps__num">4</span><span class="steps__text"><strong>Kahoot!</strong> — fecha a aula com um quiz de revisão.</span></li>
+      </ol>
+      <aside class="note note--end"><strong>O professor no comando.</strong> A cada etapa você revisa, ajusta e decide. As ferramentas aceleram a produção; a intenção pedagógica continua sua.</aside>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod3"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 3</label>
+          <span class="count" data-count-for="caderno-mod3">0 palavras</span>
+        </div>
+        <p class="caderno__hint" id="caderno-mod3-hint">Esboce um fluxo encadeado para uma aula sua: que ferramenta entra em cada etapa?</p>
+        <textarea id="caderno-mod3" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod3-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure refs">
+      <div class="label label--muted">Referências deste módulo</div>
+      <ol class="refs__list">
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em> — Competência Geral 5. MEC, 2018.</li>
+      </ol>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-3" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-2"><span aria-hidden="true">←</span> Ferramentas de IA</a><a class="pill" href="#modulo-4">Aplicação <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 4 -->
+  <section id="modulo-4" class="sec" data-spy="modulo-4" aria-label="Módulo 4 — Aplicação pedagógica">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 04</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">Aplicação Pedagógica</h2>
+      <p class="lede">Ferramenta boa sem intenção pedagógica é só novidade. Aqui a IA entra no ciclo real da aula — planejar, ensinar, avaliar e incluir.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m4-tpack" tabindex="-1" aria-hidden="true">01</a> <a href="#m4-tpack">TPACK aplicado à prática</a></li>
+          <li><a class="toc__num" href="#m4-ciclo" tabindex="-1" aria-hidden="true">02</a> <a href="#m4-ciclo">A IA no ciclo da aula</a></li>
+          <li><a class="toc__num" href="#m4-inclusao" tabindex="-1" aria-hidden="true">03</a> <a href="#m4-inclusao">Inclusão e diferenciação</a></li>
+          <li><a class="toc__num" href="#m4-exercicio" tabindex="-1" aria-hidden="true">04</a> <a href="#m4-exercicio">Exercício: desenhe uma sequência</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~50 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulos 1–3</strong></span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Exercício + caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m4-tpack" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title">TPACK aplicado à prática</h3>
+      <p class="read read--gap-sm">O modelo <strong><a class="gloss" href="#termo-tpack" title="Ver no glossário">TPACK</a></strong> (Mishra e Koehler, 2006) lembra que ensinar bem com tecnologia exige três conhecimentos ao mesmo tempo. A IA só ajuda quando serve aos três — não quando substitui um deles.</p>
+      <div class="tpack">
+        <div class="tpack__cell"><div class="tpack__label c1">CK · CONTEÚDO</div><p>O que você ensina. A IA propõe; você valida a correção do conteúdo.</p></div>
+        <div class="tpack__cell"><div class="tpack__label c2">PK · PEDAGOGIA</div><p>Como você ensina. A IA sugere estratégias; você escolhe as adequadas à turma.</p></div>
+        <div class="tpack__cell"><div class="tpack__label c4">TK · TECNOLOGIA</div><p>Que ferramenta usar. Os Módulos 2–3 são o seu repertório técnico.</p></div>
+      </div>
+      <p class="after after--roomy">O encontro dos três — o <strong>TPACK</strong> — é onde mora a boa aula com IA.</p>
+    </div>
+
+    <div id="m4-ciclo" class="sub">
+      <span class="sub__num">02</span>
+      <h3 class="sub__title sub__title--grid">A IA no ciclo da aula</h3>
+      <div class="rows">
+        <div class="cycle"><span class="cycle__step">Planejar</span><span class="cycle__text">Rascunhar objetivos, sequência e materiais alinhados à BNCC — você edita e aprova.</span></div>
+        <div class="cycle"><span class="cycle__step">Ensinar</span><span class="cycle__text">Gerar exemplos, analogias e variações na hora, para atender dúvidas que surgem.</span></div>
+        <div class="cycle"><span class="cycle__step">Avaliar</span><span class="cycle__text">Criar rubricas, gerar feedback-modelo e apoiar a correção — a nota é sempre sua.</span></div>
+      </div>
+      <aside class="note note--end"><strong>A decisão é humana.</strong> A IA propõe rascunhos em cada etapa; a avaliação, a nota e o vínculo com o aluno permanecem responsabilidade do professor.</aside>
+    </div>
+
+    <div id="m4-inclusao" class="sub">
+      <span class="sub__num">03</span>
+      <h3 class="sub__title">Inclusão e diferenciação</h3>
+      <p class="read">Um dos maiores ganhos da IA é adaptar o mesmo conteúdo a diferentes necessidades — sem multiplicar o seu tempo. Um único texto pode virar três versões em minutos.</p>
+      <div class="variants">
+        <div class="variants__item">“Reescreva este texto em <span class="slot">nível de leitura mais simples</span>, mantendo os conceitos.”</div>
+        <div class="variants__item">“Crie uma versão com <span class="slot">apoio visual e passos numerados</span> para um aluno com dificuldade de atenção.”</div>
+        <div class="variants__item">“Proponha uma <span class="slot">extensão desafiadora</span> para quem terminou antes.”</div>
+      </div>
+      <p class="after">Diferenciar deixa de ser um luxo de tempo e passa a ser parte do fluxo — sempre revisada por você.</p>
+    </div>
+
+    <div id="m4-exercicio" class="sub">
+      <span class="sub__num">04</span>
+      <h3 class="sub__title">Exercício: desenhe uma sequência</h3>
+      <p class="read">Escolha um tema da sua próxima semana e descreva, em poucas linhas, como a IA entraria em <em>planejar</em>, <em>ensinar</em> e <em>avaliar</em> — indicando a ferramenta em cada etapa.</p>
+      <div class="exercise">
+        <div class="field-head field-head--roomy">
+          <label class="exercise__label" for="ex-mod4">Minha sequência</label>
+          <span class="count" data-count-for="ex-mod4">0 palavras</span>
+        </div>
+        <textarea id="ex-mod4" class="exercise__field" data-notebook rows="6" placeholder="Tema:  ...&#10;Planejar (ferramenta):  ...&#10;Ensinar (ferramenta):  ...&#10;Avaliar (ferramenta):  ..."></textarea>
+      </div>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod4"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 4</label>
+          <span class="count" data-count-for="caderno-mod4">0 palavras</span>
+        </div>
+        <p class="caderno__hint" id="caderno-mod4-hint">Onde no seu ciclo de aula a IA traz mais ganho hoje? E onde você prefere manter tudo humano?</p>
+        <textarea id="caderno-mod4" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod4-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure refs">
+      <div class="label label--muted">Referências deste módulo</div>
+      <ol class="refs__list">
+        <li>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge. <em>Teachers College Record</em>, 2006.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em>. MEC, 2018.</li>
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+      </ol>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-4" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-3"><span aria-hidden="true">←</span> Complementares</a><a class="pill" href="#modulo-5">Ética e LGPD <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 5 -->
+  <section id="modulo-5" class="sec sec--alt" data-spy="modulo-5" aria-label="Módulo 5 — Ética, LGPD e direitos">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 05</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">Ética, LGPD e Direitos</h2>
+      <p class="lede">Usar IA com responsabilidade é parte da competência docente. Três frentes exigem cuidado: os princípios éticos, os dados dos alunos e os direitos autorais.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m5-principios" tabindex="-1" aria-hidden="true">01</a> <a href="#m5-principios">Princípios éticos</a></li>
+          <li><a class="toc__num" href="#m5-lgpd" tabindex="-1" aria-hidden="true">02</a> <a href="#m5-lgpd">LGPD na sala de aula</a></li>
+          <li><a class="toc__num" href="#m5-direitos" tabindex="-1" aria-hidden="true">03</a> <a href="#m5-direitos">Direitos autorais e materiais gerados</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~40 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Transversal a toda a trilha</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Checklist + caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m5-principios" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title">Princípios éticos</h3>
+      <p class="read read--gap-sm">O guia da UNESCO (Holmes et al., 2024) resume o uso responsável em compromissos que cabem no dia a dia da escola:</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Transparência</strong> — diga quando um material foi gerado ou apoiado por IA.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Supervisão humana</strong> — nenhuma decisão sobre o aluno é delegada à máquina.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Equidade</strong> — atenção a vieses; a IA pode reproduzir desigualdades.</span></div>
+        <div class="row-card"><span class="row-card__num">04</span><span class="row-card__text"><strong>Verificação</strong> — confira fatos e fontes antes de levar à turma.</span></div>
+      </div>
+    </div>
+
+    <div id="m5-lgpd" class="sub">
+      <span class="sub__num">02</span>
+      <h3 class="sub__title">LGPD na sala de aula</h3>
+      <p class="read">A <strong>Lei Geral de Proteção de Dados</strong> (Lei nº 13.709/2018) trata dados de crianças e adolescentes como especialmente sensíveis. A regra de ouro é simples: <strong>não insira em ferramentas de IA nada que identifique um aluno</strong>. Confira seu preparo:</p>
+      <div class="checklist" data-checklist="lgpd">
+        <div class="field-head field-head--list">
+          <span class="checklist__title" id="lgpd-title">Checklist de proteção de dados</span>
+          <span class="checklist__count" data-checklist-count aria-live="polite">0 de 5</span>
+        </div>
+        <div class="checklist__items" role="group" aria-labelledby="lgpd-title">
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Removo nomes e dados que identifiquem alunos antes de usar a IA</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Trabalho com textos anonimizados ao pedir feedback</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Não insiro notas, laudos ou informações sensíveis em ferramentas de IA</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Verifico a política de privacidade da ferramenta que uso</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Explico à coordenação/escola como uso IA na minha prática</span></button>
+        </div>
+      </div>
+      <aside class="note note--end"><strong>Dica prática.</strong> Precisa de feedback sobre o texto de um aluno? Remova o nome e qualquer dado identificável antes de colar. Trabalhe sempre com material anonimizado.</aside>
+    </div>
+
+    <div id="m5-direitos" class="sub">
+      <span class="sub__num">03</span>
+      <h3 class="sub__title">Direitos autorais e materiais gerados</h3>
+      <p class="read">Dois lados merecem atenção. Ao <strong>usar</strong> a IA, não a alimente com obras de terceiros protegidas sem autorização. Ao <strong>publicar</strong> o que ela ajudou a criar, saiba que o material gerado por IA tem status autoral incerto — revise, personalize e assuma a autoria do resultado final.</p>
+      <div class="pair">
+        <div class="pair__cell"><div class="pair__label c1">✓ PODE</div><p class="pair__text">Usar a IA para rascunhar, revisar e adaptar material próprio, sempre com curadoria sua.</p></div>
+        <div class="pair__cell"><div class="pair__label c3">✕ EVITE</div><p class="pair__text">Publicar como seu, sem revisão, um conteúdo integral de IA — ou inserir obras alheias protegidas.</p></div>
+      </div>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod5"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 5</label>
+          <span class="count" data-count-for="caderno-mod5">0 palavras</span>
+        </div>
+        <p class="caderno__hint" id="caderno-mod5-hint">Qual regra deste módulo você precisa mudar já na sua prática atual?</p>
+        <textarea id="caderno-mod5" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod5-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure refs">
+      <div class="label label--muted">Referências deste módulo</div>
+      <ol class="refs__list">
+        <li>BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em> — Lei Geral de Proteção de Dados Pessoais (<a class="gloss" href="#termo-lgpd" title="Ver no glossário">LGPD</a>). Brasília, 2018.</li>
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+      </ol>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-5" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-4"><span aria-hidden="true">←</span> Aplicação</a><a class="pill" href="#modulo-6">Implementação <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 6 -->
+  <section id="modulo-6" class="sec" data-spy="modulo-6" aria-label="Módulo 6 — Implementação">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 06</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">Trilha de Implementação</h2>
+      <p class="lede">Saber não basta — é preciso começar. Este módulo transforma a trilha em um plano de 12 semanas, com checklist, quiz final e fechamento de percurso.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m6-timeline" tabindex="-1" aria-hidden="true">01</a> <a href="#m6-timeline">12 semanas, quatro fases</a></li>
+          <li><a class="toc__num" href="#m6-checklist" tabindex="-1" aria-hidden="true">02</a> <a href="#m6-checklist">Checklist de implementação</a></li>
+          <li><a class="toc__num" href="#m6-quiz" tabindex="-1" aria-hidden="true">03</a> <a href="#m6-quiz">Quiz final</a></li>
+          <li><a class="toc__num" href="#m6-declaracao" tabindex="-1" aria-hidden="true">04</a> <a href="#m6-declaracao">Fechamento de percurso</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~30 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Encerra a trilha</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Quiz + fechamento</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m6-timeline" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title sub__title--grid">12 semanas, quatro fases</h3>
+      <p class="read read--gap-sm">Comece pequeno e sustente o hábito. Um trimestre é suficiente para sair do zero a um uso confiante em sala.</p>
+      <ol class="timeline">
+        <li><div class="timeline__phase">Semanas 1–3 · Explorar</div><p>Escolha uma ferramenta (Módulo 2) e use-a para uma tarefa simples por semana. Sem pressa: familiarize-se.</p></li>
+        <li><div class="timeline__phase">Semanas 4–6 · Planejar</div><p>Aplique a engenharia de prompts (Módulo 1) para planejar uma aula real por semana, sempre revisando.</p></li>
+        <li><div class="timeline__phase">Semanas 7–9 · Integrar</div><p>Encadeie ferramentas (Módulo 3) e diferencie materiais (Módulo 4). A IA entra no ciclo completo da aula.</p></li>
+        <li><div class="timeline__phase">Semanas 10–12 · Consolidar</div><p>Revise sua prática à luz da ética e da <a class="gloss" href="#termo-lgpd" title="Ver no glossário">LGPD</a> (Módulo 5) e compartilhe o que funcionou com colegas.</p></li>
+      </ol>
+    </div>
+
+    <div id="m6-checklist" class="sub">
+      <span class="sub__num">02</span>
+      <h3 class="sub__title">Checklist de implementação</h3>
+      <p class="read">Marque o que você já consegue fazer com autonomia. É o retrato do seu percurso — fica salvo neste dispositivo.</p>
+      <div class="checklist" data-checklist="impl">
+        <div class="field-head field-head--list">
+          <span class="checklist__title" id="impl-title">Estou pronto para…</span>
+          <span class="checklist__count" data-checklist-count aria-live="polite">0 de 6</span>
+        </div>
+        <div class="checklist__items" role="group" aria-labelledby="impl-title">
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Escrever um prompt com papel, contexto, tarefa e formato</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Escolher a ferramenta certa para cada tarefa</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Planejar uma aula completa com apoio de IA</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Diferenciar um material para diferentes níveis</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Avaliar criticamente uma resposta da IA</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Usar IA respeitando ética e LGPD</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="m6-quiz" class="sub">
+      <span class="sub__num">03</span>
+      <h3 class="sub__title">Quiz final</h3>
+      <p class="read read--gap-sm">Três perguntas para consolidar o essencial da trilha. Toque na alternativa que julgar correta.</p>
+      <div class="quiz">
+        <div class="quiz__item" data-correct="1" data-ok="Isso mesmo" data-why="papel, contexto, tarefa e formato formam a anatomia de um bom prompt (Módulo 1).">
+          <p class="quiz__q" id="quiz-q1"><span class="quiz__num">01</span>Um bom prompt para uso pedagógico deve conter, no mínimo:</p>
+          <div class="quiz__opts" role="group" aria-labelledby="quiz-q1">
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Apenas a tarefa a ser feita</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Papel, contexto, tarefa e formato</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Quanto mais longo, melhor</button>
+          </div>
+          <p class="quiz__fb" aria-live="polite"></p>
+        </div>
+        <div class="quiz__item" data-correct="1" data-ok="Correto" data-why="a IA pode alucinar dados; exija e verifique a fonte (Módulos 1 e 5).">
+          <p class="quiz__q" id="quiz-q2"><span class="quiz__num">02</span>Ao receber uma estatística sem fonte da IA, o professor deve:</p>
+          <div class="quiz__opts" role="group" aria-labelledby="quiz-q2">
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Confiar: a IA acessa a internet</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Verificar a fonte antes de usar</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Descartar toda a resposta</button>
+          </div>
+          <p class="quiz__fb" aria-live="polite"></p>
+        </div>
+        <div class="quiz__item" data-correct="1" data-ok="Exato" data-why="dados de crianças e adolescentes são sensíveis; anonimize sempre (Módulo 5).">
+          <p class="quiz__q" id="quiz-q3"><span class="quiz__num">03</span>Segundo a LGPD, dados pessoais de alunos:</p>
+          <div class="quiz__opts" role="group" aria-labelledby="quiz-q3">
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Podem ser inseridos livremente em qualquer IA</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Não devem ser inseridos sem cuidado e base legal</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Só importam no ensino superior</button>
+          </div>
+          <p class="quiz__fb" aria-live="polite"></p>
+        </div>
+      </div>
+      <p class="quiz__score" id="quiz-score" aria-live="polite"></p>
+      <div class="quiz__reset" id="quiz-reset-wrap" hidden><button type="button" class="btn" id="quiz-reset">Refazer quiz</button></div>
+    </div>
+
+    <div id="m6-declaracao" class="sub">
+      <span class="sub__num">04</span>
+      <h3 class="sub__title">Fechamento de percurso</h3>
+      <p class="read">Esta trilha não emite certificado: não há instituição por trás dela para autenticar nada. O que fica é o que você produziu ao longo dos sete módulos — e isso está abaixo, pronto para exportar.</p>
+      <label class="field-label" for="cert-name">Seu nome</label>
+      <p class="field-hint" id="cert-name-hint">Aparece no topo do caderno exportado. Fica salvo apenas neste navegador.</p>
+      <input id="cert-name" class="field" type="text" autocomplete="name" placeholder="Seu nome completo" aria-describedby="cert-name-hint">
+
+      <div class="panel">
+        <div class="panel__head">
+          <span class="label label--flush">O que você produziu</span>
+          <span class="panel__date" id="percurso-date">percurso em andamento</span>
+        </div>
+        <dl class="panel__grid">
+          <div class="panel__cell"><dt>Módulos concluídos</dt><dd class="panel__value" data-stat="mods"></dd><dd class="panel__note" data-stat-note="mods"></dd></div>
+          <div class="panel__cell"><dt>Anotações escritas</dt><dd class="panel__value" data-stat="words"></dd><dd class="panel__note" data-stat-note="words"></dd></div>
+          <div class="panel__cell"><dt>Checklists</dt><dd class="panel__value" data-stat="checks"></dd><dd class="panel__note" data-stat-note="checks"></dd></div>
+          <div class="panel__cell"><dt>Quiz final</dt><dd class="panel__value" data-stat="quiz"></dd><dd class="panel__note" data-stat-note="quiz"></dd></div>
+        </dl>
+      </div>
+      <p class="after after--closing">Se a sua escola ou rede precisa registrar esta formação, o caderno exportado serve de evidência: ele traz seu nome, a data e tudo o que você escreveu em cada módulo. A validação de horas cabe a quem tem competência para emiti-la.</p>
+
+      <div class="backup" data-print-hide>
+        <div class="label label--tight">Backup do caderno</div>
+        <p class="backup__text">Tudo o que você escreve fica salvo apenas neste navegador, neste dispositivo. Limpar o histórico, trocar de computador ou usar navegação privada apaga o registro. O backup guarda anotações, checklists, quiz e módulos concluídos em um arquivo seu.</p>
+        <div class="backup__actions">
+          <button type="button" class="btn btn--icon" id="backup-download"><svg class="icon" width="15" height="15"><use href="#i-download"/></svg> Baixar backup</button>
+          <button type="button" class="btn btn--icon" id="backup-restore"><svg class="icon" width="15" height="15"><use href="#i-upload"/></svg> Restaurar backup</button>
+          <input id="backup-file" class="file-input" type="file" accept="application/json,.json" aria-label="Escolher arquivo de backup" tabindex="-1">
+        </div>
+        <p class="backup__msg" id="backup-msg" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod6"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 6</label>
+          <span class="count" data-count-for="caderno-mod6">0 palavras</span>
+        </div>
+        <p class="caderno__hint" id="caderno-mod6-hint">Qual é o seu primeiro passo concreto na semana 1? Comprometa-se por escrito.</p>
+        <textarea id="caderno-mod6" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod6-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group">
+        <button type="button" class="btn-done" data-done="modulo-6" aria-pressed="false">Marcar como concluído</button>
+        <button type="button" class="btn" id="print-trilha">Imprimir a trilha</button>
+        <button type="button" class="btn btn--solid btn--icon" id="export-caderno" aria-describedby="popup-warn"><svg class="icon" width="15" height="15"><use href="#i-download"/></svg> Exportar caderno (PDF)</button>
+      </div>
+      <p class="popup-warn" id="popup-warn" role="alert" hidden>O navegador bloqueou a janela de exportação. Libere pop-ups para este site e toque em “Exportar caderno” novamente.</p>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-5"><span aria-hidden="true">←</span> Ética e LGPD</a><a class="pill" href="#referencias">Referências <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- GLOSSÁRIO -->
+  <section id="glossario" class="sec" data-spy="glossario" aria-label="Glossário">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Glossário</span><span class="kicker__rule"></span></div>
+      <h2 class="sec-title">Glossário rápido</h2>
+      <p class="lede lede--sm">Os termos essenciais da trilha, em uma frase cada. Pressione <kbd class="kbd-inline" data-kbd>Ctrl K</kbd> para buscar de qualquer ponto.</p>
+      <dl class="glossary" id="glossary">
+        <div id="termo-alucinacao"><dt>Alucinação</dt><dd>Quando a IA gera informação plausível porém falsa ou inventada. Sempre verifique fatos e fontes antes de usar.</dd></div>
+        <div id="termo-prompt"><dt>Prompt</dt><dd>A instrução que você dá à IA. Um bom prompt tem papel, contexto, tarefa e formato (Módulo 1).</dd></div>
+        <div id="termo-token"><dt>Token</dt><dd>Unidade de texto que o modelo processa — aproximadamente pedaços de palavras. Modelos têm limite de tokens por conversa.</dd></div>
+        <div id="termo-data-de-corte"><dt>Data de corte</dt><dd>A data até a qual o modelo foi treinado. Ele não conhece eventos posteriores, salvo se buscar na web.</dd></div>
+        <div id="termo-lgpd"><dt>LGPD</dt><dd>Lei Geral de Proteção de Dados (Lei 13.709/2018). Proíbe inserir dados que identifiquem alunos em ferramentas de IA (Módulo 5).</dd></div>
+        <div id="termo-llm"><dt>LLM</dt><dd>Modelo de Linguagem de Grande Escala — a tecnologia por trás de ChatGPT, Claude e afins.</dd></div>
+        <div id="termo-tpack"><dt>TPACK</dt><dd>Modelo que une conhecimento de conteúdo, pedagógico e tecnológico. Boa aula com IA vive no encontro dos três (Módulo 4).</dd></div>
+        <div id="termo-engenharia-de-prompt"><dt>Engenharia de prompt</dt><dd>Prática de estruturar instruções para obter respostas melhores e mais úteis da IA (Módulo 1).</dd></div>
+        <div id="termo-vies"><dt>Viés</dt><dd>Distorções que a IA pode reproduzir de seus dados de treino. Exige olhar crítico do professor (Módulo 5).</dd></div>
+        <div id="termo-agente"><dt>Agente</dt><dd>IA que executa tarefas de várias etapas com autonomia, como o Manus (Módulo 2).</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- REFERÊNCIAS -->
+  <section id="referencias" class="sec sec--alt sec--last" data-spy="referencias" aria-label="Referências Bibliográficas">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Referências</span><span class="kicker__rule"></span></div>
+      <h2 class="sec-title">Referências Bibliográficas</h2>
+      <p class="lede lede--sm">Normalizadas conforme a ABNT NBR 6023. Cada módulo remete a estas fontes.</p>
+      <ol class="bib">
+        <li><span class="bib__num">01</span><span>BRASIL. <em>Base Nacional Comum Curricular</em>: educação é a base. Brasília: MEC, 2018.</span></li>
+        <li><span class="bib__num">02</span><span>BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em>. Lei Geral de Proteção de Dados Pessoais (LGPD). Brasília: Presidência da República, 2018.</span></li>
+        <li><span class="bib__num">03</span><span>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. Paris: UNESCO, 2024.</span></li>
+        <li><span class="bib__num">04</span><span>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge: a framework for teacher knowledge. <em>Teachers College Record</em>, v. 108, n. 6, p. 1017–1054, 2006.</span></li>
+        <li><span class="bib__num">05</span><span>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada: usos críticos e contextualizados das tecnologias. 2019.</span></li>
+      </ol>
+      <div class="cite">
+        <div class="label label--tight">Como citar esta obra</div>
+        <div class="cite__actions"><button type="button" class="btn btn--sm" id="copy-abnt">Copiar ABNT</button><button type="button" class="btn btn--sm" id="copy-bibtex">Copiar BibTeX</button><span class="cite__msg" id="cite-msg" aria-live="polite"></span></div>
+        <p class="cite__abnt" id="cite-abnt">COSMO, Adryan Cavalcante. <em>Ferramentas de IA na Educação Básica: uma trilha formativa para professores</em>. 2. ed. [S. l.]: publicação independente, 2026. E-book.</p>
+        <pre class="cite__bibtex" id="cite-bibtex">@book{cosmo2026ia,
+  author    = {Cosmo, Adryan Cavalcante},
+  title     = {Ferramentas de IA na Educação Básica: uma trilha formativa para professores},
+  edition   = {2},
+  year      = {2026},
+  publisher = {Publicação independente}
+}</pre>
+        <p class="cite__note">O DOI será acrescentado às duas formas de citação quando o depósito no Zenodo for concluído.</p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="site-foot">
+    <div class="measure">
+      Ferramentas de IA na Educação Básica — v2.0 · Adryan Cavalcante Cosmo<br>
+      Licença <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" rel="license noopener">CC BY 4.0</a> (Atribuição)
+    </div>
+  </footer>
+</div>
+
+<!-- BUSCA -->
+<div id="search-overlay" class="search" hidden>
+  <div id="search-panel" class="search__panel" role="dialog" aria-modal="true" aria-label="Buscar na trilha">
+    <div class="search__bar">
+      <svg class="icon search__icon" width="17" height="17"><use href="#i-search"/></svg>
+      <input id="search-input" class="search__input" type="text" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results" aria-autocomplete="list" aria-label="Buscar seções e termos do glossário" aria-describedby="search-hint" placeholder="Buscar seções e termos do glossário…">
+      <kbd>esc</kbd>
+      <span id="search-hint" class="sr-only">Use as setas para percorrer e Enter para abrir</span>
+    </div>
+    <div id="search-results" class="search__results" role="listbox" aria-label="Resultados"></div>
+    <p class="search__empty" id="search-empty" hidden>Nada encontrado.</p>
+  </div>
+</div>
+
+<p id="sr-status" class="sr-only" aria-live="polite"></p>
+
+</body>
 </html>
