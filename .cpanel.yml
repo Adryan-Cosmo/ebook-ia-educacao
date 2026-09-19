@@ -1,0 +1,10 @@
+---
+# Implantação pelo Controle de Versão do Git do cPanel.
+# Copia apenas os arquivos do site para a pasta pública; o clone do
+# repositório fica fora do public_html, para não expor .git e design/.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/cosmodev/public_html/ebook-trilha-formativa
+    - /bin/mkdir -p $DEPLOYPATH/assets
+    - /bin/cp index.html style.css print.css app.js $DEPLOYPATH/
+    - /bin/cp -R assets/. $DEPLOYPATH/assets/
