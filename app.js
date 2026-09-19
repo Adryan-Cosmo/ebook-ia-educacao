@@ -1,625 +1,853 @@
-// app.js — interatividade avançada (tema, menu, progresso, quiz, checklist, tooltips, modos de visão)let isDark = false;let sectionsList = [];
-let activeSectionIndex = 0;
-// Índice máximo desbloqueado (inicial: capa e introdução = 0 e 1)
-let unlockedUntilIndex = 1;
-// Controle de capítulos efetivamente lidos
-let readChapters = new Set();
-// Modo de progresso exibido na barra interna: 'unlock' (desbloqueio) ou 'chapter' (interno—placeholder 100%)
-let progressMode = 'unlock';
-// Visão completa (todas as seções) vs visão linear (um capítulo por vez)
-let fullView = false;
-// Pontuação acumulada do quiz prático
-let quizPraticoScore = { correct: 0, total: 0 };
-const sidebar = document.getElementById('sidebar');
-const sidebarToggle = document.getElementById('sidebarToggle');
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = document.getElementById('themeIcon');
-const progressBar = document.getElementById('progressBar');
-const navLinks = document.querySelectorAll('.nav-link');
-const chapterTitleEl = document.getElementById('currentChapterTitle');
-const chapterPositionEl = document.getElementById('chapterPosition');
-const chapterPercentEl = document.getElementById('chapterPercent');
-const chapterProgressFill = document.getElementById('chapterNavProgress');
-const prevChapterBtn = document.getElementById('prevChapter');
-const nextChapterBtn = document.getElementById('nextChapter');
-const printButton = document.getElementById('printButton');
-const startJourneyBtn = document.getElementById('startJourney');
-// Novos controles
-const viewModeToggle = document.getElementById('viewModeToggle');
-const progressModeToggle = document.getElementById('progressModeToggle');
-// Quiz prático score elements
-const quizPraticoScoreBox = document.getElementById('quizPraticoScore');
-const quizPraticoAcertosEl = document.getElementById('quizPraticoAcertos');
-const quizPraticoTotalEl = document.getElementById('quizPraticoTotal');
-const quizPraticoPercentEl = document.getElementById('quizPraticoPercent');
-const quizPraticoFill = document.getElementById('quizPraticoFill');
-const resetQuizPraticoBtn = document.getElementById('resetQuizPratico');
+// app.js — trilha formativa v2: caderno, exercícios, checklists, quiz,
+// progresso, busca, tema, backup e exportação.
+//
+// Todo o estado vive em `state` e é espelhado em localStorage (prefixo
+// "ebook2."). A interface é sempre derivada do estado em render(): nada de
+// escrever rótulos ou contadores direto no DOM fora dali.
+(function () {
+  'use strict';
 
-function init() {
-    setupTheme();
-    setupSidebar();
-    setupProgressBar();
-    setupChapterNavigation(); // define capítulos e active antes
-    setupNavigation(); // apenas links
-    setupSmoothScroll();
-    setupQuiz();
-    setupQuizPraticoScore();
-    setupChecklist();
-    setupTooltips();
-    setupPrintButton();
-    setupViewAndProgressMode();
-    setupCitationCopy();
-}
+  var PREFIX = 'ebook2.';
+  var APP_ID = 'trilha-ia-educacao';
 
-function setupCitationCopy() {
-    const citationCode = document.getElementById('citationText');
-    if (!citationCode) return;
-    // Atualiza dinamicamente o ano e versão se placeholders JS estiverem literais
-    const versionMeta = document.querySelector('meta[name="ebook:version"]');
-    const authorMeta = document.querySelector('meta[name="ebook:author"]');
-    const year = new Date().getFullYear();
-    if (citationCode.textContent.includes('${new Date().getFullYear()}')) {
-        const current = citationCode.textContent;
-        citationCode.textContent = current
-            .replace('${new Date().getFullYear()}', year)
-            .replace(
-                '${document.querySelector(\'meta[name="ebook:version"]\')?.content||"1.0.0"}',
-                versionMeta ? versionMeta.content : '1.0.0'
-            )
-            .replace(
-                '${document.querySelector(\'meta[name="ebook:author"]\')?.content||"Autor"}',
-                authorMeta ? authorMeta.content : 'Autor'
-            );
+  var MOD_IDS = ['modulo-0', 'modulo-1', 'modulo-2', 'modulo-3', 'modulo-4', 'modulo-5', 'modulo-6'];
+
+  var NOTE_IDS = ['caderno-mod0', 'ex-mod1', 'caderno-mod1', 'caderno-mod2', 'caderno-mod3', 'ex-mod4', 'caderno-mod4', 'caderno-mod5', 'caderno-mod6'];
+
+  var NOTE_TITLES = {
+    'caderno-mod0': 'Módulo 0 — Fundamentos',
+    'ex-mod1': 'Módulo 1 — Exercício de prompt',
+    'caderno-mod1': 'Módulo 1 — Caderno',
+    'caderno-mod2': 'Módulo 2 — Caderno',
+    'caderno-mod3': 'Módulo 3 — Caderno',
+    'ex-mod4': 'Módulo 4 — Sequência didática',
+    'caderno-mod4': 'Módulo 4 — Caderno',
+    'caderno-mod5': 'Módulo 5 — Caderno',
+    'caderno-mod6': 'Módulo 6 — Caderno'
+  };
+
+  var SECTIONS = [
+    ['modulo-0', 'Módulo 0 — Fundamentos'],
+    ['modulo-1', 'Módulo 1 — Engenharia de Prompts'],
+    ['modulo-2', 'Módulo 2 — Ferramentas de IA'],
+    ['modulo-3', 'Módulo 3 — Ferramentas Complementares'],
+    ['modulo-4', 'Módulo 4 — Aplicação Pedagógica'],
+    ['modulo-5', 'Módulo 5 — Ética, LGPD e Direitos'],
+    ['modulo-6', 'Módulo 6 — Trilha de Implementação'],
+    ['glossario', 'Glossário'],
+    ['referencias', 'Referências Bibliográficas']
+  ];
+
+  var SPY_IDS = ['trilha'].concat(SECTIONS.map(function (s) { return s[0]; }));
+
+  var BACKUP_KEYS = ['lgpd', 'impl', 'quiz', 'done', 'certName', 'doneAt', 'lastSection'];
+
+  var FLAG_KEYS = ['p1', 'p2', 'p3'];
+
+  var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '');
+
+  // ---------------------------------------------------------------------------
+  // Persistência. Chaves de estado vão em JSON; as nove áreas de texto e o
+  // tema vão crus. Manter essa simetria também na restauração de backup.
+  // ---------------------------------------------------------------------------
+
+  var store = {
+    get: function (key) {
+      try {
+        var v = localStorage.getItem(PREFIX + key);
+        return v == null ? null : JSON.parse(v);
+      } catch (e) { return null; }
+    },
+    set: function (key, value) {
+      try { localStorage.setItem(PREFIX + key, JSON.stringify(value)); return true; } catch (e) { return false; }
+    },
+    getRaw: function (key) {
+      try { return localStorage.getItem(PREFIX + key); } catch (e) { return null; }
+    },
+    setRaw: function (key, value) {
+      try { localStorage.setItem(PREFIX + key, value); return true; } catch (e) { return false; }
+    },
+    probe: function () {
+      try {
+        localStorage.setItem(PREFIX + '__probe', '1');
+        localStorage.removeItem(PREFIX + '__probe');
+        return true;
+      } catch (e) { return false; }
     }
-    const buttons = [
-        document.getElementById('copyCitation'),
-        document.getElementById('copyCitationFooter'),
-    ].filter(Boolean);
-    buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            copyTextToClipboard(citationCode.textContent.trim(), btn);
-        });
-    });
-}
+  };
 
-function copyTextToClipboard(text, btn) {
-    if (!navigator.clipboard) {
-        fallbackCopy(text, btn);
-        return;
+  function asMap(v) { return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
+  function asString(v) { return typeof v === 'string' ? v : ''; }
+  function knownSection(v) { return SPY_IDS.indexOf(v) >= 0 ? v : null; }
+
+  // ---------------------------------------------------------------------------
+  // Estado
+  // ---------------------------------------------------------------------------
+
+  var state = {
+    theme: store.getRaw('theme') === 'dark' ? 'dark' : 'light',
+    storageOk: store.probe(),
+    found: {},
+    lgpd: asMap(store.get('lgpd')),
+    impl: asMap(store.get('impl')),
+    quiz: asMap(store.get('quiz')),
+    done: asMap(store.get('done')),
+    certName: asString(store.get('certName')),
+    doneAt: asString(store.get('doneAt')) || null,
+    // Seção da visita anterior: alimenta "Continuar em…" na capa.
+    lastSection: knownSection(store.get('lastSection')),
+    words: {},
+    navOpen: false,
+    searchOpen: false,
+    query: '',
+    sel: 0,
+    popupBlocked: false,
+    backupMsg: '',
+    backupError: false,
+    citeMsg: ''
+  };
+
+  function setState(patch) {
+    for (var k in patch) if (Object.prototype.hasOwnProperty.call(patch, k)) state[k] = patch[k];
+    render();
+  }
+
+  function toggleIn(key, id) {
+    var next = Object.assign({}, state[key]);
+    next[id] = !next[id];
+    var patch = {};
+    patch[key] = next;
+    return patch;
+  }
+
+  // ---------------------------------------------------------------------------
+  // DOM
+  // ---------------------------------------------------------------------------
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function byId(id) { return document.getElementById(id); }
+
+  var el = {
+    html: document.documentElement,
+    themeToggle: byId('theme-toggle'),
+    storageWarn: byId('storage-warn'),
+    doneChip: byId('done-chip'),
+    doneChipText: byId('done-chip-text'),
+    sidenav: byId('sidenav'),
+    navToggle: $('.snav-toggle'),
+    scrim: byId('nav-scrim'),
+    navLinks: $$('.snav-link[data-nav]'),
+    startLabel: byId('start-label'),
+    resumeLink: byId('resume-link'),
+    resumeLabel: byId('resume-label'),
+    progressFill: byId('progress-fill'),
+    progressPct: byId('progress-pct'),
+    progressTrack: byId('progress-track'),
+    searchOpen: byId('search-open'),
+    searchOverlay: byId('search-overlay'),
+    searchInput: byId('search-input'),
+    searchResults: byId('search-results'),
+    searchEmpty: byId('search-empty'),
+    flags: $$('.flag[data-k]'),
+    foundMsg: byId('found-msg'),
+    doneButtons: $$('.btn-done[data-done]'),
+    checklists: $$('[data-checklist]'),
+    quizItems: $$('.quiz__item'),
+    quizScore: byId('quiz-score'),
+    quizResetWrap: byId('quiz-reset-wrap'),
+    certName: byId('cert-name'),
+    percursoDate: byId('percurso-date'),
+    popupWarn: byId('popup-warn'),
+    backupMsg: byId('backup-msg'),
+    backupFile: byId('backup-file'),
+    citeMsg: byId('cite-msg'),
+    srStatus: byId('sr-status')
+  };
+
+  var spies = $$('[data-spy]');
+
+  var glossary = $$('#glossary > div').map(function (row) {
+    return { id: row.id, term: $('dt', row).textContent.trim(), def: $('dd', row).textContent.trim() };
+  });
+
+  function wordsOf(v) {
+    var t = (v || '').trim();
+    return t ? t.split(/\s+/).length : 0;
+  }
+
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+  function announce(msg) {
+    el.srStatus.textContent = '';
+    // Troca em dois tempos para o leitor de tela anunciar mensagens repetidas.
+    setTimeout(function () { el.srStatus.textContent = msg; }, 30);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Derivações
+  // ---------------------------------------------------------------------------
+
+  function doneCount() {
+    return MOD_IDS.filter(function (id) { return state.done[id]; }).length;
+  }
+
+  function sectionLabel(id) {
+    for (var i = 0; i < SECTIONS.length; i++) {
+      if (SECTIONS[i][0] === id) return SECTIONS[i][1].split(' — ')[0];
     }
-    navigator.clipboard
-        .writeText(text)
-        .then(() => flashCopied(btn))
-        .catch(() => fallbackCopy(text, btn));
-}
+    return 'onde você parou';
+  }
 
-function fallbackCopy(text, btn) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'fixed';
-    textarea.style.top = '-1000px';
-    document.body.appendChild(textarea);
-    textarea.focus();
-    textarea.select();
-    try {
-        document.execCommand('copy');
-    } catch (e) {}
-    document.body.removeChild(textarea);
-    flashCopied(btn);
-}
+  function checklistItems(key) {
+    var list = $('[data-checklist="' + key + '"]');
+    return list ? $$('.check', list) : [];
+  }
 
-function flashCopied(btn) {
-    if (!btn) return;
-    const original = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Copiado!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-        btn.textContent = original;
-        btn.disabled = false;
-        btn.classList.remove('copied');
-    }, 1600);
-}
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
+  function checkedCount(key) {
+    return checklistItems(key).filter(function (_, i) { return state[key][i]; }).length;
+  }
 
-function setupTheme() {
-    const root = document.documentElement;
-    try {
-        const saved = localStorage.getItem('ebook-theme');
-        if (saved) {
-            root.setAttribute('data-theme', saved);
-            isDark = saved === 'dark';
-        } else {
-            isDark = root.getAttribute('data-theme') === 'dark';
-        }
-    } catch (_) {
-        isDark = root.getAttribute('data-theme') === 'dark';
+  function quizStats() {
+    var answered = 0;
+    var correct = 0;
+    el.quizItems.forEach(function (item, qi) {
+      var sel = state.quiz[qi];
+      if (typeof sel !== 'number') return;
+      answered++;
+      if (sel === Number(item.dataset.correct)) correct++;
+    });
+    return { answered: answered, correct: correct, total: el.quizItems.length };
+  }
+
+  // Registra a data de conclusão na primeira vez em que os sete módulos
+  // aparecem marcados.
+  function ensureDoneAt() {
+    if (doneCount() === MOD_IDS.length && !state.doneAt) {
+      state.doneAt = new Date().toISOString();
+      store.set('doneAt', state.doneAt);
     }
-    updateThemeIcon();
-    themeToggle?.addEventListener('click', () => {
-        isDark = !isDark;
-        root.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        try {
-            localStorage.setItem('ebook-theme', isDark ? 'dark' : 'light');
-        } catch (_) {}
-        updateThemeIcon();
+  }
+
+  function doneAtLabel() {
+    if (doneCount() < MOD_IDS.length || !state.doneAt) return 'percurso em andamento';
+    var d = new Date(state.doneAt);
+    if (isNaN(d.getTime())) return 'percurso concluído';
+    return 'concluída em ' + d.toLocaleDateString('pt-BR') + ' às ' +
+      d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function searchResults() {
+    var q = state.query.trim().toLowerCase();
+    var match = function (s) { return !q || s.toLowerCase().indexOf(q) >= 0; };
+    var out = [];
+    SECTIONS.forEach(function (s) {
+      if (match(s[1])) out.push({ href: '#' + s[0], kind: 'Seção', title: s[1], def: '' });
     });
-}
-
-function updateThemeIcon() {
-    if (!themeIcon) return;
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const dark = currentTheme === 'dark';
-    themeIcon.textContent = dark ? '☀️' : '🌙';
-}
-
-function setupSidebar() {
-    mobileMenuBtn.addEventListener('click', () =>
-        sidebar.classList.toggle('open')
-    );
-    sidebarToggle.addEventListener('click', () =>
-        sidebar.classList.remove('open')
-    );
-    document.addEventListener('click', (event) => {
-        if (
-            !sidebar.contains(event.target) &&
-            !mobileMenuBtn.contains(event.target)
-        ) {
-            sidebar.classList.remove('open');
-        }
+    glossary.forEach(function (g) {
+      if (match(g.term) || match(g.def)) out.push({ href: '#' + g.id, kind: 'Termo', title: g.term, def: g.def });
     });
-}
+    return out;
+  }
 
-function setupProgressBar() {
-    // Agora refletirá progresso de capítulos desbloqueados (atualizado externamente)
-}
+  // ---------------------------------------------------------------------------
+  // Render
+  // ---------------------------------------------------------------------------
 
-function setupNavigation() {
-    navLinks.forEach((link) => {
-        link.addEventListener('click', () => {
-            navLinks.forEach((item) => item.classList.remove('active'));
-            link.classList.add('active');
-        });
-    });
-}
+  var lastResults = [];
 
-function setupSmoothScroll() {
-    document.querySelectorAll('[data-scroll]').forEach((button) => {
-        button.addEventListener('click', () => {
-            const target = button.getAttribute('data-scroll');
-            document
-                .querySelector(target)
-                ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
-}
+  function render() {
+    var dc = doneCount();
+    var total = MOD_IDS.length;
 
-function setupQuiz() {
-    document.querySelectorAll('.quiz-options').forEach((group) => {
-        const feedback = document.getElementById(
-            group.dataset.quiz + '-feedback'
-        );
-        let answered = false;
-        const options = Array.from(group.querySelectorAll('.option'));
-        // Animação de entrada escalonada
-        options.forEach((o, idx) => {
-            requestAnimationFrame(() =>
-                setTimeout(() => o.classList.add('appear'), idx * 70)
-            );
-        });
+    // Tema
+    el.html.setAttribute('data-theme', state.theme);
+    el.html.style.colorScheme = state.theme;
+    el.themeToggle.textContent = state.theme === 'dark' ? 'Claro' : 'Escuro';
+    el.themeToggle.setAttribute('aria-pressed', String(state.theme === 'dark'));
 
-        options.forEach((btn) => {
-            btn.addEventListener('click', () => {
-                if (answered) return;
-                answered = true;
-                const correctBtn = options.find((o) =>
-                    o.hasAttribute('data-correct')
-                );
-                const isCorrect = btn === correctBtn;
-                options.forEach((o) => {
-                    if (o === correctBtn) o.classList.add('is-correct');
-                    else if (o === btn)
-                        o.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
-                    else o.classList.add('is-neutral');
-                    o.disabled = true;
-                });
-                if (feedback) {
-                    feedback.textContent = isCorrect
-                        ? '✅ Correto! Excelente compreensão.'
-                        : '❌ Resposta incorreta. Reveja o conceito e tente aplicar novamente.';
-                    feedback.className =
-                        'quiz-feedback ' + (isCorrect ? 'ok' : 'err');
-                }
-                // Atualiza score acumulado se for quiz prático (prefixo p)
-                if (group.dataset.quiz?.startsWith('p')) {
-                    registerQuizPraticoAnswer(isCorrect);
-                }
-            });
-        });
-    });
-}
+    el.storageWarn.hidden = state.storageOk;
 
-function setupQuizPraticoScore() {
-    if (!quizPraticoScoreBox) return;
-    const total = document.querySelectorAll(
-        '.quiz-options[data-quiz^="p"]'
-    ).length;
-    quizPraticoScore.total = total;
-    if (quizPraticoTotalEl) quizPraticoTotalEl.textContent = String(total);
-    try {
-        const saved = JSON.parse(
-            localStorage.getItem('ebook-quiz-pratico') || 'null'
-        );
-        if (saved && typeof saved.correct === 'number')
-            quizPraticoScore.correct = saved.correct;
-    } catch (_) {}
-    updateQuizPraticoUI();
-    resetQuizPraticoBtn?.addEventListener('click', resetQuizPratico);
-}
-
-function registerQuizPraticoAnswer(isCorrect) {
-    if (isCorrect) quizPraticoScore.correct += 1;
-    persistQuizPratico();
-    updateQuizPraticoUI();
-}
-function persistQuizPratico() {
-    try {
-        localStorage.setItem(
-            'ebook-quiz-pratico',
-            JSON.stringify(quizPraticoScore)
-        );
-    } catch (_) {}
-}
-function resetQuizPratico() {
-    quizPraticoScore.correct = 0;
-    persistQuizPratico();
-    document
-        .querySelectorAll('.quiz-options[data-quiz^="p"]')
-        .forEach((group) => {
-            const feedback = document.getElementById(
-                group.dataset.quiz + '-feedback'
-            );
-            if (feedback) {
-                feedback.textContent = '';
-                feedback.className = 'quiz-feedback';
-            }
-            group.querySelectorAll('.option').forEach((btn) => {
-                btn.classList.remove('is-correct', 'is-wrong', 'is-neutral');
-                btn.disabled = false;
-                btn.classList.remove('appear');
-                setTimeout(() => btn.classList.add('appear'), 10);
-            });
-        });
-    // Recria listeners reinvocando setupQuiz só para grupos p*
-    setupQuiz();
-    updateQuizPraticoUI();
-}
-function updateQuizPraticoUI() {
-    if (!quizPraticoScoreBox) return;
-    const { correct, total } = quizPraticoScore;
-    const percent = total ? Math.round((correct / total) * 100) : 0;
-    if (quizPraticoAcertosEl)
-        quizPraticoAcertosEl.textContent = String(correct);
-    if (quizPraticoPercentEl) quizPraticoPercentEl.textContent = percent + '%';
-    if (quizPraticoFill) quizPraticoFill.style.width = percent + '%';
-    quizPraticoScoreBox.hidden = false;
-}
-
-function setupChecklist() {
-    const list = document.getElementById('checklist');
-    const clearBtn = document.getElementById('clearChecklist');
-    if (!list) return;
-
-    const key = 'ebook-checklist';
-    const saved = JSON.parse(localStorage.getItem(key) || '[]');
-    const checkboxes = list.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox, index) => {
-        checkbox.checked = !!saved[index];
+    // Contadores de palavras
+    NOTE_IDS.forEach(function (id) {
+      var w = state.words[id] || 0;
+      var txt = w === 0 ? '0 palavras' : plural(w, 'palavra', 'palavras') + (state.storageOk ? ' · salvo' : ' · não salvo');
+      $$('[data-count-for="' + id + '"]').forEach(function (c) { c.textContent = txt; });
     });
 
-    checkboxes.forEach((checkbox, index) => {
-        checkbox.addEventListener('change', () => {
-            const state = Array.from(checkboxes).map((cb) => cb.checked);
-            localStorage.setItem(key, JSON.stringify(state));
-        });
+    // Progresso por módulos
+    el.doneChipText.textContent = dc + '/' + total + ' módulos';
+    el.doneChip.classList.toggle('is-on', dc > 0);
+
+    el.navLinks.forEach(function (link) {
+      var id = link.getAttribute('data-nav');
+      if (MOD_IDS.indexOf(id) < 0) return;
+      var on = !!state.done[id];
+      link.classList.toggle('done', on);
+      var name = $$('span', link).map(function (s) { return s.textContent.trim(); }).join(' ');
+      if (on) link.setAttribute('aria-label', name + ' — módulo concluído');
+      else link.removeAttribute('aria-label');
     });
 
-    clearBtn?.addEventListener('click', () => {
-        checkboxes.forEach((checkbox) => (checkbox.checked = false));
-        localStorage.setItem(
-            key,
-            JSON.stringify(Array(checkboxes.length).fill(false))
-        );
+    el.doneButtons.forEach(function (btn) {
+      var on = !!state.done[btn.getAttribute('data-done')];
+      btn.setAttribute('aria-pressed', String(on));
+      btn.textContent = on ? '✓ Módulo concluído' : 'Marcar como concluído';
     });
-}
 
-function setupTooltips() {
-    document.querySelectorAll('[data-tooltip]').forEach((element) => {
-        element.addEventListener('mouseenter', () => {
-            const tip = document.createElement('div');
-            tip.className = 'tooltip';
-            tip.textContent = element.getAttribute('data-tooltip');
-            document.body.appendChild(tip);
-            const rect = element.getBoundingClientRect();
-            tip.style.left = rect.left + rect.width / 2 + 'px';
-            tip.style.top = rect.top - 8 + window.scrollY + 'px';
-            requestAnimationFrame(() => tip.classList.add('show'));
-            element._tip = tip;
-        });
-
-        element.addEventListener('mouseleave', () => {
-            if (element._tip) {
-                element._tip.remove();
-                element._tip = null;
-            }
-        });
-    });
-}
-
-function getSectionLabel(section) {
-    if (!section) return '';
-    return (
-        section.dataset.title ||
-        section.querySelector('h2')?.textContent?.trim() ||
-        section.id ||
-        'Capítulo'
-    );
-}
-
-function setupChapterNavigation() {
-    sectionsList = Array.from(document.querySelectorAll('.section'));
-    if (!sectionsList.length) return;
-    document.documentElement.classList.add('chapters-mode');
-    const total = sectionsList.length;
-
-    // Restaura progresso salvo (qual capítulo já foi desbloqueado)
-    const savedUnlock = parseInt(
-        localStorage.getItem('ebook-unlocked-until') || '1',
-        10
-    );
-    if (!isNaN(savedUnlock)) {
-        unlockedUntilIndex = Math.min(savedUnlock, total - 1);
+    // Capa
+    el.startLabel.textContent = state.lastSection ? 'Ver a trilha' : 'Começar a trilha';
+    var showResume = !!state.lastSection && state.lastSection !== 'trilha';
+    el.resumeLink.hidden = !showResume;
+    if (showResume) {
+      el.resumeLink.setAttribute('href', '#' + state.lastSection);
+      el.resumeLabel.textContent = 'Continuar em ' + sectionLabel(state.lastSection);
     }
 
-    const refreshLocks = () => {
-        navLinks.forEach((link) => {
-            const hash = link.getAttribute('href');
-            if (!hash || !hash.startsWith('#')) return;
-            const targetId = hash.slice(1);
-            const idx = sectionsList.findIndex((s) => s.id === targetId);
-            if (idx === -1) return;
-            if (idx <= unlockedUntilIndex) link.classList.remove('locked');
-            else link.classList.add('locked');
-        });
-    };
+    // Menu lateral (abaixo de 1080px)
+    el.sidenav.classList.toggle('open', state.navOpen);
+    el.navToggle.setAttribute('aria-expanded', String(state.navOpen));
+    el.scrim.hidden = !state.navOpen;
 
-    const persistUnlock = () => {
-        localStorage.setItem(
-            'ebook-unlocked-until',
-            String(unlockedUntilIndex)
-        );
-    };
-
-    const maybeUnlockNext = () => {
-        // Desbloqueia apenas o próximo capítulo imediato (progressão linear)
-        if (
-            activeSectionIndex >= unlockedUntilIndex &&
-            unlockedUntilIndex < total - 1
-        ) {
-            unlockedUntilIndex = activeSectionIndex + 1; // libera somente o próximo
-            persistUnlock();
-            refreshLocks();
-        }
-    };
-
-    const applyActive = () => {
-        sectionsList.forEach((sec, idx) => {
-            if (idx === activeSectionIndex) sec.classList.add('active');
-            else sec.classList.remove('active');
-        });
-    };
-
-    const updateProgressBarChapters = () => {
-        // Progresso baseado em capítulos desbloqueados (0..1)
-        const ratio = (unlockedUntilIndex + 1) / total;
-        progressBar.style.width = ratio * 100 + '%';
-    };
-
-    const updateChapterUI = (index) => {
-        activeSectionIndex = Math.max(0, Math.min(total - 1, index));
-        const section = sectionsList[activeSectionIndex];
-        const label = getSectionLabel(section);
-        // Marca como lido
-        readChapters.add(section.id);
-        persistReadChapters();
-        refreshReadStates();
-        if (chapterTitleEl) chapterTitleEl.textContent = label;
-        if (chapterPositionEl)
-            chapterPositionEl.textContent = `${
-                activeSectionIndex + 1
-            } / ${total}`;
-        updateChapterInternalProgress();
-        if (prevChapterBtn) prevChapterBtn.disabled = activeSectionIndex === 0;
-        if (nextChapterBtn)
-            nextChapterBtn.disabled = activeSectionIndex === total - 1;
-        document.body.setAttribute('data-active-section', section?.id || '');
-        applyActive();
-        maybeUnlockNext();
-        updateProgressBarChapters();
-    };
-
-    const goTo = (targetIndex) => {
-        updateChapterUI(targetIndex);
-        // Força reflow para garantir ocultação antes de rolar
-        void document.body.offsetHeight;
-        window.scrollTo({ top: 0, behavior: 'auto' });
-        const currentId = sectionsList[activeSectionIndex].id;
-        navLinks.forEach((l) => {
-            l.classList.toggle(
-                'active',
-                l.getAttribute('href') === '#' + currentId
-            );
-        });
-    };
-
-    prevChapterBtn?.addEventListener('click', () => {
-        if (activeSectionIndex > 0) goTo(activeSectionIndex - 1);
+    // Exercício de alucinação
+    var found = FLAG_KEYS.filter(function (k) { return state.found[k]; }).length;
+    el.flags.forEach(function (f) {
+      f.setAttribute('aria-pressed', String(!!state.found[f.getAttribute('data-k')]));
     });
-    nextChapterBtn?.addEventListener('click', () => {
-        if (activeSectionIndex < total - 1) {
-            // Se o próximo ainda está bloqueado mas é o próximo sequencial, libera-o
-            if (activeSectionIndex + 1 === unlockedUntilIndex + 1) {
-                unlockedUntilIndex = activeSectionIndex + 1;
-                persistUnlock();
-                refreshLocks();
-            }
-            goTo(activeSectionIndex + 1);
-        }
+    FLAG_KEYS.forEach(function (k) {
+      var note = $('[data-flag-note="' + k + '"]');
+      if (note) note.hidden = !state.found[k];
+    });
+    el.foundMsg.textContent = found === 0 ? '' :
+      found === FLAG_KEYS.length ? 'Os três problemas identificados. Este é o olhar crítico que a trilha pede.' :
+      found + ' de 3 problemas identificados';
+    el.foundMsg.classList.toggle('is-complete', found === FLAG_KEYS.length);
+
+    // Checklists
+    el.checklists.forEach(function (list) {
+      var key = list.getAttribute('data-checklist');
+      var items = $$('.check', list);
+      var n = 0;
+      items.forEach(function (item, i) {
+        var on = !!state[key][i];
+        if (on) n++;
+        item.setAttribute('aria-pressed', String(on));
+        $('.check__box', item).textContent = on ? '✓' : '';
+      });
+      var count = $('[data-checklist-count]', list);
+      count.textContent = n + ' de ' + items.length;
+      count.classList.toggle('is-complete', n === items.length);
     });
 
-    navLinks.forEach((link) => {
-        link.addEventListener('click', (e) => {
-            const hash = link.getAttribute('href');
-            if (!hash || !hash.startsWith('#')) return;
-            const target = hash.slice(1);
-            const idx = sectionsList.findIndex((s) => s.id === target);
-            if (idx !== -1) {
-                // Bloqueia se ainda não desbloqueado
-                if (idx > unlockedUntilIndex) {
-                    e.preventDefault();
-                    link.classList.add('locked-pulse');
-                    setTimeout(
-                        () => link.classList.remove('locked-pulse'),
-                        600
-                    );
-                    return;
-                }
-                e.preventDefault();
-                goTo(idx, true);
-            }
-        });
+    // Quiz
+    var qs = quizStats();
+    el.quizItems.forEach(function (item, qi) {
+      var sel = state.quiz[qi];
+      var answered = typeof sel === 'number';
+      var correct = Number(item.dataset.correct);
+      $$('.opt', item).forEach(function (opt, oi) {
+        opt.setAttribute('aria-pressed', String(answered && sel === oi));
+        opt.classList.toggle('is-correct', answered && oi === correct);
+        opt.classList.toggle('is-wrong', answered && oi === sel && sel !== correct);
+        opt.classList.toggle('is-dim', answered && oi !== correct && oi !== sel);
+      });
+      var fb = $('.quiz__fb', item);
+      fb.textContent = answered ? (sel === correct ? item.dataset.ok : 'Não é essa') + ' — ' + item.dataset.why : '';
+      fb.classList.toggle('is-wrong', answered && sel !== correct);
     });
-    refreshLocks();
-    // Garante que a capa esteja ativa ao iniciar
-    updateChapterUI(Math.min(activeSectionIndex, unlockedUntilIndex));
+    var allAnswered = qs.answered === qs.total;
+    el.quizScore.textContent = allAnswered ? 'Você acertou ' + qs.correct + ' de ' + qs.total + '.' : '';
+    el.quizScore.classList.toggle('is-perfect', allAnswered && qs.correct === qs.total);
+    el.quizResetWrap.hidden = qs.answered === 0;
 
-    // Botão da capa para avançar diretamente à Introdução
-    startJourneyBtn?.addEventListener('click', () => {
-        const introIndex = sectionsList.findIndex((s) => s.id === 'introducao');
-        if (introIndex !== -1) {
-            // Garante desbloqueio da introdução (já deve estar) e vai para ela
-            if (introIndex > unlockedUntilIndex) {
-                unlockedUntilIndex = introIndex;
-                persistUnlock();
-                refreshLocks();
-            }
-            goTo(introIndex);
-        }
+    // Painel "O que você produziu"
+    var words = NOTE_IDS.reduce(function (t, id) { return t + (state.words[id] || 0); }, 0);
+    var filled = NOTE_IDS.filter(function (id) { return (state.words[id] || 0) > 0; }).length;
+    var checks = checkedCount('lgpd') + checkedCount('impl');
+    var checksTotal = checklistItems('lgpd').length + checklistItems('impl').length;
+    var stats = {
+      mods: [dc + ' de ' + total, dc === total ? 'trilha percorrida de ponta a ponta' : 'marcados por você ao fim de cada módulo'],
+      words: [plural(words, 'palavra', 'palavras'), filled + ' de ' + NOTE_IDS.length + ' espaços preenchidos'],
+      checks: [checks + ' de ' + checksTotal, 'proteção de dados e implementação'],
+      quiz: allAnswered
+        ? [qs.correct + ' de ' + qs.total + ' corretas', 'respondido por inteiro']
+        : ['em aberto', qs.answered + ' de ' + qs.total + ' respondidas']
+    };
+    Object.keys(stats).forEach(function (k) {
+      $('[data-stat="' + k + '"]').textContent = stats[k][0];
+      $('[data-stat-note="' + k + '"]').textContent = stats[k][1];
     });
-}
+    el.percursoDate.textContent = doneAtLabel();
 
-// Persistência de capítulos lidos
-function persistReadChapters() {
-    try {
-        localStorage.setItem(
-            'ebook-read-chapters',
-            JSON.stringify(Array.from(readChapters))
-        );
-    } catch (_) {}
-}
-function loadReadChapters() {
-    try {
-        const saved = JSON.parse(
-            localStorage.getItem('ebook-read-chapters') || '[]'
-        );
-        if (Array.isArray(saved)) saved.forEach((id) => readChapters.add(id));
-    } catch (_) {}
-}
-function refreshReadStates() {
-    navLinks.forEach((link) => {
-        const hash = link.getAttribute('href');
-        if (!hash || !hash.startsWith('#')) return;
-        const id = hash.slice(1);
-        link.classList.remove('read', 'unlocked-only');
-        const idx = sectionsList.findIndex((s) => s.id === id);
-        if (idx === -1) return;
-        if (idx <= unlockedUntilIndex) {
-            if (readChapters.has(id)) link.classList.add('read');
-            else link.classList.add('unlocked-only');
-        }
-    });
-}
+    // Avisos e confirmações
+    el.popupWarn.hidden = !state.popupBlocked;
+    el.backupMsg.textContent = state.backupMsg;
+    el.backupMsg.classList.toggle('is-error', state.backupError);
+    el.citeMsg.textContent = state.citeMsg;
 
-function setupViewAndProgressMode() {
-    loadReadChapters();
-    refreshReadStates();
-    viewModeToggle?.addEventListener('click', () => {
-        fullView = !fullView;
-        document.documentElement.classList.toggle('full-view', fullView);
-        viewModeToggle.textContent = fullView
-            ? 'Visão Linear'
-            : 'Visão Completa';
-    });
-    progressModeToggle?.addEventListener('click', () => {
-        progressMode = progressMode === 'unlock' ? 'chapter' : 'unlock';
-        progressModeToggle.textContent =
-            'Progresso: ' +
-            (progressMode === 'unlock' ? 'Desbloqueio' : 'Capítulo');
-        updateChapterInternalProgress();
-    });
-}
+    renderSearch();
+  }
 
-function updateChapterInternalProgress() {
-    if (!chapterPercentEl || !chapterProgressFill) return;
-    if (progressMode === 'unlock') {
-        const total = sectionsList.length || 1;
-        const percent = Math.round(((unlockedUntilIndex + 1) / total) * 100);
-        chapterPercentEl.textContent = percent + '%';
-        chapterProgressFill.style.width = percent + '%';
+  function renderSearch() {
+    el.searchOverlay.hidden = !state.searchOpen;
+    if (!state.searchOpen) return;
+
+    var results = searchResults();
+    var sel = Math.min(state.sel, Math.max(0, results.length - 1));
+    lastResults = results;
+
+    el.searchResults.textContent = '';
+    results.forEach(function (r, i) {
+      var a = document.createElement('a');
+      a.className = 'search__result';
+      a.id = 'search-opt-' + i;
+      a.href = r.href;
+      a.setAttribute('role', 'option');
+      a.setAttribute('aria-selected', String(i === sel));
+
+      var head = document.createElement('div');
+      head.className = 'search__result-head';
+      var kind = document.createElement('span');
+      kind.className = 'search__kind';
+      kind.textContent = r.kind;
+      var title = document.createElement('span');
+      title.className = 'search__title';
+      title.textContent = r.title;
+      head.appendChild(kind);
+      head.appendChild(title);
+      a.appendChild(head);
+
+      if (r.def) {
+        var def = document.createElement('p');
+        def.className = 'search__def';
+        def.textContent = r.def;
+        a.appendChild(def);
+      }
+      el.searchResults.appendChild(a);
+    });
+
+    el.searchEmpty.hidden = results.length > 0;
+    if (results.length) {
+      el.searchInput.setAttribute('aria-activedescendant', 'search-opt-' + sel);
+      var active = byId('search-opt-' + sel);
+      if (active) active.scrollIntoView({ block: 'nearest' });
     } else {
-        // Placeholder: 100% (poderá futuramente calcular pelo scroll interno do capítulo)
-        chapterPercentEl.textContent = '100%';
-        chapterProgressFill.style.width = '100%';
+      el.searchInput.removeAttribute('aria-activedescendant');
     }
-}
+  }
 
-function setupPrintButton() {
-    if (!printButton) return;
-    const clearPrintTargets = () =>
-        sectionsList.forEach((section) =>
-            section.classList.remove('print-target')
-        );
+  // ---------------------------------------------------------------------------
+  // Busca
+  // ---------------------------------------------------------------------------
 
-    window.addEventListener('afterprint', clearPrintTargets);
+  var lastFocus = null;
 
-    printButton.addEventListener('click', () => {
-        if (!sectionsList.length) {
-            window.print();
-            return;
-        }
-        const targetSection =
-            sectionsList[activeSectionIndex] || sectionsList[0];
-        if (!targetSection) {
-            window.print();
-            return;
-        }
-        clearPrintTargets();
-        targetSection.classList.add('print-target');
-        window.print();
+  function openSearch() {
+    if (state.searchOpen) { el.searchInput.focus(); return; }
+    lastFocus = document.activeElement;
+    el.searchInput.value = '';
+    setState({ searchOpen: true, query: '', sel: 0, navOpen: false });
+    el.searchInput.focus();
+  }
+
+  function closeSearch() {
+    if (!state.searchOpen) return;
+    setState({ searchOpen: false });
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
+  }
+
+  function goTo(href) {
+    var target = $(href);
+    if (location.hash === href && target) target.scrollIntoView({ block: 'start' });
+    else location.hash = href;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Rolagem: barra de progresso, item ativo do sumário, seção corrente
+  // ---------------------------------------------------------------------------
+
+  var lastSpy = null;
+  var scrollQueued = false;
+
+  function onScroll() {
+    scrollQueued = false;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.min(100, Math.max(0, (window.scrollY / h) * 100)) : 0;
+    el.progressFill.style.width = p + '%';
+    el.progressPct.textContent = Math.round(p) + '%';
+    el.progressTrack.setAttribute('aria-valuenow', String(Math.round(p)));
+
+    var cur = null;
+    spies.forEach(function (s) {
+      if (s.getBoundingClientRect().top <= 140) cur = s.getAttribute('data-spy');
     });
-}
+    el.navLinks.forEach(function (l) {
+      var on = l.getAttribute('data-nav') === cur;
+      l.classList.toggle('active', on);
+      if (on) l.setAttribute('aria-current', 'true');
+      else l.removeAttribute('aria-current');
+    });
+    if (cur && cur !== lastSpy) {
+      lastSpy = cur;
+      store.set('lastSection', cur);
+    }
+  }
 
-const style = document.createElement('style');
-style.innerHTML = `
-.tooltip{position:absolute;transform:translate(-50%,-100%);background:rgba(17,24,39,.9);color:#fff;padding:6px 8px;border-radius:6px;font-size:12px;opacity:0;transition:opacity .15s ease;pointer-events:none;z-index:1200}
-.tooltip.show{opacity:1}
-.quiz-feedback{margin-top:8px;font-weight:600}
-.quiz-feedback.ok{color:#16a34a}
-.quiz-feedback.err{color:#ef4444}
-`;
-document.head.appendChild(style);
+  function queueScroll() {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    window.requestAnimationFrame(onScroll);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Cópia para a área de transferência
+  // ---------------------------------------------------------------------------
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+    return Promise.reject(new Error('clipboard indisponível'));
+  }
+
+  var citeTimer = null;
+
+  function copyCite(id, okMsg) {
+    var node = byId(id);
+    if (!node) return;
+    var done = function (msg) {
+      setState({ citeMsg: msg });
+      clearTimeout(citeTimer);
+      citeTimer = setTimeout(function () { setState({ citeMsg: '' }); }, 2600);
+    };
+    copyText((node.innerText || node.textContent).trim()).then(
+      function () { done(okMsg); },
+      function () { done('Não foi possível copiar — selecione o texto manualmente'); }
+    );
+  }
+
+  function copyPrompt(btn) {
+    var card = btn.closest('[data-prompt-card]');
+    var p = card && $('.prompt-card__text', card);
+    if (!p) return;
+    var restore = function () { btn.textContent = 'Copiar'; };
+    copyText((p.innerText || p.textContent).trim()).then(function () {
+      btn.textContent = 'Copiado ✓';
+      announce('Prompt copiado');
+      setTimeout(restore, 1400);
+    }, function () {
+      btn.textContent = 'Selecione e copie';
+      setTimeout(restore, 2000);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Exportar caderno (janela nova + impressão)
+  // ---------------------------------------------------------------------------
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function exportCaderno() {
+    var name = state.certName.trim();
+    var rows = NOTE_IDS.map(function (id) {
+      var field = byId(id);
+      var v = field ? field.value.trim() : '';
+      return v ? '<h2>' + esc(NOTE_TITLES[id]) + '</h2><p>' + esc(v).replace(/\n/g, '<br>') + '</p>' : '';
+    }).join('');
+
+    var w = window.open('', '_blank');
+    if (!w) { setState({ popupBlocked: true }); return; }
+    setState({ popupBlocked: false });
+
+    w.document.write(
+      '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Caderno do cursista</title>' +
+      '<style>body{font-family:Georgia,"Times New Roman",serif;max-width:640px;margin:48px auto;padding:0 28px;color:#1c1b16;line-height:1.7}' +
+      'h1{font-size:28px;margin:0 0 4px}h2{font-size:13px;font-family:system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#1d6a46;margin:30px 0 6px}' +
+      'p{white-space:pre-wrap;margin:0 0 12px}.meta{color:#6e685a;font-size:13px;font-family:system-ui,sans-serif;border-bottom:1px solid #ddd;padding-bottom:16px;margin-bottom:8px}' +
+      '@media print{body{margin:0}}</style></head><body>' +
+      '<h1>Caderno do cursista</h1><div class="meta">' + (name ? esc(name) + ' &middot; ' : '') +
+      'IA na Educação Básica &middot; ' + new Date().toLocaleDateString('pt-BR') + '</div>' +
+      (rows || '<p>Nenhuma anotação registrada ainda.</p>') +
+      '<scr' + 'ipt>window.onload=function(){window.print()}</scr' + 'ipt></body></html>'
+    );
+    w.document.close();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Backup em arquivo
+  // ---------------------------------------------------------------------------
+
+  var backupTimer = null;
+
+  function backupMessage(txt, isError) {
+    setState({ backupMsg: txt, backupError: !!isError });
+    clearTimeout(backupTimer);
+    backupTimer = setTimeout(function () { setState({ backupMsg: '' }); }, 6000);
+  }
+
+  function buildBackup() {
+    var notes = {};
+    NOTE_IDS.forEach(function (id) {
+      var field = byId(id);
+      if (field && field.value.trim()) notes[id] = field.value;
+    });
+    var saved = {};
+    BACKUP_KEYS.forEach(function (k) {
+      // lastSection vem do armazenamento: o estado guarda a da visita anterior.
+      var v = k === 'lastSection' ? (knownSection(store.get(k)) || state.lastSection) : state[k];
+      if (v === undefined || v === null || v === '') return;
+      if (typeof v === 'object' && !Object.keys(v).length) return;
+      saved[k] = v;
+    });
+    return { app: APP_ID, versao: 2, salvoEm: new Date().toISOString(), notes: notes, state: saved };
+  }
+
+  function downloadBackup() {
+    try {
+      var data = buildBackup();
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var d = new Date();
+      var stamp = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'caderno-trilha-ia-' + stamp + '.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+      var n = Object.keys(data.notes).length;
+      backupMessage('Backup baixado — ' + plural(n, 'anotação incluída', 'anotações incluídas') + '.');
+    } catch (e) {
+      backupMessage('Não foi possível gerar o backup neste navegador.', true);
+    }
+  }
+
+  var BACKUP_VALIDATORS = {
+    lgpd: asMap,
+    impl: asMap,
+    quiz: asMap,
+    done: asMap,
+    certName: asString,
+    doneAt: function (v) { return asString(v) || null; },
+    lastSection: knownSection
+  };
+
+  function applyBackup(data) {
+    if (!data || data.app !== APP_ID) throw new Error('formato');
+
+    var notes = asMap(data.notes);
+    var words = Object.assign({}, state.words);
+    NOTE_IDS.forEach(function (id) {
+      var v = notes[id];
+      var field = byId(id);
+      if (!field || typeof v !== 'string') return;
+      field.value = v;
+      store.setRaw(id, v);
+      words[id] = wordsOf(v);
+    });
+
+    var saved = asMap(data.state);
+    var patch = { words: words };
+    BACKUP_KEYS.forEach(function (k) {
+      if (saved[k] === undefined) return;
+      var v = BACKUP_VALIDATORS[k](saved[k]);
+      // lastSection só alimenta a próxima visita; não mexe na capa atual.
+      if (k === 'lastSection') { if (v) store.set(k, v); return; }
+      patch[k] = v;
+      store.set(k, v);
+    });
+    if (typeof patch.certName === 'string') el.certName.value = patch.certName;
+
+    Object.assign(state, patch);
+    ensureDoneAt();
+    render();
+
+    var n = Object.keys(notes).length;
+    backupMessage('Backup restaurado — ' + plural(n, 'anotação', 'anotações') + ' e o progresso dos módulos.');
+  }
+
+  function onBackupFile(e) {
+    var f = e.target.files && e.target.files[0];
+    if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try { applyBackup(JSON.parse(r.result)); }
+      catch (err) { backupMessage('Arquivo inválido. Escolha um backup gerado por esta trilha.', true); }
+    };
+    r.onerror = function () { backupMessage('Não foi possível ler o arquivo.', true); };
+    r.readAsText(f);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Eventos
+  // ---------------------------------------------------------------------------
+
+  function bind() {
+    el.themeToggle.addEventListener('click', function () {
+      var t = state.theme === 'dark' ? 'light' : 'dark';
+      store.setRaw('theme', t);
+      setState({ theme: t });
+    });
+
+    // Menu lateral
+    el.navToggle.addEventListener('click', function () { setState({ navOpen: !state.navOpen }); });
+    el.scrim.addEventListener('click', function () { setState({ navOpen: false }); });
+    $$('a', el.sidenav).forEach(function (a) {
+      a.addEventListener('click', function () { if (state.navOpen) setState({ navOpen: false }); });
+    });
+
+    // Busca
+    el.searchOpen.addEventListener('click', openSearch);
+    el.searchOverlay.addEventListener('click', function (e) { if (e.target === el.searchOverlay) closeSearch(); });
+    el.searchInput.addEventListener('input', function () { setState({ query: el.searchInput.value, sel: 0 }); });
+    el.searchResults.addEventListener('click', function (e) {
+      var a = e.target.closest('a.search__result');
+      if (!a) return;
+      e.preventDefault();
+      var href = a.getAttribute('href');
+      closeSearch();
+      goTo(href);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        openSearch();
+        return;
+      }
+      if (state.searchOpen) {
+        var n = lastResults.length;
+        if (e.key === 'Escape') { e.preventDefault(); closeSearch(); }
+        else if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && n) {
+          e.preventDefault();
+          var d = e.key === 'ArrowDown' ? 1 : -1;
+          setState({ sel: (Math.min(state.sel, n - 1) + d + n) % n });
+        }
+        else if (e.key === 'Enter' && n) {
+          e.preventDefault();
+          var r = lastResults[Math.min(state.sel, n - 1)];
+          closeSearch();
+          goTo(r.href);
+        }
+        // Foco contido no diálogo: o único controle é o campo de busca.
+        else if (e.key === 'Tab') { e.preventDefault(); el.searchInput.focus(); }
+        return;
+      }
+      if (e.key === 'Escape' && state.navOpen) {
+        setState({ navOpen: false });
+        el.navToggle.focus();
+      }
+    });
+
+    // Caderno e exercícios: grava a cada tecla
+    NOTE_IDS.forEach(function (id) {
+      var field = byId(id);
+      if (!field) return;
+      field.addEventListener('input', function () {
+        var ok = store.setRaw(id, field.value);
+        var words = Object.assign({}, state.words);
+        words[id] = wordsOf(field.value);
+        setState({ words: words, storageOk: state.storageOk && ok });
+      });
+    });
+
+    // Exercício de alucinação
+    el.flags.forEach(function (f) {
+      f.addEventListener('click', function () { setState(toggleIn('found', f.getAttribute('data-k'))); });
+    });
+
+    // Checklists
+    el.checklists.forEach(function (list) {
+      var key = list.getAttribute('data-checklist');
+      $$('.check', list).forEach(function (item, i) {
+        item.addEventListener('click', function () {
+          var patch = toggleIn(key, i);
+          store.set(key, patch[key]);
+          setState(patch);
+        });
+      });
+    });
+
+    // Quiz: resposta trocável
+    el.quizItems.forEach(function (item, qi) {
+      $$('.opt', item).forEach(function (opt, oi) {
+        opt.addEventListener('click', function () {
+          var quiz = Object.assign({}, state.quiz);
+          quiz[qi] = oi;
+          store.set('quiz', quiz);
+          setState({ quiz: quiz });
+        });
+      });
+    });
+    byId('quiz-reset').addEventListener('click', function () {
+      store.set('quiz', {});
+      setState({ quiz: {} });
+    });
+
+    // Módulos concluídos
+    el.doneButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var patch = toggleIn('done', btn.getAttribute('data-done'));
+        store.set('done', patch.done);
+        state.done = patch.done;
+        ensureDoneAt();
+        render();
+      });
+    });
+
+    // Nome
+    el.certName.addEventListener('input', function () {
+      store.set('certName', el.certName.value);
+      setState({ certName: el.certName.value });
+    });
+
+    // Cópias
+    $$('[data-copy-prompt]').forEach(function (btn) {
+      btn.addEventListener('click', function () { copyPrompt(btn); });
+    });
+    byId('copy-abnt').addEventListener('click', function () { copyCite('cite-abnt', 'Citação ABNT copiada'); });
+    byId('copy-bibtex').addEventListener('click', function () { copyCite('cite-bibtex', 'BibTeX copiado'); });
+
+    // Impressão, exportação e backup
+    byId('print-trilha').addEventListener('click', function () { window.print(); });
+    byId('export-caderno').addEventListener('click', exportCaderno);
+    byId('backup-download').addEventListener('click', downloadBackup);
+    byId('backup-restore').addEventListener('click', function () {
+      el.backupFile.value = '';
+      el.backupFile.click();
+    });
+    el.backupFile.addEventListener('change', onBackupFile);
+
+    window.addEventListener('scroll', queueScroll, { passive: true });
+    window.addEventListener('resize', queueScroll);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Início
+  // ---------------------------------------------------------------------------
+
+  function init() {
+    // Rótulo de atalho sensível à plataforma
+    var kbd = isMac ? '⌘K' : 'Ctrl K';
+    $$('[data-kbd]').forEach(function (k) { k.textContent = kbd; });
+    el.searchOpen.setAttribute('aria-label', isMac ? 'Buscar (⌘K)' : 'Buscar (Ctrl+K)');
+
+    // Restaura textos salvos
+    NOTE_IDS.forEach(function (id) {
+      var field = byId(id);
+      if (!field) return;
+      var v = store.getRaw(id);
+      if (v != null) field.value = v;
+      state.words[id] = wordsOf(field.value);
+    });
+    el.certName.value = state.certName;
+
+    ensureDoneAt();
+    bind();
+    render();
+    onScroll();
+  }
+
+  init();
+})();

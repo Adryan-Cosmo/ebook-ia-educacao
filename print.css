@@ -1,22 +1,120 @@
-/* print.css — folha de estilo otimizada para impressão */
-@page { size: A4; margin: 16mm; }
-* { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body { background: #ffffff !important; color: #111827; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-.progress-container, .theme-toggle, .mobile-menu-btn, .sidebar, .print-button, .chapter-toolbar, .chapter-nav { display: none !important; }
-.main-content { margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
-.section { box-shadow: none !important; border: 1px solid #e5e7eb; background: #fff; page-break-inside: avoid; }
-.section h2 { color: #111827; }
-.section h3 { color: #1f2937; }
-.section h4 { color: #374151; }
-.tag { background: #e0e7ff !important; color: #3730a3 !important; }
-.badge.success { background: #dcfce7 !important; color: #166534 !important; }
-.badge.warn { background: #ffedd5 !important; color: #9a3412 !important; }
-.media-slot { border-color: #c7d2fe !important; color: #6b7280 !important; }
-.callout, .callout.info, .callout.success { background: #f9fafb !important; border-left-color: #6b7280 !important; }
-.timeline .time-block { border: 1px solid #e5e7eb !important; }
-a { color: #1d4ed8; text-decoration: underline; }
+/* ==========================================================================
+   Impressão da trilha (carregado com media="print").
+   Imprimir a trilha produz o material de trabalho; o registro do que a
+   pessoa escreveu é o "Exportar caderno", gerado à parte pelo app.js.
+   ========================================================================== */
 
-@media print {
-	.section { display: none !important; }
-	.section.print-target { display: block !important; }
+@page { margin: 18mm 16mm; }
+
+:root,
+[data-theme="dark"] {
+  --paper: #fff;
+  --paper-2: #fff;
+  --page: #fff;
+  --surface: #fff;
+  --ink: #000;
+  --ink-soft: #1a1a1a;
+  --muted: #3d3d3d;
+  --rule: #b9b3a4;
+  --edge: #7a7466;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
+
+/* As seções alternadas redefinem --page/--surface; na impressão, tudo é papel. */
+.sec,
+.sec--alt { --page: #fff; --surface: #fff; }
+
+html, body { background: #fff; }
+
+.app { padding: 0 !important; }
+
+/* Chrome da tela fica fora */
+.sidenav,
+.snav-toggle,
+.scrim,
+.topbar,
+.search,
+.skip,
+.sprite,
+[data-print-hide] { display: none !important; }
+
+.app button:not([data-print-keep]) { display: none !important; }
+
+/* Checklists e alternativas do quiz: caixas de contorno, preenchíveis à mão.
+   O estado marcado imprime em preto, então o papel reflete o estado real. */
+button[data-print-keep] {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #7a7466 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+.check__box {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1.5px solid #000 !important;
+}
+
+/* Trechos do exercício de alucinação: são a própria frase, imprimem como texto. */
+button[data-print-text] {
+  display: inline !important;
+  padding: 0 !important;
+  font: inherit !important;
+  color: #000 !important;
+  background: #fff !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-decoration: underline dotted !important;
+  text-underline-offset: 3px;
+}
+
+/* Cada seção começa em página nova; a capa não. */
+section[data-spy] {
+  break-before: page;
+  padding: 0 !important;
+  border: none !important;
+}
+section#capa { padding: 0 !important; }
+
+h1, .cover-title { font-size: 30pt !important; }
+h2 { font-size: 21pt !important; break-after: avoid; }
+h3 { font-size: 14pt !important; break-after: avoid; }
+p, li, dd, dt, span { font-size: 11pt !important; line-height: 1.55 !important; }
+
+.note,
+.quote,
+.prompt-card,
+.pair__cell,
+.anatomy,
+.anatomy-key__cell,
+.tool,
+.tpack__cell,
+.cycle,
+.row-card,
+.steps li,
+.variants__item,
+.quiz__item,
+.panel__cell,
+.glossary > div,
+ol > li,
+aside { break-inside: avoid; }
+
+/* Áreas de caderno: espaço para escrever à mão. */
+textarea {
+  height: 26mm !important;
+  min-height: 26mm !important;
+  border: 1px solid #7a7466 !important;
+  background: #fff !important;
+  color: #000 !important;
+}
+
+.count,
+.checklist__count,
+.progress-pct { display: none !important; }
+
+a { color: #000 !important; border-bottom: none !important; }
+
+svg { display: none !important; }
+
+pre { white-space: pre-wrap !important; font-size: 9pt !important; }

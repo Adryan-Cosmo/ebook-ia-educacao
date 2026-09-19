@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<meta name="omelette-owns-print" content="1">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FAF7F0;--paper-2:#F1ECDF;--ink:#1C1B16;--ink-soft:#403D34;--muted:#6E685A;--rule:#E1DBCC;--edge:#8F8770;--accent:#2A4C8F;--accent-strong:#8F3529;--accent-soft:rgba(42,76,143,.12);--mark:rgba(224,178,74,.42);--c1:#1D6A46;--c1s:rgba(29,106,70,.14);--c2:#5B3E8F;--c2s:rgba(91,62,143,.14);--c3:#9A3B2E;--c3s:rgba(154,59,46,.14);--c4:#8A6A15;--c4s:rgba(138,106,21,.16)}
+[data-theme="dark"]{--paper:#141310;--paper-2:#1E1C15;--ink:#ECE7D9;--ink-soft:#C8C2B2;--muted:#9A9280;--rule:#302D24;--edge:#6A6353;--accent:#7FA6E8;--accent-strong:#E0995A;--accent-soft:rgba(127,166,232,.18);--mark:rgba(224,178,74,.22);--c1:#66C492;--c1s:rgba(102,196,146,.18);--c2:#B49AE8;--c2s:rgba(180,154,232,.20);--c3:#E08A78;--c3s:rgba(224,138,120,.18);--c4:#D9B45E;--c4s:rgba(217,180,94,.18)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper)}
+::selection{background:var(--mark)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:none;color:var(--accent-strong) !important}
+#trilha a > span:first-child{transition:transform .15s ease}
+#trilha a:hover > span:first-child{transform:translateX(14px)}
+#ebook-root{padding-left:248px}
+.snav-link{transition:background .12s,box-shadow .12s,color .12s}
+.snav-link:hover{background:var(--paper-2);color:var(--accent) !important}
+.snav-link.active{color:var(--accent) !important;box-shadow:inset 3px 0 0 var(--accent);background:var(--paper-2)}
+.snav-link.active .snum{color:var(--accent) !important}
+.snav-link{position:relative}
+.snav-link.done::after{content:"\2713";position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--accent);font:600 12px/1 'IBM Plex Sans',sans-serif}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@page{margin:18mm 16mm}
+@media print{
+  :root{--paper:#fff;--paper-2:#fff;--ink:#000;--ink-soft:#1a1a1a;--muted:#3d3d3d;--rule:#b9b3a4;--edge:#7a7466;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  html,body{background:#fff}
+  #ebook-root{padding:0 !important}
+  #sidenav,.snav-toggle,#topbar,#search-overlay,.skip,#progress-track,[data-print-hide]{display:none !important}
+  #ebook-root button:not([data-print-keep]){display:none !important}
+  button[data-print-keep]{background:#fff !important;color:#000 !important;border:1px solid #7a7466 !important;box-shadow:none !important;opacity:1 !important}
+  button[data-print-keep] span[style*="border-radius:6px"]{background:#fff !important;color:#000 !important;border:1.5px solid #000 !important}
+  button[data-print-text]{display:inline !important;border:none !important;background:#fff !important;color:#000 !important;box-shadow:none !important;padding:0 !important;font:inherit !important;text-decoration:underline dotted !important;text-underline-offset:3px}
+  section[data-spy]{break-before:page;padding:0 !important;border:none !important}
+  section#capa{padding:0 !important}
+  h1{font-size:30pt !important}
+  h2{font-size:21pt !important;break-after:avoid}
+  h3{font-size:14pt !important;break-after:avoid}
+  p,li,dd,dt,span{font-size:11pt !important;line-height:1.55 !important}
+  [data-note],blockquote,[data-prompt-card],dl>div,ol>li,aside{break-inside:avoid}
+  textarea{height:26mm !important;min-height:26mm !important;border:1px solid #7a7466 !important;background:#fff !important;color:#000 !important}
+  [id$="-count"]{display:none !important}
+  a{color:#000 !important;border-bottom:none !important}
+  svg{display:none !important}
+  pre{white-space:pre-wrap !important;font-size:9pt !important}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}#trilha a:hover > span:first-child{transform:none}}
+.snav-toggle{display:none}
+.skip{position:absolute;left:-9999px;top:0;z-index:300}
+.skip:focus{left:10px;top:10px;padding:13px 18px;background:var(--ink);color:var(--paper);border-radius:10px;font:600 14px/1 'IBM Plex Sans',sans-serif}
+#ebook-root button{min-height:36px}
+@media (pointer:coarse){#ebook-root button{min-height:44px;min-width:44px}}
+#search-results a{border-radius:10px}
+@media (min-width:1081px){#ebook-root{padding-left:280px}}
+@media (max-width:640px){#search-panel{width:100vw !important;max-width:100vw !important;height:100dvh;max-height:100dvh !important;border-radius:0 !important}#search-overlay{padding:0 !important}#search-results{max-height:none !important}}
+@media (max-width:1080px){#ebook-root{padding-left:0}#sidenav{transform:translateX(-100%);box-shadow:none;visibility:hidden}#sidenav.open{transform:translateX(0);visibility:visible}.snav-toggle{display:inline-flex}}
+</style>
+</helmet>
+<article id="ebook-root" style="width:100%;min-height:100vh;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased">
+
+  <a class="skip" href="#trilha">Ir direto ao conteúdo</a>
+
+  <div onClick="{{ closeNav }}" style="{{ navScrimStyle }}"></div>
+
+  <!-- SIDE NAV -->
+  <nav id="sidenav" style="position:fixed;top:0;left:0;width:248px;height:100vh;z-index:60;background:var(--paper);border-right:1px solid var(--rule);padding:22px 16px 24px;overflow-y:auto;transition:transform .25s ease;font-family:'IBM Plex Sans',sans-serif">
+    <a href="#capa" onClick="{{ closeNav }}" style="display:block;font:600 12px/1.3 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)">IA na Educação<br><span style="color:var(--muted)">Básica · trilha</span></a>
+    <div style="margin:20px 0 8px;font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)">Sumário</div>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <a class="snav-link" data-nav="trilha" href="#trilha" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">§</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">A trilha</span></a>
+      <a class="snav-link" data-nav="modulo-0" href="#modulo-0" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">00</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Fundamentos</span></a>
+      <a class="snav-link" data-nav="modulo-1" href="#modulo-1" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Engenharia de Prompts</span></a>
+      <a class="snav-link" data-nav="modulo-2" href="#modulo-2" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Ferramentas de IA</span></a>
+      <a class="snav-link" data-nav="modulo-3" href="#modulo-3" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Ferramentas complementares</span></a>
+      <a class="snav-link" data-nav="modulo-4" href="#modulo-4" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">04</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Aplicação pedagógica</span></a>
+      <a class="snav-link" data-nav="modulo-5" href="#modulo-5" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">05</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Ética, LGPD e direitos</span></a>
+      <a class="snav-link" data-nav="modulo-6" href="#modulo-6" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">06</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Implementação</span></a>
+      <a class="snav-link" data-nav="glossario" href="#glossario" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">A–Z</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Glossário</span></a>
+      <a class="snav-link" data-nav="referencias" href="#referencias" onClick="{{ closeNav }}" style="display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--ink-soft);text-decoration:none"><span class="snum" style="font:500 12px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">§</span><span style="font:500 14px/1.35 'IBM Plex Sans',sans-serif">Referências</span></a>
+    </div>
+    <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 12px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted)">v2.0 · CC BY 4.0</div>
+  </nav>
+
+  <div id="topbar" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)">
+    <div id="search-overlay" style="{{ searchOverlayStyle }}" onClick="{{ closeSearch }}">
+      <div id="search-panel" onClick="{{ stopEvt }}" role="dialog" aria-modal="true" aria-label="Buscar na trilha" style="width:min(560px,92vw);max-height:74vh;display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--rule);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.28);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--rule)">
+          <span style="display:flex;color:var(--muted)"><svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21"></path></svg></span>
+          <input id="search-input" type="text" onInput="{{ onSearchInput }}" aria-label="Buscar seções e termos do glossário" aria-describedby="search-hint" placeholder="Buscar seções e termos do glossário…" style="flex:1;background:transparent;border:none;outline:none;font:400 17px/1.4 'IBM Plex Sans',sans-serif;color:var(--ink)">
+          <kbd style="font:500 10px/1 'IBM Plex Mono',monospace;border:1px solid var(--edge);border-radius:5px;padding:4px 6px;color:var(--muted)">esc</kbd>
+          <span id="search-hint" style="position:absolute;left:-9999px">Use as setas para percorrer e Enter para abrir</span>
+        </div>
+        <div id="search-results" role="listbox" aria-label="Resultados" style="overflow-y:auto;padding:8px">
+          <sc-for list="{{ searchResults }}" as="r" hint-placeholder-count="5">
+            <a href="{{ r.href }}" onClick="{{ closeSearch }}" role="option" aria-selected="{{ r.selected }}" style="{{ r.rowStyle }}" style-hover="background:var(--paper-2)">
+              <div style="display:flex;align-items:baseline;gap:10px"><span style="font:600 10px/1.4 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">{{ r.kind }}</span><span style="font:600 15px/1.4 'Lora',serif;color:var(--ink)">{{ r.title }}</span></div>
+              <p style="{{ r.defStyle }}">{{ r.def }}</p>
+            </a>
+          </sc-for>
+          <p style="{{ searchEmptyStyle }}">Nada encontrado.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;height:54px;padding:0 clamp(16px,4vw,40px)">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button type="button" class="snav-toggle" onClick="{{ toggleNav }}" aria-label="Menu" aria-expanded="{{ navOpen }}" aria-controls="sidenav" style="align-items:center;justify-content:center;width:34px;height:34px;background:transparent;border:1px solid var(--edge);border-radius:8px;cursor:pointer;color:var(--ink);font-size:16px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></button>
+        <a href="#capa" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)">IA na Educação Básica <span style="color:var(--muted)">· trilha formativa</span></a>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <button type="button" onClick="{{ openSearch }}" aria-label="Buscar (Ctrl+K)" style="display:flex;align-items:center;gap:8px;font:500 12px/1 'IBM Plex Sans',sans-serif;color:var(--muted);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:7px 12px;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)"><span style="font-size:13px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5 21 21"></path></svg></span><span>Buscar</span><kbd style="font:500 10px/1 'IBM Plex Mono',monospace;border:1px solid var(--edge);border-radius:5px;padding:3px 5px;color:var(--muted)">{{ kbdLabel }}</kbd></button>
+        <span style="{{ doneChipStyle }}"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:{{ doneDot }}"></span>{{ doneChip }}</span>
+        <span id="progress-pct" title="Posição de leitura na página" aria-hidden="true" style="font:500 11px/1 'IBM Plex Mono',monospace;color:var(--muted);min-width:30px;text-align:right;opacity:.75">0%</span>
+        <button id="theme-toggle" type="button" onClick="{{ toggleTheme }}" aria-pressed="{{ themeOn }}" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.06em;color:var(--ink);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:7px 14px;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">{{ themeLabel }}</button>
+      </div>
+    </div>
+    <div id="progress-track" role="progressbar" aria-label="Posição de leitura na trilha" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="height:2px;background:var(--rule)"><div id="progress-fill" style="height:2px;width:0%;background:var(--accent)"></div></div>
+    <div role="alert" style="{{ storageWarnStyle }}"><strong style="color:var(--ink)">Atenção — suas anotações não estão sendo salvas.</strong> Este navegador está bloqueando o armazenamento local (comum em navegação privada). O texto digitado será perdido ao recarregar a página: exporte o caderno em PDF antes de sair.</div>
+  </div>
+
+  <!-- CAPA -->
+  <section id="capa" data-screen-label="Capa" aria-label="Capa" style="padding:clamp(40px,9vh,110px) clamp(16px,4vw,40px) clamp(48px,8vh,90px)">
+    <div style="max-width:820px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:14px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">N.º 01</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+        <span>Formação docente · v2.0</span>
+      </div>
+      <h1 style="font:600 clamp(40px,8vw,78px)/1.04 'Lora',Georgia,serif;letter-spacing:-.02em;color:var(--ink);margin:.5em 0 0">Ferramentas de <span style="font-style:italic;color:var(--accent)">IA</span> na Educação Básica</h1>
+      <p style="font:400 clamp(19px,2.4vw,26px)/1.5 'Lora',serif;color:var(--ink-soft);margin:.7em 0 0;max-width:640px">Uma trilha formativa progressiva para professores — do letramento digital à engenharia de prompts, com base em TPACK, BNCC e no guia da UNESCO.</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin-top:40px">
+        <a href="#trilha" data-print-hide="" style="display:inline-flex;align-items:center;gap:10px;font:600 15px/1 'IBM Plex Sans',sans-serif;color:var(--paper);background:var(--ink);padding:14px 22px;border-radius:999px" style-hover="background:var(--accent)">{{ startLabel }} <span style="font-size:17px">↓</span></a>
+        <a href="{{ resumeHref }}" data-print-hide="" style="{{ resumeStyle }}"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg> {{ resumeLabel }}</a>
+        <div style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted)">Adryan Cavalcante Cosmo · 7 módulos<br>Licença CC BY 4.0 · leitura ~2 h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A TRILHA -->
+  <section id="trilha" data-spy="trilha" data-screen-label="Home da trilha" aria-label="Home da trilha" style="padding:clamp(30px,5vh,60px) clamp(16px,4vw,40px) clamp(40px,7vh,80px)">
+    <div style="max-width:672px;margin:0 auto">
+      <span style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)">A trilha</span>
+      <h2 style="font:600 clamp(30px,5vw,44px)/1.12 'Lora',serif;letter-spacing:-.015em;color:var(--ink);margin:.25em 0 .5em">Uma trilha formativa progressiva</h2>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Diferente de uma lista de ferramentas, esta segunda edição organiza o percurso em módulos que se apoiam uns nos outros. Cada módulo tem fundamentação teórica, exercícios práticos e um espaço de anotação — para que a leitura vire prática de sala de aula.</p>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">A estrutura segue o modelo <strong style="color:var(--ink)">TPACK</strong> (Mishra e Koehler, 2006), toma o <strong style="color:var(--ink)">letramento digital como prática situada</strong> (Moura, Carvalho e Mion, 2019) como eixo, ancora-se na <strong style="color:var(--ink)">Competência 5 da BNCC</strong> e adota o <strong style="color:var(--ink)">guia da UNESCO</strong> (Holmes et al., 2024) para o uso crítico de IA.</p>
+    </div>
+
+    <div style="max-width:820px;margin:36px auto 0">
+      <div style="border-top:1px solid var(--rule)">
+
+        <a href="#modulo-0" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:400 34px/1 'Lora',serif;color:var(--muted)">00</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Fundamentos</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">IA generativa na educação, letramento digital e por que a engenharia de prompts importa.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);white-space:nowrap">novo</span>
+        </a>
+
+        <a href="#modulo-1" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:500 34px/1 'Lora',serif;color:var(--accent)">01</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Engenharia de Prompts</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">Anatomia de um bom prompt, padrões para tarefas pedagógicas e avaliação crítica de respostas.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);white-space:nowrap">módulo modelo ↓</span>
+        </a>
+
+        <a href="#modulo-2" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:400 34px/1 'Lora',serif;color:var(--muted)">02</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Ferramentas de IA Generativa para Docência</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">ChatGPT, Claude, Perplexity e Manus — com foco em prompts pedagógicos.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">reformulado</span>
+        </a>
+
+        <a href="#modulo-3" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:400 34px/1 'Lora',serif;color:var(--muted)">03</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Ferramentas Digitais Complementares</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">Canva Educação, Kahoot!, Gamma e NotebookLM.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">novo recorte</span>
+        </a>
+
+        <a href="#modulo-4" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:400 34px/1 'Lora',serif;color:var(--muted)">04</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Aplicação Pedagógica Integrada</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">Planejamento e avaliação com IA (TPACK aplicado), inclusão e fluxo de aula.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">reformulado</span>
+        </a>
+
+        <a href="#modulo-5" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:400 34px/1 'Lora',serif;color:var(--muted)">05</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Ética, LGPD e Direitos Autorais</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">Privacidade de alunos, LGPD na sala de aula e materiais gerados por IA.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">expandido</span>
+        </a>
+
+        <a href="#modulo-6" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:400 34px/1 'Lora',serif;color:var(--muted)">06</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Trilha de Implementação</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">Linha do tempo de 12 semanas, checklist, quiz final e fechamento de percurso.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap">reformulado</span>
+        </a>
+
+        <a href="#referencias" style="display:grid;grid-template-columns:64px 1fr auto;gap:20px;align-items:baseline;padding:22px 4px;border-bottom:1px solid var(--rule);color:inherit;transition:box-shadow .15s,background .15s,padding-left .15s" style-hover="background:var(--paper-2);box-shadow:inset 3px 0 0 var(--accent)">
+          <span style="font:400 26px/1 'Lora',serif;color:var(--muted)">§</span>
+          <span><span style="font:600 21px/1.3 'Lora',serif;color:var(--ink)">Referências Bibliográficas</span><br><span style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted)">BNCC, UNESCO (Holmes et al.), TPACK (Mishra e Koehler) e Moura et al.</span></span>
+          <span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);white-space:nowrap">novo</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 0 -->
+  <section id="modulo-0" data-spy="modulo-0" data-screen-label="Módulo 0 — Fundamentos" aria-label="Módulo 0 — Fundamentos" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);scroll-margin-top:60px">
+
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Módulo 00</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(34px,6vw,56px)/1.06 'Lora',serif;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .3em">Fundamentos</h2>
+      <p style="font:400 clamp(18px,2.2vw,22px)/1.5 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0">Antes de abrir qualquer ferramenta, vale entender o terreno: o que muda na educação básica com a IA generativa, e por que o professor continua no centro da decisão.</p>
+
+      <!-- OVERVIEW -->
+      <div style="margin-top:34px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px 26px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Neste módulo</div>
+        <ol style="margin:0;padding:0;list-style:none;display:grid;gap:10px">
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m0-ia" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</a> <a href="#m0-ia" style="color:var(--ink)">IA generativa na educação básica</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m0-letramento" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</a> <a href="#m0-letramento" style="color:var(--ink)">Letramento digital e a Competência 5 da BNCC</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m0-porque" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</a> <a href="#m0-porque" style="color:var(--ink)">Por que a engenharia de prompts importa</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m0-comousar" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">04</a> <a href="#m0-comousar" style="color:var(--ink)">Como usar este material</a></li>
+        </ol>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> ~30 min</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5.5 21V3"></path><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"></path></svg> Ponto de partida</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01 IA GENERATIVA -->
+    <div id="m0-ia" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">01</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">IA generativa na educação básica</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em"><strong style="color:var(--ink);background:var(--mark);padding:0 3px;border-radius:2px">IA generativa</strong> é o nome dado a sistemas que produzem texto, imagem, áudio ou código a partir de instruções em linguagem natural. Na escola, isso significa um assistente capaz de rascunhar planos de aula, gerar exemplos, adaptar textos e simular diálogos — sempre sob a curadoria do professor.</p>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">O guia da UNESCO (Holmes et al., 2024) é claro quanto ao princípio orientador: a tecnologia deve ampliar — nunca substituir — o julgamento pedagógico e a relação humana no centro da aprendizagem. Ferramentas de IA são meio, não fim.</p>
+      <aside data-note="" style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:26px 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Princípio UNESCO.</strong> Abordagem centrada no ser humano: a IA apoia a decisão docente e exige supervisão, transparência e avaliação crítica de seus resultados.</aside>
+    </div>
+
+    <!-- 02 LETRAMENTO / BNCC -->
+    <div id="m0-letramento" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">02</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Letramento digital e a Competência 5 da BNCC</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Letramento digital não é saber operar botões: é uma <strong style="color:var(--ink)">prática situada</strong> (Moura, Carvalho e Mion, 2019) — usar tecnologias de forma crítica, ética e contextualizada para resolver problemas reais da própria prática.</p>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">É exatamente o que pede a <strong style="color:var(--ink)">Competência Geral 5</strong> da BNCC:</p>
+      <blockquote style="margin:0 0 1.3em;padding:18px 22px;background:var(--paper-2);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;font:400 18px/1.7 'Lora',serif;font-style:italic;color:var(--ink)">“Compreender, utilizar e criar tecnologias digitais de informação e comunicação de forma crítica, significativa, reflexiva e ética […] para se comunicar, acessar e disseminar informações, produzir conhecimentos e resolver problemas.”</blockquote>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0">Trabalhar IA em sala, portanto, não é um extra: é um caminho direto para desenvolver essa competência — no professor e no aluno.</p>
+    </div>
+
+    <!-- 03 POR QUE PROMPTS -->
+    <div id="m0-porque" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">03</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Por que a engenharia de prompts importa</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">A qualidade da resposta de uma IA depende quase inteiramente da qualidade do pedido. Um <a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">prompt</a> vago devolve um texto genérico; um prompt bem construído devolve algo pronto para a sua turma. Saber pedir é a habilidade que separa a IA como curiosidade da IA como ferramenta de trabalho.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px;border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:8px 0 0">
+        <div style="padding:18px 20px;background:var(--paper-2)"><div style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c3);margin-bottom:8px">✕ PROMPT VAGO</div><p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0">“Faça uma prova de história.”</p></div>
+        <div style="padding:18px 20px;background:var(--paper-2)"><div style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c1);margin-bottom:8px">✓ PROMPT ESPECÍFICO</div><p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0">“Crie 5 questões sobre a Revolução Industrial para o 8.º ano, com gabarito.”</p></div>
+      </div>
+      <p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:14px 0 0">É esse o foco do <a href="#modulo-1">Módulo 1</a>, o coração desta trilha.</p>
+    </div>
+
+    <!-- 04 COMO USAR -->
+    <div id="m0-comousar" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">04</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Como usar este material</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">A trilha é progressiva: cada módulo apoia o seguinte. Você pode ler de ponta a ponta ou usar o menu lateral para saltar. Três recursos acompanham cada módulo:</p>
+      <div style="display:grid;gap:12px">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:16px 18px;background:var(--paper-2);border:1px solid var(--rule);border-radius:12px"><span style="display:flex;color:var(--accent)"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 6h16M4 12h16M4 18h10"></path></svg></span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Sumário no topo</strong> — o que você vai ver, o tempo estimado e os pré-requisitos.</span></div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:16px 18px;background:var(--paper-2);border:1px solid var(--rule);border-radius:12px"><span style="display:flex;color:var(--accent)"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg></span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Exercícios práticos</strong> — para aplicar o conceito na sua realidade, não só ler sobre ele.</span></div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:16px 18px;background:var(--paper-2);border:1px solid var(--rule);border-radius:12px"><span style="display:flex;color:var(--accent)"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4z"></path><path d="M9 4v16M12 9h4M12 13h4"></path></svg></span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Caderno do cursista</strong> — um espaço de anotação salvo no seu dispositivo e exportável em PDF.</span></div>
+      </div>
+      <div data-print-hide="" style="display:grid;gap:10px;margin:32px 0 0;padding:20px 22px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)">Atalhos</div>
+        <dl style="margin:0;display:grid;gap:8px">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline">
+            <dt style="font:500 12px/1 'IBM Plex Mono',monospace;color:var(--ink);border:1px solid var(--edge);border-radius:6px;padding:6px 9px;white-space:nowrap">{{ kbdLabel }}</dt>
+            <dd style="margin:0;font:400 15px/1.55 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Abre a busca. Digite para filtrar módulos e termos do glossário; setas para percorrer, Enter para abrir.</dd>
+          </div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline">
+            <dt style="font:500 12px/1 'IBM Plex Mono',monospace;color:var(--ink);border:1px solid var(--edge);border-radius:6px;padding:6px 9px;white-space:nowrap">Esc</dt>
+            <dd style="margin:0;font:400 15px/1.55 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Fecha a busca ou o menu lateral.</dd>
+          </div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline">
+            <dt style="font:500 12px/1 'IBM Plex Mono',monospace;color:var(--ink);border:1px solid var(--edge);border-radius:6px;padding:6px 9px;white-space:nowrap">Tab</dt>
+            <dd style="margin:0;font:400 15px/1.55 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Percorre links e controles sem mouse. O item em foco recebe contorno visível.</dd>
+          </div>
+        </dl>
+        <p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:4px 0 0">Termos com <a href="#glossario" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)">sublinhado pontilhado</a> levam ao glossário. Suas anotações, checklists e respostas ficam salvas neste navegador. Ao concluir cada módulo, toque em “Marcar como concluído” — o painel ao fim da trilha reúne o que você produziu.</p>
+      </div>
+    </div>
+
+    <!-- CADERNO -->
+    <div style="max-width:672px;margin:56px auto 0">
+      <div style="background:var(--paper-2);border:1px dashed var(--accent);border-radius:14px;padding:22px 24px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <label for="caderno-mod0" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno do cursista — Módulo 0</label>
+          <span id="caderno-mod0-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.cadernoMod0 }}</span>
+        </div>
+        <p style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 12px">Qual é a sua expectativa com esta trilha? O que você já usa (ou evita) de IA hoje?</p>
+        <textarea id="caderno-mod0" onInput="{{ onNote }}" rows="5" placeholder="Minhas anotações..." style="width:100%;resize:vertical;background:var(--paper);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;outline:none;font:400 17px/1.7 'Lora',serif;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <!-- REFERÊNCIAS DO MÓDULO -->
+    <div style="max-width:672px;margin:52px auto 0">
+      <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Referências deste módulo</div>
+      <ol style="margin:0;padding-left:20px;display:grid;gap:10px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. Paris: UNESCO, 2024.</li>
+        <li>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada. 2019.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em> — Competência Geral 5. Brasília: MEC, 2018.</li>
+      </ol>
+    </div>
+
+    <div data-print-hide="" style="max-width:672px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" onClick="{{ mods.m0.onToggle }}" style="{{ mods.m0.btnStyle }}">{{ mods.m0.label }}</button>
+        
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a href="#modulo-1" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Engenharia de Prompts →</a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 1 -->
+  <section id="modulo-1" data-spy="modulo-1" data-screen-label="Módulo 1 — Engenharia de Prompts" aria-label="Módulo 1 — Engenharia de Prompts" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)">
+
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Módulo 01</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(34px,6vw,56px)/1.06 'Lora',serif;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .3em">Engenharia de Prompts</h2>
+      <p style="font:400 clamp(18px,2.2vw,22px)/1.5 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0">O prompt é o novo caderno de planejamento. Aprender a escrevê-lo bem é o que separa uma IA que atrapalha de uma que economiza sua semana.</p>
+
+      <!-- OVERVIEW -->
+      <div style="margin-top:34px;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:24px 26px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Neste módulo</div>
+        <ol style="margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:s">
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m1-oquee" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</a> <a href="#m1-oquee" style="color:var(--ink)">O que é e por que importa</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m1-anatomia" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</a> <a href="#m1-anatomia" style="color:var(--ink)">Anatomia de um bom prompt</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m1-padroes" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</a> <a href="#m1-padroes" style="color:var(--ink)">Padrões de prompt para tarefas pedagógicas</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m1-exercicio" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">04</a> <a href="#m1-exercicio" style="color:var(--ink)">Exercício prático de construção</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m1-critica" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">05</a> <a href="#m1-critica" style="color:var(--ink)">Avaliação crítica de respostas</a></li>
+        </ol>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> ~45 min</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5.5 21V3"></path><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"></path></svg> Pré-requisito: <strong style="color:var(--ink-soft)">Módulo 0</strong></span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Exercício + caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01 O QUE É -->
+    <div id="m1-oquee" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">01</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">O que é e por que importa</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Um modelo de linguagem responde ao que recebe. <strong style="color:var(--ink);background:var(--mark);padding:0 3px;border-radius:2px"><a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">Engenharia de prompts</a></strong> é a prática de escrever instruções que levam a IA a produzir algo realmente útil para a sua aula — em vez de um texto genérico que você teria de reescrever inteiro.</p>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Para o professor, isso não é detalhe técnico: é a competência que transforma a IA de curiosidade em ferramenta de planejamento, avaliação e diferenciação. É também onde se exerce o julgamento pedagógico — decidir o que pedir, com que intenção e para quais alunos.</p>
+      <aside data-note="" style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:26px 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Nota — TPACK.</strong> Escrever um bom prompt combina conhecimento do conteúdo, da pedagogia e da tecnologia. É o encontro dos três que Mishra e Koehler (2006) chamam de conhecimento tecnológico-pedagógico-do-conteúdo.</aside>
+    </div>
+
+    <!-- 02 ANATOMIA -->
+    <div id="m1-anatomia" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">02</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Anatomia de um bom prompt</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Um prompt eficaz costuma ter quatro partes. Passe o olho pelo exemplo abaixo — cada trecho marcado corresponde a um elemento:</p>
+
+      <div style="background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:0 12px 0 0;padding:22px 24px;font:400 19px/1.85 'Lora',serif;color:var(--ink)">
+        <span style="background:var(--c1s);border-bottom:2px solid var(--c1);padding:1px 3px;border-radius:3px">Você é um professor de Ciências do 7.º ano.</span><sup style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c1)">1</sup>
+        <span style="background:var(--c2s);border-bottom:2px solid var(--c2);padding:1px 3px;border-radius:3px">Sua turma tem 30 alunos, alguns com dificuldade de leitura.</span><sup style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c2)">2</sup>
+        <span style="background:var(--c3s);border-bottom:2px solid var(--c3);padding:1px 3px;border-radius:3px">Crie 5 questões de múltipla escolha sobre o ciclo da água</span><sup style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c3)">3</sup>
+        <span style="background:var(--c4s);border-bottom:2px solid var(--c4);padding:1px 3px;border-radius:3px">com 4 alternativas cada, gabarito ao final e linguagem simples.</span><sup style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c4)">4</sup>
+      </div>
+
+      <div style="margin-top:2px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:2px;border:1px solid var(--rule);border-top:none;border-radius:0 0 12px 12px;overflow:hidden">
+        <div style="padding:16px 18px;background:var(--paper);border-top:3px solid var(--c1)"><span style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c1)">1 · PAPEL</span><p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:6px 0 0">Quem a IA deve ser. Define tom e nível.</p></div>
+        <div style="padding:16px 18px;background:var(--paper);border-top:3px solid var(--c2)"><span style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c2)">2 · CONTEXTO</span><p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:6px 0 0">Sua turma, restrições, realidade da escola.</p></div>
+        <div style="padding:16px 18px;background:var(--paper);border-top:3px solid var(--c3)"><span style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c3)">3 · TAREFA</span><p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:6px 0 0">O que fazer, de forma específica e mensurável.</p></div>
+        <div style="padding:16px 18px;background:var(--paper);border-top:3px solid var(--c4)"><span style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c4)">4 · FORMATO</span><p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:6px 0 0">Como entregar: estrutura, tamanho, restrições.</p></div>
+      </div>
+    </div>
+
+    <!-- 03 PADRÕES -->
+    <div id="m1-padroes" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">03</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Padrões de prompt para tarefas pedagógicas</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.6em">Quatro padrões cobrem a maior parte do trabalho docente. Adapte os trechos em destaque ao seu contexto.</p>
+
+      <div style="display:grid;gap:16px">
+        <div data-prompt-card="" style="border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper)">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px"><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)">Planejar uma aula</div><button type="button" onClick="{{ copyPrompt }}" style="font:600 11px/1 'IBM Plex Sans',sans-serif;color:var(--muted);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Copiar</button></div>
+          <p style="font:400 15px/1.7 'IBM Plex Mono',monospace;overflow-wrap:anywhere;color:var(--ink-soft);margin:0">Aja como professor de <span style="color:var(--accent)">[disciplina/ano]</span>. Planeje uma aula de 50 min sobre <span style="color:var(--accent)">[tema]</span> com objetivo, aquecimento, atividade principal e fechamento, alinhada à BNCC.</p>
+        </div>
+        <div data-prompt-card="" style="border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper)">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px"><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)">Criar uma avaliação</div><button type="button" onClick="{{ copyPrompt }}" style="font:600 11px/1 'IBM Plex Sans',sans-serif;color:var(--muted);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Copiar</button></div>
+          <p style="font:400 15px/1.7 'IBM Plex Mono',monospace;overflow-wrap:anywhere;color:var(--ink-soft);margin:0">Crie <span style="color:var(--accent)">[n]</span> questões sobre <span style="color:var(--accent)">[tema]</span> em níveis crescentes de dificuldade, com gabarito comentado e uma rubrica de correção.</p>
+        </div>
+        <div data-prompt-card="" style="border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper)">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px"><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)">Dar feedback</div><button type="button" onClick="{{ copyPrompt }}" style="font:600 11px/1 'IBM Plex Sans',sans-serif;color:var(--muted);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Copiar</button></div>
+          <p style="font:400 15px/1.7 'IBM Plex Mono',monospace;overflow-wrap:anywhere;color:var(--ink-soft);margin:0">Escreva um feedback construtivo para este texto de aluno, em tom encorajador, apontando 2 pontos fortes e 2 a melhorar: <span style="color:var(--accent)">[colar texto]</span>.</p>
+        </div>
+        <div data-prompt-card="" style="border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper)">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px"><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)">Adaptar conteúdo</div><button type="button" onClick="{{ copyPrompt }}" style="font:600 11px/1 'IBM Plex Sans',sans-serif;color:var(--muted);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:6px 11px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Copiar</button></div>
+          <p style="font:400 15px/1.7 'IBM Plex Mono',monospace;overflow-wrap:anywhere;color:var(--ink-soft);margin:0">Reescreva este texto para <span style="color:var(--accent)">[nível/necessidade]</span>, mantendo os conceitos essenciais e reduzindo a complexidade da linguagem.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 EXERCÍCIO -->
+    <div id="m1-exercicio" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">04</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Exercício prático de construção</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Escreva um prompt para uma tarefa da <em>sua</em> próxima aula. Use as quatro partes: papel, contexto, tarefa e formato. Seu texto fica salvo automaticamente neste dispositivo.</p>
+      <div style="background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:20px 22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+          <label for="ex-mod1" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Meu prompt</label>
+          <span id="ex-mod1-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.exMod1 }}</span>
+        </div>
+        <textarea id="ex-mod1" onInput="{{ onNote }}" rows="6" placeholder="Aja como... Minha turma... Crie... no formato..." style="width:100%;resize:vertical;background:transparent;border:none;outline:none;font:400 16px/1.7 'IBM Plex Mono',monospace;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <!-- 05 AVALIAÇÃO CRÍTICA -->
+    <div id="m1-critica" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">05</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Avaliação crítica de respostas</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">A IA erra com confiança. A resposta abaixo parece boa — mas contém <strong style="color:var(--ink)">três problemas</strong>: um dado inventado, uma afirmação enviesada e uma informação desatualizada. Os três trechos sublinhados são clicáveis: toque nos que você desconfia (toque de novo para desmarcar).</p>
+
+      <div style="background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:22px 24px;font:400 18px/1.9 'Lora',serif;color:var(--ink-soft)">
+        Segundo os dados,
+        <button type="button" data-print-keep="" data-print-text="" data-k="p1" onClick="{{ onFlag }}" style="{{ flagP1 }}">87% das escolas brasileiras já usam IA em sala</button>,
+        o que mostra que
+        <button type="button" data-print-keep="" data-print-text="" data-k="p2" onClick="{{ onFlag }}" style="{{ flagP2 }}">professores que não adotam essas ferramentas ficam para trás</button>.
+        Ferramentas como o ChatGPT
+        <button type="button" data-print-keep="" data-print-text="" data-k="p3" onClick="{{ onFlag }}" style="{{ flagP3 }}">têm conhecimento atualizado até 2021</button>
+        e por isso são fontes confiáveis para qualquer conteúdo.
+      </div>
+
+      <div style="margin-top:14px;display:grid;gap:8px">
+        <div style="{{ noteP1 }}"><span style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--accent)">Alucinação —</strong> a estatística "87%" não tem fonte. A IA fabrica números plausíveis. Sempre exija a fonte.</span></div>
+        <div style="{{ noteP2 }}"><span style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--accent)"><a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">Viés</a> —</strong> generalização de valor ("ficam para trás") apresentada como fato. Cuidado com julgamentos embutidos.</span></div>
+        <div style="{{ noteP3 }}"><span style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--accent)">Desatualização —</strong> modelos têm <a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">data de corte</a> e não "sabem" o presente. Verifique informações sensíveis ao tempo.</span></div>
+        <p aria-live="polite" style="{{ foundMsgStyle }}">{{ foundMsg }}</p>
+      </div>
+    </div>
+
+    <!-- CADERNO -->
+    <div style="max-width:672px;margin:56px auto 0">
+      <div style="background:var(--paper);border:1px dashed var(--accent);border-radius:14px;padding:22px 24px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <label for="caderno-mod1" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno do cursista — Módulo 1</label>
+          <span id="caderno-mod1-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.cadernoMod1 }}</span>
+        </div>
+        <p style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 12px">O que deste módulo você vai aplicar na próxima semana? Anote aqui — fica salvo e poderá ser exportado em PDF.</p>
+        <textarea id="caderno-mod1" onInput="{{ onNote }}" rows="5" placeholder="Minhas anotações..." style="width:100%;resize:vertical;background:var(--paper);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;outline:none;font:400 17px/1.7 'Lora',serif;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <!-- REFERÊNCIAS DO MÓDULO -->
+    <div style="max-width:672px;margin:52px auto 0">
+      <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Referências deste módulo</div>
+      <ol style="margin:0;padding-left:20px;display:grid;gap:10px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">
+        <li>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge: a framework for teacher knowledge. <em>Teachers College Record</em>, 2006.</li>
+        <li>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada. 2019.</li>
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em> — Competência Geral 5. MEC, 2018.</li>
+      </ol>
+    </div>
+
+    <div data-print-hide="" style="max-width:672px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" onClick="{{ mods.m1.onToggle }}" style="{{ mods.m1.btnStyle }}">{{ mods.m1.label }}</button>
+        
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a href="#modulo-0" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">← Fundamentos</a><a href="#modulo-2" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Ferramentas de IA →</a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 2 -->
+  <section id="modulo-2" data-spy="modulo-2" data-screen-label="Módulo 2 — Ferramentas de IA" aria-label="Módulo 2 — Ferramentas de IA" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);scroll-margin-top:60px">
+
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Módulo 02</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(34px,6vw,56px)/1.06 'Lora',serif;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .3em">Ferramentas de IA Generativa</h2>
+      <p style="font:400 clamp(18px,2.2vw,22px)/1.5 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0">Quatro assistentes cobrem quase todo o trabalho docente. Não se trata de decorar botões, mas de saber qual ferramenta serve a cada intenção pedagógica.</p>
+
+      <div style="margin-top:34px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px 26px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Neste módulo</div>
+        <ol style="margin:0;padding:0;list-style:none;display:grid;gap:10px">
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m2-ecossistema" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</a> <a href="#m2-ecossistema" style="color:var(--ink)">O ecossistema em um olhar</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m2-quatro" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</a> <a href="#m2-quatro" style="color:var(--ink)">As quatro ferramentas</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m2-qual" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</a> <a href="#m2-qual" style="color:var(--ink)">Qual usar para cada tarefa</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m2-conta" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">04</a> <a href="#m2-conta" style="color:var(--ink)">Conta, versões e privacidade</a></li>
+        </ol>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> ~40 min</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5.5 21V3"></path><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"></path></svg> Pré-requisito: <strong style="color:var(--ink-soft)">Módulo 1</strong></span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m2-ecossistema" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">01</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">O ecossistema em um olhar</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Todas as ferramentas deste módulo compartilham a mesma base — um <strong style="color:var(--ink)">modelo de linguagem</strong> que você conduz por prompts (Módulo 1). O que muda é o recorte: uma prioriza conversa, outra citações verificáveis, outra a execução de tarefas de ponta a ponta.</p>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">A boa notícia para o professor: dominar bem <em>uma</em> já resolve a maior parte do trabalho. Este módulo ajuda a escolher por onde começar, sem a ansiedade de ter de aprender todas.</p>
+    </div>
+
+    <div id="m2-quatro" style="max-width:820px;margin:56px auto 0;scroll-margin-top:70px">
+      <div style="max-width:672px;margin:0 auto">
+        <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">02</span>
+        <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .6em">As quatro ferramentas</h3>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c1);border-radius:12px;padding:22px 24px;background:var(--paper-2)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">ChatGPT</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c1)">OpenAI</span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">O assistente mais versátil e difundido. Ótimo ponto de partida para planejar, redigir e adaptar materiais.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Forte em:</strong> conversa geral, brainstorming, redação.<br><strong style="color:var(--ink-soft)">Atenção:</strong> pode inventar dados; peça sempre a fonte.</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c2);border-radius:12px;padding:22px 24px;background:var(--paper-2)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">Claude</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c2)">Anthropic</span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">Bom com textos longos e documentos. Costuma escrever com nuance e explicar o raciocínio pedagógico.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Forte em:</strong> analisar textos longos, feedback, tom cuidadoso.<br><strong style="color:var(--ink-soft)">Atenção:</strong> confirme datas e fatos recentes.</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c4);border-radius:12px;padding:22px 24px;background:var(--paper-2)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">Perplexity</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c4)">Busca + IA</span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">Responde citando as fontes na tela. Indicado quando você precisa de informação verificável e atualizada.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Forte em:</strong> pesquisa com referências, checagem, atualidade.<br><strong style="color:var(--ink-soft)">Atenção:</strong> ainda assim, leia as fontes citadas.</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c3);border-radius:12px;padding:22px 24px;background:var(--paper-2)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">Manus</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c3)"><a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">Agente</a></span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">Executa tarefas de várias etapas com autonomia — pesquisar, organizar e montar um material do começo ao fim.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Forte em:</strong> tarefas compostas, produção de artefatos prontos.<br><strong style="color:var(--ink-soft)">Atenção:</strong> revise cada etapa; a autonomia exige supervisão.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m2-qual" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">03</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .6em">Qual usar para cada tarefa</h3>
+      <div style="border:1px solid var(--rule);border-radius:12px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:2px;background:var(--rule)">
+          <div style="padding:12px 18px;background:var(--paper-2);font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Se você quer…</div>
+          <div style="padding:12px 18px;background:var(--paper-2);font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Comece por</div>
+          <div style="padding:14px 18px;background:var(--paper);font:400 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Planejar aulas e criar atividades do zero</div>
+          <div style="padding:14px 18px;background:var(--paper);font:500 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--c1)">ChatGPT</div>
+          <div style="padding:14px 18px;background:var(--paper);font:400 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Dar feedback e analisar textos longos de alunos</div>
+          <div style="padding:14px 18px;background:var(--paper);font:500 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--c2)">Claude</div>
+          <div style="padding:14px 18px;background:var(--paper);font:400 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Pesquisar com fontes confiáveis e atuais</div>
+          <div style="padding:14px 18px;background:var(--paper);font:500 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--c4)">Perplexity</div>
+          <div style="padding:14px 18px;background:var(--paper);font:400 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Montar um material completo em várias etapas</div>
+          <div style="padding:14px 18px;background:var(--paper);font:500 15px/1.5 'IBM Plex Sans',sans-serif;color:var(--c3)">Manus</div>
+        </div>
+      </div>
+      <p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:14px 0 0">Regra prática: <strong style="color:var(--ink-soft)">domine uma primeiro</strong>. Só migre quando a tarefa pedir algo que ela não faz bem.</p>
+    </div>
+
+    <div id="m2-conta" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">04</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Conta, versões e privacidade</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Todas oferecem uma versão gratuita suficiente para começar. As versões pagas ampliam limites e liberam modelos mais capazes — útil, mas não indispensável para a formação.</p>
+      <aside data-note="" style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:26px 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Antes de digitar.</strong> Nunca insira nome, nota ou qualquer dado que identifique um aluno. Como fazer isso corretamente é o tema do <a href="#modulo-5">Módulo 5 — Ética e LGPD</a>.</aside>
+    </div>
+
+    <div style="max-width:672px;margin:56px auto 0">
+      <div style="background:var(--paper-2);border:1px dashed var(--accent);border-radius:14px;padding:22px 24px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <label for="caderno-mod2" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno do cursista — Módulo 2</label>
+          <span id="caderno-mod2-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.cadernoMod2 }}</span>
+        </div>
+        <p style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 12px">Qual ferramenta você vai adotar primeiro e para qual tarefa da sua rotina?</p>
+        <textarea id="caderno-mod2" onInput="{{ onNote }}" rows="5" placeholder="Minhas anotações..." style="width:100%;resize:vertical;background:var(--paper);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;outline:none;font:400 17px/1.7 'Lora',serif;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <div style="max-width:672px;margin:52px auto 0">
+      <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Referências deste módulo</div>
+      <ol style="margin:0;padding-left:20px;display:grid;gap:10px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+        <li>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge. <em>Teachers College Record</em>, 2006.</li>
+      </ol>
+    </div>
+
+    <div data-print-hide="" style="max-width:672px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" onClick="{{ mods.m2.onToggle }}" style="{{ mods.m2.btnStyle }}">{{ mods.m2.label }}</button>
+        
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a href="#modulo-1" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">← Prompts</a><a href="#modulo-3" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Complementares →</a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 3 -->
+  <section id="modulo-3" data-spy="modulo-3" data-screen-label="Módulo 3 — Ferramentas complementares" aria-label="Módulo 3 — Ferramentas complementares" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);scroll-margin-top:60px">
+
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Módulo 03</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(34px,6vw,56px)/1.06 'Lora',serif;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .3em">Ferramentas Complementares</h2>
+      <p style="font:400 clamp(18px,2.2vw,22px)/1.5 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0">Depois do texto vem o material: slide, quiz, imagem, síntese de estudo. Quatro ferramentas transformam o que a IA escreveu em algo pronto para a turma.</p>
+
+      <div style="margin-top:34px;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:24px 26px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Neste módulo</div>
+        <ol style="margin:0;padding:0;list-style:none;display:grid;gap:10px">
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m3-porque" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</a> <a href="#m3-porque" style="color:var(--ink)">Do texto ao material de aula</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m3-quatro" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</a> <a href="#m3-quatro" style="color:var(--ink)">Canva, Kahoot!, Gamma e NotebookLM</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m3-fluxo" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</a> <a href="#m3-fluxo" style="color:var(--ink)">Um fluxo encadeado</a></li>
+        </ol>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> ~35 min</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5.5 21V3"></path><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"></path></svg> Pré-requisito: <strong style="color:var(--ink-soft)">Módulo 2</strong></span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m3-porque" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">01</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Do texto ao material de aula</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">As ferramentas do módulo anterior geram <em>texto</em>. As deste módulo geram <strong style="color:var(--ink)">forma</strong>: um slide bem diagramado, um quiz gamificado, uma imagem, um resumo em áudio. Elas fecham a distância entre "a IA escreveu" e "levei para a sala".</p>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">O ganho está em <strong style="color:var(--ink)">encadeá-las</strong>: o plano nasce no ChatGPT, vira apresentação no Gamma, ganha um quiz no Kahoot! e uma imagem no Canva. Você orquestra; a IA executa as partes repetitivas.</p>
+    </div>
+
+    <div id="m3-quatro" style="max-width:820px;margin:56px auto 0;scroll-margin-top:70px">
+      <div style="max-width:672px;margin:0 auto">
+        <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">02</span>
+        <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .6em">As quatro ferramentas</h3>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c1);border-radius:12px;padding:22px 24px;background:var(--paper)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">Canva Educação</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c1)">Design</span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">Cartazes, slides, atividades e imagens com modelos prontos. A conta de professor é gratuita e traz recursos de IA integrados.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Use para:</strong> material visual, folhas de atividade, imagens.</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c2);border-radius:12px;padding:22px 24px;background:var(--paper)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">Kahoot!</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c2)">Gamificação</span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">Quizzes ao vivo que engajam a turma. Você pode gerar as perguntas com IA e colá-las aqui em minutos.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Use para:</strong> revisão, sondagem, avaliação formativa lúdica.</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c4);border-radius:12px;padding:22px 24px;background:var(--paper)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">Gamma</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c4)">Apresentações</span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">Transforma um tema ou um texto em uma apresentação diagramada automaticamente — economiza a montagem manual de slides.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Use para:</strong> slides de aula a partir de um plano pronto.</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-top:3px solid var(--c3);border-radius:12px;padding:22px 24px;background:var(--paper)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px"><span style="font:600 19px/1.2 'Lora',serif;color:var(--ink)">NotebookLM</span><span style="font:600 10px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--c3)">Estudo</span></div>
+          <p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0 0 12px">Você envia seus documentos e ele responde <em>com base neles</em> — resumos, perguntas e até um áudio no estilo podcast. Reduz <a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">alucinação</a> por partir das suas fontes.</p>
+          <div style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Use para:</strong> estudar material próprio, gerar sínteses e roteiros.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m3-fluxo" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">03</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .6em">Um fluxo encadeado</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.4em">Veja como uma única aula pode nascer do encadeamento das ferramentas:</p>
+      <ol style="margin:0;padding:0;list-style:none;display:grid;gap:2px;border:1px solid var(--rule);border-radius:12px;overflow:hidden">
+        <li style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;padding:18px 20px;background:var(--paper)"><span style="font:600 14px/1.4 'IBM Plex Mono',monospace;color:var(--accent)">1</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">ChatGPT</strong> — gera o plano de aula e os objetivos.</span></li>
+        <li style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;padding:18px 20px;background:var(--paper)"><span style="font:600 14px/1.4 'IBM Plex Mono',monospace;color:var(--accent)">2</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Gamma</strong> — transforma o plano em uma apresentação.</span></li>
+        <li style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;padding:18px 20px;background:var(--paper)"><span style="font:600 14px/1.4 'IBM Plex Mono',monospace;color:var(--accent)">3</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Canva</strong> — cria a folha de atividade e uma imagem de apoio.</span></li>
+        <li style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;padding:18px 20px;background:var(--paper)"><span style="font:600 14px/1.4 'IBM Plex Mono',monospace;color:var(--accent)">4</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Kahoot!</strong> — fecha a aula com um quiz de revisão.</span></li>
+      </ol>
+      <aside data-note="" style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:26px 0 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">O professor no comando.</strong> A cada etapa você revisa, ajusta e decide. As ferramentas aceleram a produção; a intenção pedagógica continua sua.</aside>
+    </div>
+
+    <div style="max-width:672px;margin:56px auto 0">
+      <div style="background:var(--paper);border:1px dashed var(--accent);border-radius:14px;padding:22px 24px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <label for="caderno-mod3" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno do cursista — Módulo 3</label>
+          <span id="caderno-mod3-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.cadernoMod3 }}</span>
+        </div>
+        <p style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 12px">Esboce um fluxo encadeado para uma aula sua: que ferramenta entra em cada etapa?</p>
+        <textarea id="caderno-mod3" onInput="{{ onNote }}" rows="5" placeholder="Minhas anotações..." style="width:100%;resize:vertical;background:var(--paper);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;outline:none;font:400 17px/1.7 'Lora',serif;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <div style="max-width:672px;margin:52px auto 0">
+      <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Referências deste módulo</div>
+      <ol style="margin:0;padding-left:20px;display:grid;gap:10px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em> — Competência Geral 5. MEC, 2018.</li>
+      </ol>
+    </div>
+
+    <div data-print-hide="" style="max-width:672px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" onClick="{{ mods.m3.onToggle }}" style="{{ mods.m3.btnStyle }}">{{ mods.m3.label }}</button>
+        
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a href="#modulo-2" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">← Ferramentas de IA</a><a href="#modulo-4" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Aplicação →</a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 4 -->
+  <section id="modulo-4" data-spy="modulo-4" data-screen-label="Módulo 4 — Aplicação pedagógica" aria-label="Módulo 4 — Aplicação pedagógica" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);scroll-margin-top:60px">
+
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Módulo 04</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(34px,6vw,56px)/1.06 'Lora',serif;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .3em">Aplicação Pedagógica</h2>
+      <p style="font:400 clamp(18px,2.2vw,22px)/1.5 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0">Ferramenta boa sem intenção pedagógica é só novidade. Aqui a IA entra no ciclo real da aula — planejar, ensinar, avaliar e incluir.</p>
+
+      <div style="margin-top:34px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px 26px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Neste módulo</div>
+        <ol style="margin:0;padding:0;list-style:none;display:grid;gap:10px">
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m4-tpack" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</a> <a href="#m4-tpack" style="color:var(--ink)">TPACK aplicado à prática</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m4-ciclo" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</a> <a href="#m4-ciclo" style="color:var(--ink)">A IA no ciclo da aula</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m4-inclusao" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</a> <a href="#m4-inclusao" style="color:var(--ink)">Inclusão e diferenciação</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m4-exercicio" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">04</a> <a href="#m4-exercicio" style="color:var(--ink)">Exercício: desenhe uma sequência</a></li>
+        </ol>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> ~50 min</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5.5 21V3"></path><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"></path></svg> Pré-requisito: <strong style="color:var(--ink-soft)">Módulos 1–3</strong></span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Exercício + caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m4-tpack" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">01</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">TPACK aplicado à prática</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.4em">O modelo <strong style="color:var(--ink)"><a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">TPACK</a></strong> (Mishra e Koehler, 2006) lembra que ensinar bem com tecnologia exige três conhecimentos ao mesmo tempo. A IA só ajuda quando serve aos três — não quando substitui um deles.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+        <div style="border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper-2)"><div style="font:600 12px 'IBM Plex Mono',monospace;color:var(--c1);margin-bottom:8px">CK · CONTEÚDO</div><p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0">O que você ensina. A IA propõe; você valida a correção do conteúdo.</p></div>
+        <div style="border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper-2)"><div style="font:600 12px 'IBM Plex Mono',monospace;color:var(--c2);margin-bottom:8px">PK · PEDAGOGIA</div><p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0">Como você ensina. A IA sugere estratégias; você escolhe as adequadas à turma.</p></div>
+        <div style="border:1px solid var(--rule);border-radius:12px;padding:18px 20px;background:var(--paper-2)"><div style="font:600 12px 'IBM Plex Mono',monospace;color:var(--c4);margin-bottom:8px">TK · TECNOLOGIA</div><p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0">Que ferramenta usar. Os Módulos 2–3 são o seu repertório técnico.</p></div>
+      </div>
+      <p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:16px 0 0">O encontro dos três — o <strong style="color:var(--ink-soft)">TPACK</strong> — é onde mora a boa aula com IA.</p>
+    </div>
+
+    <div id="m4-ciclo" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">02</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .6em">A IA no ciclo da aula</h3>
+      <div style="display:grid;gap:12px">
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;padding:18px 20px;background:var(--paper-2);border:1px solid var(--rule);border-radius:12px"><span style="font:600 13px/1.3 'IBM Plex Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)">Planejar</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Rascunhar objetivos, sequência e materiais alinhados à BNCC — você edita e aprova.</span></div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;padding:18px 20px;background:var(--paper-2);border:1px solid var(--rule);border-radius:12px"><span style="font:600 13px/1.3 'IBM Plex Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)">Ensinar</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Gerar exemplos, analogias e variações na hora, para atender dúvidas que surgem.</span></div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;padding:18px 20px;background:var(--paper-2);border:1px solid var(--rule);border-radius:12px"><span style="font:600 13px/1.3 'IBM Plex Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)">Avaliar</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">Criar rubricas, gerar feedback-modelo e apoiar a correção — a nota é sempre sua.</span></div>
+      </div>
+      <aside data-note="" style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:26px 0 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">A decisão é humana.</strong> A IA propõe rascunhos em cada etapa; a avaliação, a nota e o vínculo com o aluno permanecem responsabilidade do professor.</aside>
+    </div>
+
+    <div id="m4-inclusao" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">03</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Inclusão e diferenciação</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Um dos maiores ganhos da IA é adaptar o mesmo conteúdo a diferentes necessidades — sem multiplicar o seu tempo. Um único texto pode virar três versões em minutos.</p>
+      <div style="display:grid;grid-template-columns:1fr;gap:2px;border:1px solid var(--rule);border-radius:12px;overflow:hidden">
+        <div style="padding:16px 20px;background:var(--paper-2);font:400 15px/1.7 'IBM Plex Mono',monospace;overflow-wrap:anywhere;color:var(--ink-soft)">“Reescreva este texto em <span style="color:var(--accent)">nível de leitura mais simples</span>, mantendo os conceitos.”</div>
+        <div style="padding:16px 20px;background:var(--paper-2);font:400 15px/1.7 'IBM Plex Mono',monospace;overflow-wrap:anywhere;color:var(--ink-soft)">“Crie uma versão com <span style="color:var(--accent)">apoio visual e passos numerados</span> para um aluno com dificuldade de atenção.”</div>
+        <div style="padding:16px 20px;background:var(--paper-2);font:400 15px/1.7 'IBM Plex Mono',monospace;overflow-wrap:anywhere;color:var(--ink-soft)">“Proponha uma <span style="color:var(--accent)">extensão desafiadora</span> para quem terminou antes.”</div>
+      </div>
+      <p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:14px 0 0">Diferenciar deixa de ser um luxo de tempo e passa a ser parte do fluxo — sempre revisada por você.</p>
+    </div>
+
+    <div id="m4-exercicio" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">04</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Exercício: desenhe uma sequência</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Escolha um tema da sua próxima semana e descreva, em poucas linhas, como a IA entraria em <em>planejar</em>, <em>ensinar</em> e <em>avaliar</em> — indicando a ferramenta em cada etapa.</p>
+      <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:20px 22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+          <label for="ex-mod4" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Minha sequência</label>
+          <span id="ex-mod4-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.exMod4 }}</span>
+        </div>
+        <textarea id="ex-mod4" onInput="{{ onNote }}" rows="6" placeholder="Tema:  ...&#10;Planejar (ferramenta):  ...&#10;Ensinar (ferramenta):  ...&#10;Avaliar (ferramenta):  ..." style="width:100%;resize:vertical;background:transparent;border:none;outline:none;font:400 16px/1.7 'IBM Plex Mono',monospace;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <div style="max-width:672px;margin:56px auto 0">
+      <div style="background:var(--paper-2);border:1px dashed var(--accent);border-radius:14px;padding:22px 24px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <label for="caderno-mod4" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno do cursista — Módulo 4</label>
+          <span id="caderno-mod4-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.cadernoMod4 }}</span>
+        </div>
+        <p style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 12px">Onde no seu ciclo de aula a IA traz mais ganho hoje? E onde você prefere manter tudo humano?</p>
+        <textarea id="caderno-mod4" onInput="{{ onNote }}" rows="5" placeholder="Minhas anotações..." style="width:100%;resize:vertical;background:var(--paper);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;outline:none;font:400 17px/1.7 'Lora',serif;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <div style="max-width:672px;margin:52px auto 0">
+      <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Referências deste módulo</div>
+      <ol style="margin:0;padding-left:20px;display:grid;gap:10px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">
+        <li>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge. <em>Teachers College Record</em>, 2006.</li>
+        <li>BRASIL. <em>Base Nacional Comum Curricular</em>. MEC, 2018.</li>
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+      </ol>
+    </div>
+
+    <div data-print-hide="" style="max-width:672px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" onClick="{{ mods.m4.onToggle }}" style="{{ mods.m4.btnStyle }}">{{ mods.m4.label }}</button>
+        
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a href="#modulo-3" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">← Complementares</a><a href="#modulo-5" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Ética e LGPD →</a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 5 -->
+  <section id="modulo-5" data-spy="modulo-5" data-screen-label="Módulo 5 — Ética, LGPD e direitos" aria-label="Módulo 5 — Ética, LGPD e direitos" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);background:var(--paper-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);scroll-margin-top:60px">
+
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Módulo 05</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(34px,6vw,56px)/1.06 'Lora',serif;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .3em">Ética, LGPD e Direitos</h2>
+      <p style="font:400 clamp(18px,2.2vw,22px)/1.5 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0">Usar IA com responsabilidade é parte da competência docente. Três frentes exigem cuidado: os princípios éticos, os dados dos alunos e os direitos autorais.</p>
+
+      <div style="margin-top:34px;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:24px 26px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Neste módulo</div>
+        <ol style="margin:0;padding:0;list-style:none;display:grid;gap:10px">
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m5-principios" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</a> <a href="#m5-principios" style="color:var(--ink)">Princípios éticos</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m5-lgpd" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</a> <a href="#m5-lgpd" style="color:var(--ink)">LGPD na sala de aula</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m5-direitos" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</a> <a href="#m5-direitos" style="color:var(--ink)">Direitos autorais e materiais gerados</a></li>
+        </ol>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> ~40 min</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5.5 21V3"></path><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"></path></svg> Transversal a toda a trilha</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Checklist + caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m5-principios" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">01</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Princípios éticos</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.4em">O guia da UNESCO (Holmes et al., 2024) resume o uso responsável em compromissos que cabem no dia a dia da escola:</p>
+      <div style="display:grid;gap:12px">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:16px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:12px"><span style="font:600 13px 'IBM Plex Mono',monospace;color:var(--accent)">01</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Transparência</strong> — diga quando um material foi gerado ou apoiado por IA.</span></div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:16px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:12px"><span style="font:600 13px 'IBM Plex Mono',monospace;color:var(--accent)">02</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Supervisão humana</strong> — nenhuma decisão sobre o aluno é delegada à máquina.</span></div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:16px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:12px"><span style="font:600 13px 'IBM Plex Mono',monospace;color:var(--accent)">03</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Equidade</strong> — atenção a vieses; a IA pode reproduzir desigualdades.</span></div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:16px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:12px"><span style="font:600 13px 'IBM Plex Mono',monospace;color:var(--accent)">04</span><span style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><strong style="color:var(--ink)">Verificação</strong> — confira fatos e fontes antes de levar à turma.</span></div>
+      </div>
+    </div>
+
+    <div id="m5-lgpd" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">02</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">LGPD na sala de aula</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">A <strong style="color:var(--ink)">Lei Geral de Proteção de Dados</strong> (Lei nº 13.709/2018) trata dados de crianças e adolescentes como especialmente sensíveis. A regra de ouro é simples: <strong style="color:var(--ink)">não insira em ferramentas de IA nada que identifique um aluno</strong>. Confira seu preparo:</p>
+      <div style="background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:20px 22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+          <span style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Checklist de proteção de dados</span>
+          <span aria-live="polite" style="{{ lgpdMsgStyle }}">{{ lgpdMsg }}</span>
+        </div>
+        <div style="display:grid;gap:8px">
+          <sc-for list="{{ lgpd }}" as="item" hint-placeholder-count="5">
+            <button type="button" data-print-keep="" onClick="{{ item.onToggle }}" style="{{ item.rowStyle }}"><span style="{{ item.boxStyle }}">{{ item.check }}</span><span style="font:400 15px/1.55 'IBM Plex Sans',sans-serif;color:var(--ink-soft);text-align:left">{{ item.label }}</span></button>
+          </sc-for>
+        </div>
+      </div>
+      <aside data-note="" style="border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:26px 0 0;font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)"><strong style="color:var(--ink-soft)">Dica prática.</strong> Precisa de feedback sobre o texto de um aluno? Remova o nome e qualquer dado identificável antes de colar. Trabalhe sempre com material anonimizado.</aside>
+    </div>
+
+    <div id="m5-direitos" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">03</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Direitos autorais e materiais gerados</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Dois lados merecem atenção. Ao <strong style="color:var(--ink)">usar</strong> a IA, não a alimente com obras de terceiros protegidas sem autorização. Ao <strong style="color:var(--ink)">publicar</strong> o que ela ajudou a criar, saiba que o material gerado por IA tem status autoral incerto — revise, personalize e assuma a autoria do resultado final.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px;border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:8px 0 0">
+        <div style="padding:18px 20px;background:var(--paper)"><div style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c1);margin-bottom:8px">✓ PODE</div><p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0">Usar a IA para rascunhar, revisar e adaptar material próprio, sempre com curadoria sua.</p></div>
+        <div style="padding:18px 20px;background:var(--paper)"><div style="font:600 11px 'IBM Plex Mono',monospace;color:var(--c3);margin-bottom:8px">✕ EVITE</div><p style="font:400 15px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0">Publicar como seu, sem revisão, um conteúdo integral de IA — ou inserir obras alheias protegidas.</p></div>
+      </div>
+    </div>
+
+    <div style="max-width:672px;margin:56px auto 0">
+      <div style="background:var(--paper);border:1px dashed var(--accent);border-radius:14px;padding:22px 24px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <label for="caderno-mod5" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno do cursista — Módulo 5</label>
+          <span id="caderno-mod5-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.cadernoMod5 }}</span>
+        </div>
+        <p style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 12px">Qual regra deste módulo você precisa mudar já na sua prática atual?</p>
+        <textarea id="caderno-mod5" onInput="{{ onNote }}" rows="5" placeholder="Minhas anotações..." style="width:100%;resize:vertical;background:var(--paper);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;outline:none;font:400 17px/1.7 'Lora',serif;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <div style="max-width:672px;margin:52px auto 0">
+      <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Referências deste módulo</div>
+      <ol style="margin:0;padding-left:20px;display:grid;gap:10px;font:400 14px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted)">
+        <li>BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em> — Lei Geral de Proteção de Dados Pessoais (LGPD). Brasília, 2018.</li>
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+      </ol>
+    </div>
+
+    <div data-print-hide="" style="max-width:672px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" onClick="{{ mods.m5.onToggle }}" style="{{ mods.m5.btnStyle }}">{{ mods.m5.label }}</button>
+        
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a href="#modulo-4" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">← Aplicação</a><a href="#modulo-6" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Implementação →</a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 6 -->
+  <section id="modulo-6" data-spy="modulo-6" data-screen-label="Módulo 6 — Implementação" aria-label="Módulo 6 — Implementação" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);scroll-margin-top:60px">
+
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Módulo 06</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(34px,6vw,56px)/1.06 'Lora',serif;letter-spacing:-.02em;color:var(--ink);margin:.3em 0 .3em">Trilha de Implementação</h2>
+      <p style="font:400 clamp(18px,2.2vw,22px)/1.5 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0">Saber não basta — é preciso começar. Este módulo transforma a trilha em um plano de 12 semanas, com checklist, quiz final e fechamento de percurso.</p>
+
+      <div style="margin-top:34px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px 26px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Neste módulo</div>
+        <ol style="margin:0;padding:0;list-style:none;display:grid;gap:10px">
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m6-timeline" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">01</a> <a href="#m6-timeline" style="color:var(--ink)">12 semanas, quatro fases</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m6-checklist" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">02</a> <a href="#m6-checklist" style="color:var(--ink)">Checklist de implementação</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m6-quiz" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">03</a> <a href="#m6-quiz" style="color:var(--ink)">Quiz final</a></li>
+          <li style="display:flex;gap:12px;font:400 16px/1.5 'IBM Plex Sans',sans-serif;color:var(--ink-soft)"><a href="#m6-declaracao" style="font:500 13px/1.4 'IBM Plex Mono',monospace;color:var(--muted)">04</a> <a href="#m6-declaracao" style="color:var(--ink)">Fechamento de percurso</a></li>
+        </ol>
+        <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);font:400 13px/1.4 'IBM Plex Sans',sans-serif;color:var(--muted)">
+          <span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg> ~30 min</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5.5 21V3"></path><path d="M5.5 4h12l-2.2 3.8 2.2 3.8h-12"></path></svg> Encerra a trilha</span><span style="display:inline-flex;align-items:center;gap:7px"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Quiz + fechamento</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m6-timeline" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">01</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .6em">12 semanas, quatro fases</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.4em">Comece pequeno e sustente o hábito. Um trimestre é suficiente para sair do zero a um uso confiante em sala.</p>
+      <div style="display:grid;gap:0;border-left:2px solid var(--rule);padding-left:24px">
+        <div style="position:relative;padding:0 0 26px"><span style="position:absolute;left:-31px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)"></span><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Semanas 1–3 · Explorar</div><p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0">Escolha uma ferramenta (Módulo 2) e use-a para uma tarefa simples por semana. Sem pressa: familiarize-se.</p></div>
+        <div style="position:relative;padding:0 0 26px"><span style="position:absolute;left:-31px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)"></span><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Semanas 4–6 · Planejar</div><p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0">Aplique a engenharia de prompts (Módulo 1) para planejar uma aula real por semana, sempre revisando.</p></div>
+        <div style="position:relative;padding:0 0 26px"><span style="position:absolute;left:-31px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)"></span><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Semanas 7–9 · Integrar</div><p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0">Encadeie ferramentas (Módulo 3) e diferencie materiais (Módulo 4). A IA entra no ciclo completo da aula.</p></div>
+        <div style="position:relative;padding:0"><span style="position:absolute;left:-31px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--paper)"></span><div style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Semanas 10–12 · Consolidar</div><p style="font:400 16px/1.6 'IBM Plex Sans',sans-serif;color:var(--ink-soft);margin:0">Revise sua prática à luz da ética e da <a href="#glossario" title="Ver no glossário" style="color:inherit;text-decoration:none;border-bottom:1px dotted var(--edge)" style-hover="color:var(--accent);border-bottom-color:var(--accent)">LGPD</a> (Módulo 5) e compartilhe o que funcionou com colegas.</p></div>
+      </div>
+    </div>
+
+    <div id="m6-checklist" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">02</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Checklist de implementação</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Marque o que você já consegue fazer com autonomia. É o retrato do seu percurso — fica salvo neste dispositivo.</p>
+      <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:20px 22px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+          <span style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Estou pronto para…</span>
+          <span aria-live="polite" style="{{ implMsgStyle }}">{{ implMsg }}</span>
+        </div>
+        <div style="display:grid;gap:8px">
+          <sc-for list="{{ impl }}" as="item" hint-placeholder-count="6">
+            <button type="button" data-print-keep="" onClick="{{ item.onToggle }}" style="{{ item.rowStyle }}"><span style="{{ item.boxStyle }}">{{ item.check }}</span><span style="font:400 15px/1.55 'IBM Plex Sans',sans-serif;color:var(--ink-soft);text-align:left">{{ item.label }}</span></button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div id="m6-quiz" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">03</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Quiz final</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.4em">Três perguntas para consolidar o essencial da trilha. Toque na alternativa que julgar correta.</p>
+      <div style="display:grid;gap:18px">
+        <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="3">
+          <div style="background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:20px 22px">
+            <p style="font:600 17px/1.5 'Lora',serif;color:var(--ink);margin:0 0 14px"><span style="font:500 13px 'IBM Plex Mono',monospace;color:var(--accent);margin-right:8px">{{ q.num }}</span>{{ q.q }}</p>
+            <div style="display:grid;gap:8px">
+              <sc-for list="{{ q.options }}" as="opt">
+                <button type="button" data-print-keep="" onClick="{{ opt.onSelect }}" style="{{ opt.style }}">{{ opt.label }}</button>
+              </sc-for>
+            </div>
+            <p aria-live="polite" style="{{ q.feedbackStyle }}">{{ q.feedback }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p aria-live="polite" style="{{ quizScoreStyle }}">{{ quizScore }}</p>
+      <div style="{{ quizResetWrapStyle }}"><button type="button" onClick="{{ resetQuiz }}" style="cursor:pointer;font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:11px 18px">Refazer quiz</button></div>
+    </div>
+
+    <div id="m6-declaracao" style="max-width:672px;margin:56px auto 0;scroll-margin-top:70px">
+      <span style="font:500 13px/1 'IBM Plex Mono',monospace;color:var(--accent)">04</span>
+      <h3 style="font:600 clamp(24px,4vw,34px)/1.2 'Lora',serif;color:var(--ink);margin:.3em 0 .5em">Fechamento de percurso</h3>
+      <p style="font:400 20px/1.75 'Lora',serif;color:var(--ink-soft);margin:0 0 1.3em">Esta trilha não emite certificado: não há instituição por trás dela para autenticar nada. O que fica é o que você produziu ao longo dos sete módulos — e isso está abaixo, pronto para exportar.</p>
+      <label for="cert-name" style="display:block;font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px">Seu nome</label>
+      <p style="font:400 14px/1.55 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 10px">Aparece no topo do caderno exportado. Fica salvo apenas neste navegador.</p>
+      <input id="cert-name" type="text" onInput="{{ onCertName }}" placeholder="Seu nome completo" style="width:100%;background:var(--paper-2);border:1px solid var(--edge);border-radius:10px;padding:13px 16px;outline:none;font:400 16px/1.4 'IBM Plex Sans',sans-serif;color:var(--ink);margin-bottom:24px" style-focus="border-color:var(--accent)">
+
+      <div style="border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--paper-2)">
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;padding:18px 22px;border-bottom:1px solid var(--rule)">
+          <span style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)">O que você produziu</span>
+          <span style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ percursoDate }}</span>
+        </div>
+        <dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--paper-2)">
+          <sc-for list="{{ percurso }}" as="p" hint-placeholder-count="4">
+            <div style="padding:18px 22px;background:var(--paper-2);box-shadow:0 0 0 1px var(--rule)">
+              <dt style="font:600 10.5px/1 'IBM Plex Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">{{ p.label }}</dt>
+              <dd style="margin:9px 0 0;font:600 20px/1.2 'Lora',serif;color:var(--ink)">{{ p.value }}</dd>
+              <dd style="margin:5px 0 0;font:400 13.5px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted)">{{ p.note }}</dd>
+            </div>
+          </sc-for>
+        </dl>
+      </div>
+      <p style="font:400 15px/1.7 'IBM Plex Sans',sans-serif;color:var(--muted);margin:16px 0 0">Se a sua escola ou rede precisa registrar esta formação, o caderno exportado serve de evidência: ele traz seu nome, a data e tudo o que você escreveu em cada módulo. A validação de horas cabe a quem tem competência para emiti-la.</p>
+
+      <div data-print-hide="" style="margin:32px 0 0;padding:20px 22px;background:var(--paper);border:1px solid var(--rule);border-radius:14px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)">Backup do caderno</div>
+        <p style="font:400 14.5px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:10px 0 16px">Tudo o que você escreve fica salvo apenas neste navegador, neste dispositivo. Limpar o histórico, trocar de computador ou usar navegação privada apaga o registro. O backup guarda anotações, checklists, quiz e módulos concluídos em um arquivo seu.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+          <button type="button" onClick="{{ downloadBackup }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:9px;font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:12px 18px" style-hover="border-color:var(--accent);color:var(--accent)"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 4v11"></path><path d="M7.5 10.5 12 15l4.5-4.5"></path><path d="M5 19h14"></path></svg> Baixar backup</button>
+          <button type="button" onClick="{{ pickBackup }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:9px;font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:12px 18px" style-hover="border-color:var(--accent);color:var(--accent)"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 19V8"></path><path d="M7.5 12.5 12 8l4.5 4.5"></path><path d="M5 5h14"></path></svg> Restaurar backup</button>
+          <input id="backup-file" type="file" accept="application/json,.json" onChange="{{ onBackupFile }}" aria-label="Escolher arquivo de backup" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
+        </div>
+        <p aria-live="polite" style="{{ backupMsgStyle }}">{{ backupMsg }}</p>
+      </div>
+    </div>
+
+    <div style="max-width:672px;margin:56px auto 0">
+      <div style="background:var(--paper-2);border:1px dashed var(--accent);border-radius:14px;padding:22px 24px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <label for="caderno-mod6" style="font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 20h4L20.5 7.5a2 2 0 0 0-2.8-2.8L5 17.5V20z"></path><path d="M16.5 5.5 19 8"></path></svg> Caderno do cursista — Módulo 6</label>
+          <span id="caderno-mod6-count" style="font:400 12px/1 'IBM Plex Mono',monospace;color:var(--muted)">{{ cnt.cadernoMod6 }}</span>
+        </div>
+        <p style="font:400 14px/1.5 'IBM Plex Sans',sans-serif;color:var(--muted);margin:0 0 12px">Qual é o seu primeiro passo concreto na semana 1? Comprometa-se por escrito.</p>
+        <textarea id="caderno-mod6" onInput="{{ onNote }}" rows="5" placeholder="Minhas anotações..." style="width:100%;resize:vertical;background:var(--paper);border:1px solid var(--edge);border-radius:10px;padding:12px 14px;outline:none;font:400 17px/1.7 'Lora',serif;color:var(--ink)"></textarea>
+      </div>
+    </div>
+
+    <div data-print-hide="" style="max-width:672px;margin:56px auto 0;border-top:1px solid var(--rule);padding-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+        <button type="button" onClick="{{ mods.m6.onToggle }}" style="{{ mods.m6.btnStyle }}">{{ mods.m6.label }}</button>
+        <button type="button" onClick="{{ printTrilha }}" style="cursor:pointer;font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:11px 18px" style-hover="border-color:var(--accent);color:var(--accent)">Imprimir a trilha</button>
+        <button type="button" onClick="{{ exportCaderno }}" aria-describedby="popup-warn" style="cursor:pointer;font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--paper);background:var(--ink);border:1px solid var(--ink);border-radius:999px;padding:11px 18px" style-hover="background:var(--accent);border-color:var(--accent)">⤓ Exportar caderno (PDF)</button>
+      </div>
+      <p id="popup-warn" role="alert" style="{{ popupWarnStyle }}">O navegador bloqueou a janela de exportação. Libere pop-ups para este site e toque em “Exportar caderno” novamente.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a href="#modulo-5" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">← Ética e LGPD</a><a href="#referencias" style="font:600 13px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:11px 16px;white-space:nowrap" style-hover="border-color:var(--accent);color:var(--accent)">Referências →</a></div>
+    </div>
+  </section>
+
+  <!-- GLOSSÁRIO -->
+  <section id="glossario" data-spy="glossario" data-screen-label="Glossário" aria-label="Glossário" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);scroll-margin-top:60px">
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Glossário</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(30px,5vw,44px)/1.12 'Lora',serif;letter-spacing:-.015em;color:var(--ink);margin:.3em 0 .3em">Glossário rápido</h2>
+      <p style="font:400 clamp(17px,2vw,20px)/1.6 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0 0 2em">Os termos essenciais da trilha, em uma frase cada. Pressione <kbd style="font:500 12px/1 'IBM Plex Mono',monospace;border:1px solid var(--rule);border-radius:5px;padding:3px 6px;color:var(--muted)">⌘K</kbd> para buscar de qualquer ponto.</p>
+      <dl style="margin:0;display:grid;gap:0">
+        <sc-for list="{{ glossaryList }}" as="g" hint-placeholder-count="10">
+          <div style="display:grid;grid-template-columns:200px 1fr;gap:18px;border-top:1px solid var(--rule);padding:20px 0">
+            <dt style="font:600 18px/1.35 'Lora',serif;color:var(--ink)">{{ g.term }}</dt>
+            <dd style="margin:0;font:400 16px/1.65 'IBM Plex Sans',sans-serif;color:var(--ink-soft)">{{ g.def }}</dd>
+          </div>
+        </sc-for>
+      </dl>
+    </div>
+  </section>
+
+  <!-- REFERÊNCIAS -->
+  <section id="referencias" data-spy="referencias" data-screen-label="Referências Bibliográficas" aria-label="Referências Bibliográficas" style="padding:clamp(40px,7vh,90px) clamp(16px,4vw,40px) clamp(50px,9vh,110px);background:var(--paper-2);border-top:1px solid var(--rule);scroll-margin-top:60px">
+    <div style="max-width:672px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:16px;color:var(--muted);font:600 12px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase">
+        <span style="color:var(--accent)">Referências</span>
+        <span style="flex:1;height:1px;background:var(--rule)"></span>
+      </div>
+      <h2 style="font:600 clamp(30px,5vw,44px)/1.12 'Lora',serif;letter-spacing:-.015em;color:var(--ink);margin:.3em 0 .3em">Referências Bibliográficas</h2>
+      <p style="font:400 clamp(17px,2vw,20px)/1.6 'Lora',serif;font-style:italic;color:var(--ink-soft);margin:0 0 2em">Normalizadas conforme a ABNT NBR 6023. Cada módulo remete a estas fontes.</p>
+      <ol style="margin:0;padding:0;list-style:none;display:grid;gap:22px">
+        <li style="display:grid;grid-template-columns:28px 1fr;gap:14px;font:400 16px/1.7 'Lora',serif;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:22px"><span style="font:500 13px/1.6 'IBM Plex Mono',monospace;color:var(--muted)">01</span><span>BRASIL. <em>Base Nacional Comum Curricular</em>: educação é a base. Brasília: MEC, 2018.</span></li>
+        <li style="display:grid;grid-template-columns:28px 1fr;gap:14px;font:400 16px/1.7 'Lora',serif;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:22px"><span style="font:500 13px/1.6 'IBM Plex Mono',monospace;color:var(--muted)">02</span><span>BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em>. Lei Geral de Proteção de Dados Pessoais (LGPD). Brasília: Presidência da República, 2018.</span></li>
+        <li style="display:grid;grid-template-columns:28px 1fr;gap:14px;font:400 16px/1.7 'Lora',serif;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:22px"><span style="font:500 13px/1.6 'IBM Plex Mono',monospace;color:var(--muted)">03</span><span>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. Paris: UNESCO, 2024.</span></li>
+        <li style="display:grid;grid-template-columns:28px 1fr;gap:14px;font:400 16px/1.7 'Lora',serif;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:22px"><span style="font:500 13px/1.6 'IBM Plex Mono',monospace;color:var(--muted)">04</span><span>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge: a framework for teacher knowledge. <em>Teachers College Record</em>, v. 108, n. 6, p. 1017–1054, 2006.</span></li>
+        <li style="display:grid;grid-template-columns:28px 1fr;gap:14px;font:400 16px/1.7 'Lora',serif;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:22px"><span style="font:500 13px/1.6 'IBM Plex Mono',monospace;color:var(--muted)">05</span><span>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada: usos críticos e contextualizados das tecnologias. 2019.</span></li>
+      </ol>
+      <div style="margin-top:40px;border-top:1px solid var(--rule);padding-top:24px">
+        <div style="font:600 11px/1 'IBM Plex Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Como citar esta obra</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px"><button type="button" onClick="{{ copyAbnt }}" style="font:600 12px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:10px 15px;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">Copiar ABNT</button><button type="button" onClick="{{ copyBibtex }}" style="font:600 12px/1 'IBM Plex Sans',sans-serif;color:var(--ink);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:10px 15px;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">Copiar BibTeX</button><span aria-live="polite" style="{{ citeMsgStyle }}">{{ citeMsg }}</span></div>
+        <p id="cite-abnt" style="font:400 15px/1.65 'Lora',serif;color:var(--ink-soft);margin:0">COSMO, Adryan Cavalcante. <em>Ferramentas de IA na Educação Básica: uma trilha formativa para professores</em>. 2. ed. [S. l.]: publicação independente, 2026. E-book.</p>
+        <pre id="cite-bibtex" style="margin:16px 0 0;padding:16px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:10px;overflow-x:auto;font:400 13px/1.7 'IBM Plex Mono',monospace;color:var(--ink-soft);white-space:pre">@book{cosmo2026ia,
+  author    = {Cosmo, Adryan Cavalcante},
+  title     = {Ferramentas de IA na Educação Básica: uma trilha formativa para professores},
+  edition   = {2},
+  year      = {2026},
+  publisher = {Publicação independente}
+}</pre>
+        <p style="font:400 13px/1.6 'IBM Plex Sans',sans-serif;color:var(--muted);margin:12px 0 0">O DOI será acrescentado às duas formas de citação quando o depósito no Zenodo for concluído.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:48px clamp(16px,4vw,40px) 72px;text-align:center">
+    <div style="max-width:672px;margin:0 auto;color:var(--muted);font:400 13px/1.7 'IBM Plex Sans',sans-serif">
+      Ferramentas de IA na Educação Básica — v2.0 · Adryan Cavalcante Cosmo<br>
+      Licença CC BY 4.0 (Atribuição)
+    </div>
+  </footer>
+
+</article>
+
+  <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#2A4C8F"></rect><g fill="none" stroke="#FAF7F0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M36 38h22a6 6 0 0 1 6 6v38H42a6 6 0 0 1-6-6V38z"></path><path d="M84 38H62a6 6 0 0 0-6 6v38h22a6 6 0 0 0 6-6V38z"></path><path d="M60 44v38"></path></g><text x="60" y="103" fill="#FAF7F0" font-family="Georgia,serif" font-size="15" font-weight="600" text-anchor="middle">IA</text></svg></template>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2A4C8F&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estilo&quot;,&quot;options&quot;:[[&quot;#2A4C8F&quot;,&quot;#7FA6E8&quot;],[&quot;#1D6A46&quot;,&quot;#66C492&quot;],[&quot;#9A3B2E&quot;,&quot;#E0917F&quot;]]},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;light&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Estilo&quot;},&quot;showMarginNotes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Conteúdo&quot;}}">
+class Component extends DCLogic {
+  state = { found: {}, lgpd: {}, impl: {}, quiz: {}, certName: '', done: {}, searchOpen: false, query: '' };
+
+  MOD_IDS = ['modulo-0','modulo-1','modulo-2','modulo-3','modulo-4','modulo-5','modulo-6'];
+
+  SECTIONS = [
+    ['modulo-0','Módulo 0 — Fundamentos'],
+    ['modulo-1','Módulo 1 — Engenharia de Prompts'],
+    ['modulo-2','Módulo 2 — Ferramentas de IA'],
+    ['modulo-3','Módulo 3 — Ferramentas Complementares'],
+    ['modulo-4','Módulo 4 — Aplicação Pedagógica'],
+    ['modulo-5','Módulo 5 — Ética, LGPD e Direitos'],
+    ['modulo-6','Módulo 6 — Trilha de Implementação'],
+    ['glossario','Glossário'],
+    ['referencias','Referências Bibliográficas']
+  ];
+  GLOSSARY = [
+    ['Alucinação','Quando a IA gera informação plausível porém falsa ou inventada. Sempre verifique fatos e fontes antes de usar.'],
+    ['Prompt','A instrução que você dá à IA. Um bom prompt tem papel, contexto, tarefa e formato (Módulo 1).'],
+    ['Token','Unidade de texto que o modelo processa — aproximadamente pedaços de palavras. Modelos têm limite de tokens por conversa.'],
+    ['Data de corte','A data até a qual o modelo foi treinado. Ele não conhece eventos posteriores, salvo se buscar na web.'],
+    ['LGPD','Lei Geral de Proteção de Dados (Lei 13.709/2018). Proíbe inserir dados que identifiquem alunos em ferramentas de IA (Módulo 5).'],
+    ['LLM','Modelo de Linguagem de Grande Escala — a tecnologia por trás de ChatGPT, Claude e afins.'],
+    ['TPACK','Modelo que une conhecimento de conteúdo, pedagógico e tecnológico. Boa aula com IA vive no encontro dos três (Módulo 4).'],
+    ['Engenharia de prompt','Prática de estruturar instruções para obter respostas melhores e mais úteis da IA (Módulo 1).'],
+    ['Viés','Distorções que a IA pode reproduzir de seus dados de treino. Exige olhar crítico do professor (Módulo 5).'],
+    ['Agente','IA que executa tarefas de várias etapas com autonomia, como o Manus (Módulo 2).']
+  ];
+
+  syncModuleUI(){
+    const done = this.state.done || {};
+    this.MOD_IDS.forEach(id => {
+      const l = document.querySelector('.snav-link[data-nav="' + id + '"]');
+      if (l){
+        l.classList.toggle('done', !!done[id]);
+        const nome = (l.innerText || '').replace(/\s+/g, ' ').trim();
+        l.setAttribute('aria-label', nome + (done[id] ? ' — módulo concluído' : ''));
+      }
+    });
+  }
+
+
+
+
+  openSearchNow(){
+    this._lastFocus = document.activeElement;
+    this.setState({ searchOpen: true, query: '', sel: 0 }, () => {
+      const i = document.getElementById('search-input');
+      if (i){ i.value = ''; i.focus(); }
+    });
+  }
+
+  closeSearchNow(){
+    this.setState({ searchOpen: false }, () => {
+      const f = this._lastFocus;
+      if (f && typeof f.focus === 'function') f.focus();
+    });
+  }
+
+  LGPD_ITEMS = [
+    'Removo nomes e dados que identifiquem alunos antes de usar a IA',
+    'Trabalho com textos anonimizados ao pedir feedback',
+    'Não insiro notas, laudos ou informações sensíveis em ferramentas de IA',
+    'Verifico a política de privacidade da ferramenta que uso',
+    'Explico à coordenação/escola como uso IA na minha prática'
+  ];
+  IMPL_ITEMS = [
+    'Escrever um prompt com papel, contexto, tarefa e formato',
+    'Escolher a ferramenta certa para cada tarefa',
+    'Planejar uma aula completa com apoio de IA',
+    'Diferenciar um material para diferentes níveis',
+    'Avaliar criticamente uma resposta da IA',
+    'Usar IA respeitando ética e LGPD'
+  ];
+  QUIZ = [
+    { q: 'Um bom prompt para uso pedagógico deve conter, no mínimo:',
+      options: ['Apenas a tarefa a ser feita', 'Papel, contexto, tarefa e formato', 'Quanto mais longo, melhor'],
+      correct: 1,
+      ok: 'Isso mesmo', why: 'papel, contexto, tarefa e formato formam a anatomia de um bom prompt (Módulo 1).' },
+    { q: 'Ao receber uma estatística sem fonte da IA, o professor deve:',
+      options: ['Confiar: a IA acessa a internet', 'Verificar a fonte antes de usar', 'Descartar toda a resposta'],
+      correct: 1,
+      ok: 'Correto', why: 'a IA pode alucinar dados; exija e verifique a fonte (Módulos 1 e 5).' },
+    { q: 'Segundo a LGPD, dados pessoais de alunos:',
+      options: ['Podem ser inseridos livremente em qualquer IA', 'Não devem ser inseridos sem cuidado e base legal', 'Só importam no ensino superior'],
+      correct: 1,
+      ok: 'Exato', why: 'dados de crianças e adolescentes são sensíveis; anonimize sempre (Módulo 5).' }
+  ];
+
+  NOTE_IDS = ['caderno-mod0','ex-mod1','caderno-mod1','caderno-mod2','caderno-mod3','ex-mod4','caderno-mod4','caderno-mod5','caderno-mod6'];
+
+  camelId(id){ return id.replace(/-(\w)/g, (m, c) => c.toUpperCase()); }
+
+  wordsOf(v){ const t = (v || '').trim(); return t ? t.split(/\s+/).length : 0; }
+
+  storageOk(){
+    try { localStorage.setItem('ebook2.__probe', '1'); localStorage.removeItem('ebook2.__probe'); return true; }
+    catch(e){ return false; }
+  }
+
+  ACCENTS = {
+    '#2A4C8F': { dark: '#7FA6E8', soft: 'rgba(42,76,143,.12)', softDark: 'rgba(127,166,232,.18)' },
+    '#1D6A46': { dark: '#66C492', soft: 'rgba(29,106,70,.12)', softDark: 'rgba(102,196,146,.16)' },
+    '#9A3B2E': { dark: '#E0917F', soft: 'rgba(154,59,46,.12)', softDark: 'rgba(224,145,127,.18)' }
+  };
+
+  applyAccent(theme){
+    const raw = this.props.accent;
+    const light = Array.isArray(raw) ? raw[0] : raw;
+    const pair = this.ACCENTS[light];
+    const root = document.documentElement.style;
+    if (!pair){ root.removeProperty('--accent'); root.removeProperty('--accent-soft'); return; }
+    root.setProperty('--accent', theme === 'dark' ? pair.dark : light);
+    root.setProperty('--accent-soft', theme === 'dark' ? pair.softDark : pair.soft);
+  }
+
+  sectionLabel(id){
+    const hit = this.SECTIONS.find(([sid]) => sid === id);
+    if (!hit) return 'onde você parou';
+    return hit[1].split(' — ')[0];
+  }
+
+  BACKUP_KEYS = ['lgpd','impl','quiz','done','certName','doneAt','lastSection'];
+
+  backupMessage(txt, kind){
+    this.setState({ backupMsg: txt, backupKind: kind || 'ok' });
+    clearTimeout(this._bkpT);
+    this._bkpT = setTimeout(() => this.setState({ backupMsg: '' }), 6000);
+  }
+
+  buildBackup(){
+    const notes = {};
+    this.NOTE_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.value.trim()) notes[id] = el.value;
+    });
+    const state = {};
+    this.BACKUP_KEYS.forEach(k => {
+      let v = this.state[k];
+      if (v === undefined) v = this.loadState(k);
+      if (v !== undefined && v !== null && v !== '') state[k] = v;
+    });
+    return { app: 'trilha-ia-educacao', versao: 2, salvoEm: new Date().toISOString(), notes, state };
+  }
+
+  downloadBackupNow(){
+    try {
+      const data = this.buildBackup();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const d = new Date();
+      const st = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      a.href = url;
+      a.download = 'caderno-trilha-ia-' + st + '.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      const n = Object.keys(data.notes).length;
+      this.backupMessage('Backup baixado — ' + n + (n === 1 ? ' anotação' : ' anotações') + ' incluída' + (n === 1 ? '' : 's') + '.');
+    } catch(e){
+      this.backupMessage('Não foi possível gerar o backup neste navegador.', 'erro');
+    }
+  }
+
+  applyBackup(data){
+    if (!data || data.app !== 'trilha-ia-educacao') throw new Error('formato');
+    const notes = data.notes || {};
+    const cnt = {};
+    this.NOTE_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      const v = notes[id];
+      if (el && typeof v === 'string'){
+        el.value = v;
+        try { localStorage.setItem('ebook2.' + id, v); } catch(e){}
+      }
+      cnt[id] = el ? this.wordsOf(el.value) : 0;
+    });
+    const st = data.state || {};
+    const next = { cnt };
+    this.BACKUP_KEYS.forEach(k => {
+      if (st[k] === undefined) return;
+      next[k] = st[k];
+      try { localStorage.setItem('ebook2.' + k, JSON.stringify(st[k])); } catch(e){}
+    });
+    const ci = document.getElementById('cert-name');
+    if (ci && typeof st.certName === 'string') ci.value = st.certName;
+    this.setState(next, () => this.syncModuleUI());
+    const n = Object.keys(notes).length;
+    this.backupMessage('Backup restaurado — ' + n + (n === 1 ? ' anotação' : ' anotações') + ' e o progresso dos módulos.');
+  }
+
+  certDateLabel(doneCount){
+    if (doneCount < this.MOD_IDS.length) return 'percurso em andamento';
+    // data registrada no primeiro carregamento em que os sete módulos estão marcados
+    let at = this.state.doneAt || this.loadState('doneAt');
+    if (!at){
+      at = new Date().toISOString();
+      try { localStorage.setItem('ebook2.doneAt', JSON.stringify(at)); } catch(e){}
+      this.state.doneAt = at;
+    }
+    const d = new Date(at);
+    return 'concluída em ' + d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+  }
+
+  copyCite(id, msg){
+    const el = document.getElementById(id);
+    if (!el) return;
+    const txt = (el.innerText || '').trim();
+    const done = () => {
+      this.setState({ citeMsg: msg });
+      clearTimeout(this._citeT);
+      this._citeT = setTimeout(() => this.setState({ citeMsg: '' }), 2600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, () => this.setState({ citeMsg: 'Não foi possível copiar — selecione o texto manualmente' }));
+    } else {
+      this.setState({ citeMsg: 'Não foi possível copiar — selecione o texto manualmente' });
+    }
+  }
+
+  stateBox(on, opts){
+    const o = opts || {};
+    return {
+      cursor: 'pointer',
+      textAlign: o.align || 'left',
+      width: o.full === false ? 'auto' : '100%',
+      font: o.font || "400 15px/1.5 'IBM Plex Sans',sans-serif",
+      borderRadius: o.radius || '10px',
+      padding: o.padding || '12px 15px',
+      border: (o.weight || 1) + 'px solid ' + (on ? 'var(--accent)' : 'var(--edge)'),
+      background: on ? 'var(--accent-soft)' : 'var(--paper)',
+      color: on ? 'var(--ink)' : 'var(--ink-soft)',
+      transition: 'background .12s,border-color .12s,color .12s'
+    };
+  }
+
+  saveState(key){
+    try { localStorage.setItem('ebook2.' + key, JSON.stringify(this.state[key])); } catch(e){}
+  }
+  loadState(key){
+    try { const v = localStorage.getItem('ebook2.' + key); if (v != null) return JSON.parse(v); } catch(e){}
+    return null;
+  }
+
+  applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.style.setProperty('color-scheme', t === 'dark' ? 'dark' : 'light');
+    this.applyAccent(t);
+    try { localStorage.setItem('ebook2.theme', t); } catch(e){}
+    this.setState({ theme: t });
+  }
+
+  updateCount(id){
+    const el = document.getElementById(id);
+    if (!el) return;
+    const w = this.wordsOf(el.value);
+    this.setState(s => ({ cnt: Object.assign({}, s.cnt, { [id]: w }) }));
+  }
+
+  componentDidMount(){
+    let t;
+    try { t = localStorage.getItem('ebook2.theme'); } catch(e){}
+    if (!t) t = this.props.theme || 'light';
+    this.applyTheme(t);
+
+    if (this.props.showMarginNotes === false){
+      document.querySelectorAll('[data-note]').forEach(n => { n.style.display = 'none'; });
+    }
+
+    this._onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')){ e.preventDefault(); this.openSearchNow(); }
+      else if (e.key === 'Escape' && this.state.navOpen && !this.state.searchOpen){ const n = document.getElementById('sidenav'); if (n) n.classList.remove('open'); this.setState({ navOpen: false }); const t = document.querySelector('.snav-toggle'); if (t) t.focus(); }
+      else if (!this.state.searchOpen) return;
+      else if (e.key === 'Escape'){ e.preventDefault(); this.closeSearchNow(); }
+      else if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+        const n = (this._results || []).length;
+        if (!n) return;
+        e.preventDefault();
+        const d = e.key === 'ArrowDown' ? 1 : -1;
+        this.setState(st => ({ sel: ((st.sel || 0) + d + n) % n }));
+      }
+      else if (e.key === 'Enter'){
+        const r = (this._results || [])[this.state.sel || 0];
+        if (r){ e.preventDefault(); window.location.hash = r.href; this.closeSearchNow(); }
+      }
+      else if (e.key === 'Tab'){ e.preventDefault(); }
+    };
+    document.addEventListener('keydown', this._onKey);
+
+    const cnt0 = {};
+    this.NOTE_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el){
+        try { const v = localStorage.getItem('ebook2.' + id); if (v != null) el.value = v; } catch(e){}
+        cnt0[id] = this.wordsOf(el.value);
+      }
+    });
+    const last = this.loadState('lastSection') || null;
+    this.setState({ cnt: cnt0, storageAvailable: this.storageOk(), lastSection: last });
+
+    const restored = {};
+    ['lgpd','impl','quiz','done'].forEach(k => { const v = this.loadState(k); if (v) restored[k] = v; });
+    const cn = this.loadState('certName'); if (cn) restored.certName = cn;
+    const ci = document.getElementById('cert-name');
+    if (cn && ci) ci.value = cn;
+    if (Object.keys(restored).length) this.setState(restored, () => this.syncModuleUI());
+    else this.syncModuleUI();
+
+    this._spies = Array.from(document.querySelectorAll('[data-spy]'));
+    this._navLinks = Array.from(document.querySelectorAll('.snav-link[data-nav]'));
+    this._onScroll = () => {
+      const fill = document.getElementById('progress-fill');
+      const pct = document.getElementById('progress-pct');
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = h > 0 ? Math.min(100, Math.max(0, (window.scrollY / h) * 100)) : 0;
+      if (fill) fill.style.width = p + '%';
+      if (pct) pct.textContent = Math.round(p) + '%';
+      const track = document.getElementById('progress-track');
+      if (track) track.setAttribute('aria-valuenow', String(Math.round(p)));
+      let cur = null;
+      const mark = window.scrollY + 140;
+      this._spies.forEach(s => { if (s.offsetTop <= mark) cur = s.getAttribute('data-spy'); });
+      this._navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('data-nav') === cur));
+      if (cur && cur !== this._lastSpy){
+        this._lastSpy = cur;
+        try { localStorage.setItem('ebook2.lastSection', JSON.stringify(cur)); } catch(e){}
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+
+  componentDidUpdate(prev){
+    this.syncModuleUI();
+    if (prev.accent !== this.props.accent){
+      this.applyAccent(document.documentElement.getAttribute('data-theme') || 'light');
+    }
+  }
+
+  componentWillUnmount(){
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._onKey) document.removeEventListener('keydown', this._onKey);
+  }
+
+  renderVals(){
+    const found = this.state.found || {};
+    const n = ['p1','p2','p3'].filter(k => found[k]).length;
+    const flag = (k) => found[k]
+      ? { cursor:'pointer', border:'none', font:'inherit', color:'var(--ink)', background:'var(--accent-soft)', borderRadius:'3px', padding:'0 3px', boxShadow:'inset 0 -2px 0 var(--accent)' }
+      : { cursor:'pointer', border:'none', font:'inherit', color:'inherit', background:'transparent', borderBottom:'2px dotted var(--accent)', padding:'0 1px' };
+    const show = (k) => ({ display: found[k] ? 'block' : 'none' });
+
+    const rowStyle = (on) => Object.assign(this.stateBox(on), { display:'grid', gridTemplateColumns:'22px 1fr', gap:'12px', alignItems:'center', font:'inherit', padding:'12px 14px' });
+    const boxStyle = (on) => ({ display:'inline-flex', alignItems:'center', justifyContent:'center', width:'22px', height:'22px', borderRadius:'6px', border:'2px solid ' + (on ? 'var(--accent)' : 'var(--edge)'), background: on ? 'var(--accent)' : 'transparent', color: on ? 'var(--paper)' : 'transparent', font:'600 13px/1 IBM Plex Sans,sans-serif' });
+    const buildList = (key, items) => {
+      const st = this.state[key] || {};
+      return items.map((label, i) => ({
+        label, check: st[i] ? '\u2713' : '', rowStyle: rowStyle(!!st[i]), boxStyle: boxStyle(!!st[i]),
+        onToggle: () => this.setState(
+          s => { const ns = {}; ns[key] = Object.assign({}, s[key], { [i]: !s[key][i] }); return ns; },
+          () => this.saveState(key)
+        )
+      }));
+    };
+    const listMsg = (key, items) => {
+      const st = this.state[key] || {};
+      const c = items.filter((_, i) => st[i]).length;
+      return { txt: c + ' de ' + items.length, style: { font:"500 12px/1 'IBM Plex Mono',monospace", color: c === items.length ? 'var(--accent)' : 'var(--muted)' } };
+    };
+    const lgpdM = listMsg('lgpd', this.LGPD_ITEMS);
+    const implM = listMsg('impl', this.IMPL_ITEMS);
+
+    const qSel = this.state.quiz || {};
+    const optOff = this.stateBox(false);
+    const quiz = this.QUIZ.map((q, qi) => {
+      const sel = qSel[qi];
+      const answered = sel != null;
+      return {
+        num: String(qi + 1).padStart(2, '0'), q: q.q,
+        options: q.options.map((label, oi) => {
+          let style = Object.assign({}, optOff);
+          if (answered){
+            if (oi === q.correct) style = Object.assign({}, optOff, { background:'var(--c1s)', border:'1px solid var(--c1)', color:'var(--ink)' });
+            else if (oi === sel) style = Object.assign({}, optOff, { background:'var(--c3s)', border:'1px solid var(--c3)', color:'var(--ink)' });
+            else style = Object.assign({}, optOff, { opacity:.55 });
+          }
+          return { label, style, onSelect: () => this.setState(
+            s => ({ quiz: Object.assign({}, s.quiz, { [qi]: oi }) }),
+            () => this.saveState('quiz')
+          ) };
+        }),
+        feedback: answered ? ((sel === q.correct ? q.ok : 'Não é essa') + ' — ' + q.why) : '',
+        feedbackStyle: { display: answered ? 'block' : 'none', margin:'12px 0 0', font:"400 14px/1.55 'IBM Plex Sans',sans-serif", color: sel === q.correct ? 'var(--accent)' : 'var(--c3)' }
+      };
+    });
+    const qAns = this.QUIZ.filter((q, qi) => qSel[qi] != null).length;
+    const qOk = this.QUIZ.filter((q, qi) => qSel[qi] === q.correct).length;
+
+    const done = this.state.done || {};
+    const doneBtn = { cursor:'pointer', font:"600 13px/1 'IBM Plex Sans',sans-serif", borderRadius:'999px', padding:'11px 18px', border:'1px solid var(--edge)', background:'transparent', color:'var(--ink)', transition:'background .12s,border-color .12s,color .12s' };
+    const mkMod = (id) => {
+      const on = !!done[id];
+      return {
+        onToggle: () => this.setState(s => ({ done: Object.assign({}, s.done, { [id]: !s.done[id] }) }), () => this.saveState('done')),
+        label: on ? '\u2713 Módulo concluído' : 'Marcar como concluído',
+        btnStyle: Object.assign({}, doneBtn, on ? { background:'var(--accent)', color:'var(--paper)', borderColor:'var(--accent)' } : {})
+      };
+    };
+    const mods = {};
+    this.MOD_IDS.forEach((id, i) => { mods['m' + i] = mkMod(id); });
+    const doneCount = this.MOD_IDS.filter(id => done[id]).length;
+
+    const q = (this.state.query || '').trim().toLowerCase();
+    const match = (s) => !q || s.toLowerCase().includes(q);
+    const results = [];
+    this.SECTIONS.forEach(([id, title]) => { if (match(title)) results.push({ href:'#'+id, kind:'Seção', title, def:'', defStyle:{ display:'none' } }); });
+    this.GLOSSARY.forEach(([term, def]) => { if (match(term) || match(def)) results.push({ href:'#glossario', kind:'Termo', title:term, def, defStyle:{ display:'block', margin:'4px 0 0', font:"400 13px/1.55 'IBM Plex Sans',sans-serif", color:'var(--muted)' } }); });
+
+    const theme = this.state.theme || 'light';
+    const stOk = this.state.storageAvailable !== false;
+    const cnt = {};
+    this.NOTE_IDS.forEach(id => {
+      const w = (this.state.cnt || {})[id] || 0;
+      cnt[this.camelId(id)] = w === 0
+        ? '0 palavras'
+        : (w + (w === 1 ? ' palavra' : ' palavras') + (stOk ? ' · salvo' : ' · não salvo'));
+    });
+
+    const selIdx = Math.min(this.state.sel || 0, Math.max(0, results.length - 1));
+    results.forEach((r, i) => {
+      r.selected = i === selIdx;
+      r.rowStyle = { display:'block', padding:'11px 14px', borderRadius:'10px', textDecoration:'none', color:'inherit', background: i === selIdx ? 'var(--paper-2)' : 'transparent', boxShadow: i === selIdx ? 'inset 3px 0 0 var(--accent)' : 'none' };
+    });
+    this._results = results;
+
+    const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '');
+
+    return {
+      mods,
+      navOpen: !!this.state.navOpen,
+      navScrimStyle: { display: this.state.navOpen ? 'block' : 'none', position:'fixed', inset:0, zIndex:90, background:'rgba(0,0,0,.35)' },
+      kbdLabel: isMac ? '\u2318K' : 'Ctrl K',
+      popupWarnStyle: { display: this.state.popupBlocked ? 'block' : 'none', margin:'14px 0 0', padding:'12px 14px', background:'var(--c4s)', border:'1px solid var(--edge)', borderRadius:'10px', font:"400 14px/1.55 'IBM Plex Sans',sans-serif", color:'var(--ink-soft)' },
+      themeLabel: theme === 'dark' ? 'Claro' : 'Escuro',
+      themeOn: theme === 'dark',
+      cnt,
+      storageWarnStyle: { display: stOk ? 'none' : 'block', padding: '12px clamp(16px,4vw,40px)', background: 'var(--c4s)', borderTop: '1px solid var(--rule)', font: "400 14px/1.55 'IBM Plex Sans',sans-serif", color: 'var(--ink-soft)' },
+      doneChip: doneCount + '/7 módulos',
+      doneDot: doneCount === 7 ? 'var(--accent)' : (doneCount ? 'var(--accent)' : 'var(--edge)'),
+      doneChipStyle: { display:'inline-flex', alignItems:'center', gap:'7px', font:"600 12px/1 'IBM Plex Sans',sans-serif", color: doneCount ? 'var(--accent)' : 'var(--muted)', background: doneCount ? 'var(--accent-soft)' : 'transparent', border:'1px solid ' + (doneCount ? 'var(--accent)' : 'var(--edge)'), borderRadius:'999px', padding:'7px 12px', whiteSpace:'nowrap' },
+      copyPrompt: (e) => {
+        const btn = e.currentTarget;
+        const card = btn.closest('[data-prompt-card]');
+        const p = card && card.querySelector('p');
+        const text = p ? (p.innerText || p.textContent) : '';
+        try { navigator.clipboard.writeText(text); } catch(err){}
+        const old = btn.textContent; btn.textContent = 'Copiado ✓';
+        setTimeout(() => { btn.textContent = old; }, 1400);
+      },
+      openSearch: () => this.openSearchNow(),
+      closeSearch: () => this.closeSearchNow(),
+      copyAbnt: () => this.copyCite('cite-abnt', 'Citação ABNT copiada'),
+      copyBibtex: () => this.copyCite('cite-bibtex', 'BibTeX copiado'),
+      citeMsg: this.state.citeMsg || '',
+      citeMsgStyle: { display: this.state.citeMsg ? 'inline-flex' : 'none', alignItems:'center', font:"500 12px/1 'IBM Plex Sans',sans-serif", color:'var(--accent)' },
+      stopEvt: (e) => e.stopPropagation(),
+      onSearchInput: (e) => this.setState({ query: e.target.value }),
+      searchResults: results,
+      glossaryList: this.GLOSSARY.map(([term, def]) => ({ term, def })),
+      searchOverlayStyle: { display: this.state.searchOpen ? 'flex' : 'none', position:'fixed', inset:0, zIndex:200, alignItems:'flex-start', justifyContent:'center', padding:'12vh 16px 16px', background:'rgba(0,0,0,.35)', backdropFilter:'blur(3px)' },
+      searchEmptyStyle: { display: results.length ? 'none' : 'block', padding:'22px 14px', textAlign:'center', font:"400 15px/1.5 'IBM Plex Sans',sans-serif", color:'var(--muted)' },
+      exportCaderno: () => {
+        const items = [
+          ['Módulo 0 — Fundamentos', 'caderno-mod0'],
+          ['Módulo 1 — Exercício de prompt', 'ex-mod1'],
+          ['Módulo 1 — Caderno', 'caderno-mod1'],
+          ['Módulo 2 — Caderno', 'caderno-mod2'],
+          ['Módulo 3 — Caderno', 'caderno-mod3'],
+          ['Módulo 4 — Sequência didática', 'ex-mod4'],
+          ['Módulo 4 — Caderno', 'caderno-mod4'],
+          ['Módulo 5 — Caderno', 'caderno-mod5'],
+          ['Módulo 6 — Caderno', 'caderno-mod6']
+        ];
+        const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const get = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+        const name = (this.state.certName || '').trim();
+        const rows = items.map(([t, id]) => {
+          const v = get(id);
+          return v ? '<h2>' + esc(t) + '</h2><p>' + esc(v).replace(/\n/g, '<br>') + '</p>' : '';
+        }).join('');
+        const w = window.open('', '_blank');
+        if (!w){ this.setState({ popupBlocked: true }); return; }
+        this.setState({ popupBlocked: false });
+        w.document.write('<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Caderno do cursista</title><style>body{font-family:Georgia,"Times New Roman",serif;max-width:640px;margin:48px auto;padding:0 28px;color:#1c1b16;line-height:1.7}h1{font-size:28px;margin:0 0 4px}h2{font-size:13px;font-family:system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#1d6a46;margin:30px 0 6px}p{white-space:pre-wrap;margin:0 0 12px}.meta{color:#847e6e;font-size:13px;font-family:system-ui,sans-serif;border-bottom:1px solid #ddd;padding-bottom:16px;margin-bottom:8px}@media print{body{margin:0}}</style></head><body><h1>Caderno do cursista</h1><div class="meta">' + (name ? esc(name) + ' &middot; ' : '') + 'IA na Educação Básica &middot; ' + new Date().toLocaleDateString('pt-BR') + '</div>' + (rows || '<p>Nenhuma anotação registrada ainda.</p>') + '<scr' + 'ipt>window.onload=function(){window.print()}</scr' + 'ipt></body></html>');
+        w.document.close();
+      },
+      toggleTheme: () => this.applyTheme((this.state.theme || 'light') === 'dark' ? 'light' : 'dark'),
+      toggleNav: () => {
+        const nv = document.getElementById('sidenav');
+        if (!nv) return;
+        const open = !nv.classList.contains('open');
+        nv.classList.toggle('open', open);
+        this.setState({ navOpen: open });
+      },
+      closeNav: () => {
+        const nv = document.getElementById('sidenav');
+        if (nv) nv.classList.remove('open');
+        this.setState({ navOpen: false });
+      },
+      onNote: (e) => {
+        const el = e.target;
+        let ok = true;
+        try { localStorage.setItem('ebook2.' + el.id, el.value); } catch(err){ ok = false; }
+        if (!ok && this.state.storageAvailable !== false) this.setState({ storageAvailable: false });
+        this.updateCount(el.id);
+      },
+      onFlag: (e) => {
+        const k = e.currentTarget.getAttribute('data-k');
+        this.setState(st => ({ found: Object.assign({}, st.found, { [k]: !st.found[k] }) }));
+      },
+      flagP1: flag('p1'), flagP2: flag('p2'), flagP3: flag('p3'),
+      noteP1: show('p1'), noteP2: show('p2'), noteP3: show('p3'),
+      foundMsg: n === 3 ? 'Os três problemas identificados. Este é o olhar crítico que a trilha pede.' : (n + ' de 3 problemas identificados'),
+      foundMsgStyle: { display: n ? 'block' : 'none', margin:'14px 0 0', font:"500 14px/1.55 'IBM Plex Sans',sans-serif", color: n === 3 ? 'var(--accent)' : 'var(--muted)' },
+      lgpd: buildList('lgpd', this.LGPD_ITEMS),
+      lgpdMsg: lgpdM.txt,
+      lgpdMsgStyle: lgpdM.style,
+      impl: buildList('impl', this.IMPL_ITEMS),
+      implMsg: implM.txt,
+      implMsgStyle: implM.style,
+      quiz,
+      quizResetWrapStyle: { display: qAns ? 'flex' : 'none', justifyContent:'center', margin:'16px 0 0' },
+      resetQuiz: () => this.setState({ quiz: {} }, () => this.saveState('quiz')),
+      quizScore: qAns === this.QUIZ.length ? ('Você acertou ' + qOk + ' de ' + this.QUIZ.length + '.') : '',
+      quizScoreStyle: { display: qAns === this.QUIZ.length ? 'block' : 'none', margin:'20px 0 0', textAlign:'center', font:"600 17px/1.4 'Lora',serif", color: qOk === this.QUIZ.length ? 'var(--accent)' : 'var(--ink-soft)' },
+      certName: (this.state.certName || '').trim() || 'seu nome aparecerá aqui',
+      printTrilha: () => window.print(),
+      downloadBackup: () => this.downloadBackupNow(),
+      pickBackup: () => { const el = document.getElementById('backup-file'); if (el){ el.value = ''; el.click(); } },
+      onBackupFile: (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = () => {
+          try { this.applyBackup(JSON.parse(r.result)); }
+          catch(err){ this.backupMessage('Arquivo inválido. Escolha um backup gerado por esta trilha.', 'erro'); }
+        };
+        r.onerror = () => this.backupMessage('Não foi possível ler o arquivo.', 'erro');
+        r.readAsText(f);
+      },
+      backupMsg: this.state.backupMsg || '',
+      backupMsgStyle: { display: this.state.backupMsg ? 'block' : 'none', margin:'14px 0 0', font:"500 14px/1.55 'IBM Plex Sans',sans-serif", color: this.state.backupKind === 'erro' ? 'var(--c3)' : 'var(--accent)' },
+      startLabel: this.state.lastSection ? 'Ver a trilha' : 'Começar a trilha',
+      resumeHref: this.state.lastSection ? ('#' + this.state.lastSection) : '#trilha',
+      resumeLabel: 'Continuar em ' + this.sectionLabel(this.state.lastSection),
+      resumeStyle: { display: (this.state.lastSection && this.state.lastSection !== 'trilha') ? 'inline-flex' : 'none', alignItems:'center', gap:'9px', font:"600 15px/1 'IBM Plex Sans',sans-serif", color:'var(--ink)', background:'transparent', border:'1px solid var(--edge)', padding:'13px 20px', borderRadius:'999px', textDecoration:'none' },
+      percursoDate: this.certDateLabel(doneCount),
+      percurso: (() => {
+        const words = this.NOTE_IDS.reduce((t, id) => t + ((this.state.cnt || {})[id] || 0), 0);
+        const filled = this.NOTE_IDS.filter(id => ((this.state.cnt || {})[id] || 0) > 0).length;
+        const lgpdN = this.LGPD_ITEMS.filter((_, i) => (this.state.lgpd || {})[i]).length;
+        const implN = this.IMPL_ITEMS.filter((_, i) => (this.state.impl || {})[i]).length;
+        return [
+          { label: 'Módulos concluídos', value: doneCount + ' de ' + this.MOD_IDS.length, note: doneCount === this.MOD_IDS.length ? 'trilha percorrida de ponta a ponta' : 'marcados por você ao fim de cada módulo' },
+          { label: 'Anotações escritas', value: words + (words === 1 ? ' palavra' : ' palavras'), note: filled + ' de ' + this.NOTE_IDS.length + ' espaços preenchidos' },
+          { label: 'Checklists', value: (lgpdN + implN) + ' de ' + (this.LGPD_ITEMS.length + this.IMPL_ITEMS.length), note: 'proteção de dados e implementação' },
+          { label: 'Quiz final', value: qAns === this.QUIZ.length ? (qOk + ' de ' + this.QUIZ.length + ' corretas') : 'em aberto', note: qAns === this.QUIZ.length ? 'respondido por inteiro' : qAns + ' de ' + this.QUIZ.length + ' respondidas' }
+        ];
+      })(),
+      onCertName: (e) => {
+        const v = e.target.value;
+        this.setState({ certName: v }, () => this.saveState('certName'));
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
