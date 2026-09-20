@@ -4,7 +4,7 @@
 # repositório fica fora do public_html, para não expor .git e design/.
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/cosmodev/public_html/ebook-trilha-formativa
+    - export DEPLOYPATH=/home/cosmodev/public_html/trilha-formativa
     - /bin/mkdir -p $DEPLOYPATH/assets
     - /bin/cp index.html style.css print.css app.js $DEPLOYPATH/
     - /bin/cp -R assets/. $DEPLOYPATH/assets/
