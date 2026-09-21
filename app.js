@@ -10,9 +10,9 @@
   var PREFIX = 'ebook2.';
   var APP_ID = 'trilha-ia-educacao';
 
-  var MOD_IDS = ['modulo-0', 'modulo-1', 'modulo-2', 'modulo-3', 'modulo-4', 'modulo-5', 'modulo-6'];
+  var MOD_IDS = ['modulo-0', 'modulo-1', 'modulo-2', 'modulo-3', 'modulo-4', 'modulo-5', 'modulo-6', 'modulo-7'];
 
-  var NOTE_IDS = ['caderno-mod0', 'ex-mod1', 'caderno-mod1', 'caderno-mod2', 'caderno-mod3', 'ex-mod4', 'caderno-mod4', 'caderno-mod5', 'caderno-mod6'];
+  var NOTE_IDS = ['caderno-mod0', 'ex-mod1', 'caderno-mod1', 'caderno-mod2', 'caderno-mod3', 'ex-mod4', 'caderno-mod4', 'ex-mod5', 'caderno-mod5', 'caderno-mod6', 'caderno-mod7'];
 
   var NOTE_TITLES = {
     'caderno-mod0': 'Módulo 0 — Fundamentos',
@@ -22,8 +22,10 @@
     'caderno-mod3': 'Módulo 3 — Caderno',
     'ex-mod4': 'Módulo 4 — Sequência didática',
     'caderno-mod4': 'Módulo 4 — Caderno',
+    'ex-mod5': 'Módulo 5 — Combinado com a turma',
     'caderno-mod5': 'Módulo 5 — Caderno',
-    'caderno-mod6': 'Módulo 6 — Caderno'
+    'caderno-mod6': 'Módulo 6 — Caderno',
+    'caderno-mod7': 'Módulo 7 — Caderno'
   };
 
   var SECTIONS = [
@@ -32,8 +34,9 @@
     ['modulo-2', 'Módulo 2 — Ferramentas de IA'],
     ['modulo-3', 'Módulo 3 — Ferramentas Complementares'],
     ['modulo-4', 'Módulo 4 — Aplicação Pedagógica'],
-    ['modulo-5', 'Módulo 5 — Ética, LGPD e Direitos'],
-    ['modulo-6', 'Módulo 6 — Trilha de Implementação'],
+    ['modulo-5', 'Módulo 5 — O Aluno e a IA'],
+    ['modulo-6', 'Módulo 6 — Ética, LGPD e Direitos'],
+    ['modulo-7', 'Módulo 7 — Trilha de Implementação'],
     ['glossario', 'Glossário'],
     ['referencias', 'Referências Bibliográficas']
   ];

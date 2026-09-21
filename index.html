@@ -57,12 +57,13 @@
     <a class="snav-link" data-nav="modulo-2" href="#modulo-2"><span class="snum">02</span><span>Ferramentas de IA</span></a>
     <a class="snav-link" data-nav="modulo-3" href="#modulo-3"><span class="snum">03</span><span>Ferramentas complementares</span></a>
     <a class="snav-link" data-nav="modulo-4" href="#modulo-4"><span class="snum">04</span><span>Aplicação pedagógica</span></a>
-    <a class="snav-link" data-nav="modulo-5" href="#modulo-5"><span class="snum">05</span><span>Ética, LGPD e direitos</span></a>
-    <a class="snav-link" data-nav="modulo-6" href="#modulo-6"><span class="snum">06</span><span>Implementação</span></a>
+    <a class="snav-link" data-nav="modulo-5" href="#modulo-5"><span class="snum">05</span><span>O aluno e a IA</span></a>
+    <a class="snav-link" data-nav="modulo-6" href="#modulo-6"><span class="snum">06</span><span>Ética, LGPD e direitos</span></a>
+    <a class="snav-link" data-nav="modulo-7" href="#modulo-7"><span class="snum">07</span><span>Implementação</span></a>
     <a class="snav-link" data-nav="glossario" href="#glossario"><span class="snum">A–Z</span><span>Glossário</span></a>
     <a class="snav-link" data-nav="referencias" href="#referencias"><span class="snum">§</span><span>Referências</span></a>
   </div>
-  <div class="sidenav__foot">v2.0 · CC BY 4.0</div>
+  <div class="sidenav__foot">v2.1 · CC BY 4.0</div>
 </nav>
 
 <div class="app">
@@ -76,7 +77,7 @@
       </div>
       <div class="topbar__end">
         <button type="button" class="search-btn" id="search-open" aria-label="Buscar (Ctrl+K)"><svg class="icon" width="15" height="15"><use href="#i-search"/></svg><span class="search-btn__text">Buscar</span><kbd data-kbd>Ctrl K</kbd></button>
-        <span class="done-chip" id="done-chip"><span class="done-chip__dot" aria-hidden="true"></span><span id="done-chip-text">0/7 módulos</span></span>
+        <span class="done-chip" id="done-chip"><span class="done-chip__dot" aria-hidden="true"></span><span id="done-chip-text">0/8 módulos</span></span>
         <span class="progress-pct" id="progress-pct" title="Posição de leitura na página" aria-hidden="true">0%</span>
         <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false">Escuro</button>
       </div>
@@ -93,14 +94,14 @@
       <div class="kicker kicker--cover">
         <span class="kicker__label">N.º 01</span>
         <span class="kicker__rule"></span>
-        <span>Formação docente · v2.0</span>
+        <span>Formação docente · v2.1</span>
       </div>
       <h1 class="cover-title">Ferramentas de <em>IA</em> na Educação Básica</h1>
       <p class="cover-sub">Uma trilha formativa progressiva para professores — do letramento digital à engenharia de prompts, com base em TPACK, BNCC e no guia da UNESCO.</p>
       <div class="cover-actions">
         <a class="btn-primary" href="#trilha" id="start-link" data-print-hide><span id="start-label">Começar a trilha</span> <span aria-hidden="true">↓</span></a>
         <a class="btn-resume" href="#trilha" id="resume-link" data-print-hide hidden><svg class="icon" width="15" height="15"><use href="#i-resume"/></svg> <span id="resume-label">Continuar</span></a>
-        <div class="cover-meta">Adryan Cavalcante Cosmo · 7 módulos<br>Licença CC BY 4.0 · leitura ~2 h</div>
+        <div class="cover-meta">Adryan Cavalcante Cosmo · 8 módulos<br>Licença CC BY 4.0 · leitura ~3 h</div>
       </div>
     </div>
   </section>
@@ -142,11 +143,16 @@
       </a></li>
       <li><a class="route" href="#modulo-5">
         <span class="route__num">05</span>
-        <span class="route__body"><span class="route__title">Ética, LGPD e Direitos Autorais</span><span class="route__desc">Privacidade de alunos, LGPD na sala de aula e materiais gerados por IA.</span></span>
-        <span class="route__tag">expandido</span>
+        <span class="route__body"><span class="route__title">O Aluno e a IA</span><span class="route__desc">Integridade, redesenho de atividades e combinados de uso com a turma.</span></span>
+        <span class="route__tag route__tag--accent">novo</span>
       </a></li>
       <li><a class="route" href="#modulo-6">
         <span class="route__num">06</span>
+        <span class="route__body"><span class="route__title">Ética, LGPD e Direitos Autorais</span><span class="route__desc">Privacidade de alunos, o que a lei brasileira exige e materiais gerados por IA.</span></span>
+        <span class="route__tag">expandido</span>
+      </a></li>
+      <li><a class="route" href="#modulo-7">
+        <span class="route__num">07</span>
         <span class="route__body"><span class="route__title">Trilha de Implementação</span><span class="route__desc">Linha do tempo de 12 semanas, checklist, quiz final e fechamento de percurso.</span></span>
         <span class="route__tag">reformulado</span>
       </a></li>
@@ -171,10 +177,11 @@
           <li><a class="toc__num" href="#m0-ia" tabindex="-1" aria-hidden="true">01</a> <a href="#m0-ia">IA generativa na educação básica</a></li>
           <li><a class="toc__num" href="#m0-letramento" tabindex="-1" aria-hidden="true">02</a> <a href="#m0-letramento">Letramento digital e a Competência 5 da BNCC</a></li>
           <li><a class="toc__num" href="#m0-porque" tabindex="-1" aria-hidden="true">03</a> <a href="#m0-porque">Por que a engenharia de prompts importa</a></li>
-          <li><a class="toc__num" href="#m0-comousar" tabindex="-1" aria-hidden="true">04</a> <a href="#m0-comousar">Como usar este material</a></li>
+          <li><a class="toc__num" href="#m0-limites" tabindex="-1" aria-hidden="true">04</a> <a href="#m0-limites">O que a IA não faz</a></li>
+          <li><a class="toc__num" href="#m0-comousar" tabindex="-1" aria-hidden="true">05</a> <a href="#m0-comousar">Como usar este material</a></li>
         </ol>
         <div class="meta-row">
-          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~30 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~35 min</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Ponto de partida</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Caderno</span>
         </div>
@@ -184,7 +191,7 @@
     <div id="m0-ia" class="sub">
       <span class="sub__num">01</span>
       <h3 class="sub__title">IA generativa na educação básica</h3>
-      <p class="read"><strong class="hl">IA generativa</strong> é o nome dado a sistemas que produzem texto, imagem, áudio ou código a partir de instruções em linguagem natural. Na escola, isso significa um assistente capaz de rascunhar planos de aula, gerar exemplos, adaptar textos e simular diálogos — sempre sob a curadoria do professor.</p>
+      <p class="read"><strong class="hl"><a class="gloss" href="#termo-ia-generativa" title="Ver no glossário">IA generativa</a></strong> é o nome dado a sistemas que produzem texto, imagem, áudio ou código a partir de instruções em linguagem natural. Na escola, isso significa um assistente capaz de rascunhar planos de aula, gerar exemplos, adaptar textos e simular diálogos — sempre sob a curadoria do professor.</p>
       <p class="read">O guia da UNESCO (Holmes et al., 2024) é claro quanto ao princípio orientador: a tecnologia deve ampliar — nunca substituir — o julgamento pedagógico e a relação humana no centro da aprendizagem. Ferramentas de IA são meio, não fim.</p>
       <aside class="note"><strong>Princípio UNESCO.</strong> Abordagem centrada no ser humano: a IA apoia a decisão docente e exige supervisão, transparência e avaliação crítica de seus resultados.</aside>
     </div>
@@ -196,6 +203,7 @@
       <p class="read">É exatamente o que pede a <strong>Competência Geral 5</strong> da BNCC:</p>
       <blockquote class="quote">“Compreender, utilizar e criar tecnologias digitais de informação e comunicação de forma crítica, significativa, reflexiva e ética […] para se comunicar, acessar e disseminar informações, produzir conhecimentos e resolver problemas.”</blockquote>
       <p class="read">Trabalhar IA em sala, portanto, não é um extra: é um caminho direto para desenvolver essa competência — no professor e no aluno.</p>
+      <p class="read">A norma reforça esse caminho: a Resolução CNE/CEB nº 1/2022 tornou a Computação parte obrigatória da educação básica, em complemento à BNCC, e a Política Nacional de Educação Digital (Lei 14.533/2023) colocou o letramento digital entre as prioridades da escola. O Módulo 6 detalha o que isso exige na prática.</p>
     </div>
 
     <div id="m0-porque" class="sub">
@@ -209,8 +217,21 @@
       <p class="after">É esse o foco do <a href="#modulo-1">Módulo 1</a>, o coração desta trilha.</p>
     </div>
 
-    <div id="m0-comousar" class="sub">
+    <div id="m0-limites" class="sub">
       <span class="sub__num">04</span>
+      <h3 class="sub__title">O que a IA não faz</h3>
+      <p class="read">Um modelo de linguagem completa texto: ele calcula, palavra a palavra, qual continuação é mais provável diante do que você escreveu. Isso explica tanto a fluência quanto os erros. Quatro limites decorrem direto disso e valem para qualquer ferramenta da trilha.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Não sabe se está certo.</strong> A frase errada é produzida com a mesma segurança da frase correta. A verificação continua sendo sua — é o tema do Módulo 1.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Não conhece a sua turma.</strong> Ele não viu a aula de ontem, o histórico daquele aluno nem a realidade da escola. Tudo o que ele sabe do seu contexto é o que você digitou.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Não tem intenção pedagógica.</strong> Ele devolve o que costuma aparecer em textos parecidos. Decidir o que vale a pena ensinar, e por quê, é trabalho de professor.</span></div>
+        <div class="row-card"><span class="row-card__num">04</span><span class="row-card__text"><strong>Não é neutro.</strong> Foi treinado com textos humanos e reproduz os vieses deles, inclusive sobre gênero, raça e região — assunto do Módulo 6.</span></div>
+      </div>
+      <p class="after">Nada disso invalida a ferramenta. Só define o lugar dela: rascunho qualificado, não autoridade.</p>
+    </div>
+
+    <div id="m0-comousar" class="sub">
+      <span class="sub__num">05</span>
       <h3 class="sub__title">Como usar este material</h3>
       <p class="read">A trilha é progressiva: cada módulo apoia o seguinte. Você pode ler de ponta a ponta ou usar o menu lateral para saltar. Três recursos acompanham cada módulo:</p>
       <div class="rows">
@@ -268,11 +289,13 @@
           <li><a class="toc__num" href="#m1-oquee" tabindex="-1" aria-hidden="true">01</a> <a href="#m1-oquee">O que é e por que importa</a></li>
           <li><a class="toc__num" href="#m1-anatomia" tabindex="-1" aria-hidden="true">02</a> <a href="#m1-anatomia">Anatomia de um bom prompt</a></li>
           <li><a class="toc__num" href="#m1-padroes" tabindex="-1" aria-hidden="true">03</a> <a href="#m1-padroes">Padrões de prompt para tarefas pedagógicas</a></li>
-          <li><a class="toc__num" href="#m1-exercicio" tabindex="-1" aria-hidden="true">04</a> <a href="#m1-exercicio">Exercício prático de construção</a></li>
-          <li><a class="toc__num" href="#m1-critica" tabindex="-1" aria-hidden="true">05</a> <a href="#m1-critica">Avaliação crítica de respostas</a></li>
+          <li><a class="toc__num" href="#m1-conversa" tabindex="-1" aria-hidden="true">04</a> <a href="#m1-conversa">Refinar a resposta em conversa</a></li>
+          <li><a class="toc__num" href="#m1-exercicio" tabindex="-1" aria-hidden="true">05</a> <a href="#m1-exercicio">Exercício prático de construção</a></li>
+          <li><a class="toc__num" href="#m1-critica" tabindex="-1" aria-hidden="true">06</a> <a href="#m1-critica">Avaliação crítica de respostas</a></li>
+          <li><a class="toc__num" href="#m1-erros" tabindex="-1" aria-hidden="true">07</a> <a href="#m1-erros">Sete erros comuns de quem começa</a></li>
         </ol>
         <div class="meta-row">
-          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~45 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~60 min</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulo 0</strong></span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Exercício + caderno</span>
         </div>
@@ -328,11 +351,38 @@
           <div class="prompt-card__head"><div class="prompt-card__title">Adaptar conteúdo</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
           <p class="prompt-card__text">Reescreva este texto para <span class="slot">[nível/necessidade]</span>, mantendo os conceitos essenciais e reduzindo a complexidade da linguagem.</p>
         </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Montar uma rubrica</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Crie uma rubrica para avaliar <span class="slot">[tipo de trabalho]</span> no <span class="slot">[ano]</span>, com 4 critérios e 3 níveis de desempenho descritos em linguagem que o próprio aluno entenda. Sem pontuação numérica.</p>
+        </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Explicar de outro jeito</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Explique <span class="slot">[conceito]</span> de três formas para o <span class="slot">[ano]</span>: uma analogia do cotidiano, um exemplo numérico e uma pergunta que revele se o aluno entendeu de verdade.</p>
+        </div>
       </div>
     </div>
 
-    <div id="m1-exercicio" class="sub">
+    <div id="m1-conversa" class="sub">
       <span class="sub__num">04</span>
+      <h3 class="sub__title">Refinar a resposta em conversa</h3>
+      <p class="read">O erro mais caro não é escrever um prompt imperfeito: é aceitar a primeira resposta. A ferramenta guarda o fio da conversa, então o trabalho real acontece no segundo e no terceiro pedido, quando você corrige o rumo com o material já na tela.</p>
+      <ol class="steps">
+        <li><span class="steps__num">1</span><span class="steps__text"><strong>Peça</strong> — “Crie 5 questões sobre o ciclo da água para o 7.º ano, com gabarito.”</span></li>
+        <li><span class="steps__num">2</span><span class="steps__text"><strong>Ajuste</strong> — “As questões 2 e 4 estão fáceis demais. Refaça exigindo interpretação de um gráfico simples.”</span></li>
+        <li><span class="steps__num">3</span><span class="steps__text"><strong>Adapte</strong> — “Agora faça uma versão da mesma prova para dois alunos com dificuldade de leitura, sem simplificar o conteúdo.”</span></li>
+        <li><span class="steps__num">4</span><span class="steps__text"><strong>Confira</strong> — “Aponte onde essas questões podem induzir a erro e o que você mudaria.”</span></li>
+      </ol>
+      <p class="read read--gap-sm read--after-block">Três pedidos valem mais que qualquer truque de prompt:</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__icon"><svg class="icon" width="15" height="15"><use href="#i-lines"/></svg></span><span class="row-card__text"><strong>“Me dê três versões diferentes.”</strong> Comparar alternativas é mais rápido do que consertar uma só.</span></div>
+        <div class="row-card"><span class="row-card__icon"><svg class="icon" width="15" height="15"><use href="#i-lines"/></svg></span><span class="row-card__text"><strong>“Siga este exemplo.”</strong> Cole uma atividade sua que deu certo e peça o mesmo formato. Exemplo vale mais que adjetivo.</span></div>
+        <div class="row-card"><span class="row-card__icon"><svg class="icon" width="15" height="15"><use href="#i-lines"/></svg></span><span class="row-card__text"><strong>“O que ficou fraco aqui?”</strong> Pedir que a IA critique a própria resposta costuma revelar as lacunas que você teria de caçar.</span></div>
+      </div>
+      <aside class="note note--end"><strong>Conversa nova, contexto zerado.</strong> Cada conversa começa do nada: o que você explicou ontem não está lá. Guarde no caderno os prompts que funcionaram — eles são o seu material de trabalho.</aside>
+    </div>
+
+    <div id="m1-exercicio" class="sub">
+      <span class="sub__num">05</span>
       <h3 class="sub__title">Exercício prático de construção</h3>
       <p class="read">Escreva um prompt para uma tarefa da <em>sua</em> próxima aula. Use as quatro partes: papel, contexto, tarefa e formato. Seu texto fica salvo automaticamente neste dispositivo.</p>
       <div class="exercise">
@@ -345,7 +395,7 @@
     </div>
 
     <div id="m1-critica" class="sub">
-      <span class="sub__num">05</span>
+      <span class="sub__num">06</span>
       <h3 class="sub__title">Avaliação crítica de respostas</h3>
       <p class="read">A IA erra com confiança. A resposta abaixo parece boa — mas contém <strong>três problemas</strong>: um dado inventado, uma afirmação enviesada e uma informação desatualizada. Os três trechos sublinhados são clicáveis: toque nos que você desconfia (toque de novo para desmarcar).</p>
 
@@ -364,6 +414,21 @@
         <p class="flag-note" data-flag-note="p2" hidden><strong><a class="gloss" href="#termo-vies" title="Ver no glossário">Viés</a> —</strong> generalização de valor ("ficam para trás") apresentada como fato. Cuidado com julgamentos embutidos.</p>
         <p class="flag-note" data-flag-note="p3" hidden><strong>Desatualização —</strong> modelos têm <a class="gloss" href="#termo-data-de-corte" title="Ver no glossário">data de corte</a> e não "sabem" o presente. Verifique informações sensíveis ao tempo.</p>
         <p class="flag-msg" id="found-msg" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div id="m1-erros" class="sub">
+      <span class="sub__num">07</span>
+      <h3 class="sub__title">Sete erros comuns de quem começa</h3>
+      <p class="read read--gap-sm">Quase toda frustração com IA cai em um destes sete casos. Reconhecê-los economiza meses.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Pedir vago e culpar a ferramenta.</strong> “Faça uma atividade de português” devolve o genérico que o pedido merece.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Aceitar a primeira resposta.</strong> A primeira versão é rascunho. O valor está no segundo e no terceiro pedido.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Pedir tudo de uma vez.</strong> Plano, prova, rubrica e slides no mesmo prompt produzem quatro coisas medianas. Faça uma de cada vez.</span></div>
+        <div class="row-card"><span class="row-card__num">04</span><span class="row-card__text"><strong>Não dizer para quem é.</strong> Ano, turma, tempo de aula e restrições mudam completamente o resultado.</span></div>
+        <div class="row-card"><span class="row-card__num">05</span><span class="row-card__text"><strong>Confiar em dado sem fonte.</strong> Número, data e citação exigem conferência fora da IA, sempre.</span></div>
+        <div class="row-card"><span class="row-card__num">06</span><span class="row-card__text"><strong>Colar dado de aluno.</strong> Nome, nota, laudo e endereço não entram na ferramenta. Anonimize antes — Módulo 6.</span></div>
+        <div class="row-card"><span class="row-card__num">07</span><span class="row-card__text"><strong>Levar para a turma sem ler.</strong> Você assina o material. Revisar é parte do trabalho, não um extra.</span></div>
       </div>
     </div>
 
@@ -399,18 +464,19 @@
     <div class="measure">
       <div class="kicker"><span class="kicker__label">Módulo 02</span><span class="kicker__rule"></span></div>
       <h2 class="mod-title">Ferramentas de IA Generativa</h2>
-      <p class="lede">Quatro assistentes cobrem quase todo o trabalho docente. Não se trata de decorar botões, mas de saber qual ferramenta serve a cada intenção pedagógica.</p>
+      <p class="lede">Seis assistentes cobrem quase todo o trabalho docente. Não se trata de decorar botões, mas de saber qual ferramenta serve a cada intenção pedagógica.</p>
 
       <div class="overview">
         <div class="label">Neste módulo</div>
         <ol class="toc">
           <li><a class="toc__num" href="#m2-ecossistema" tabindex="-1" aria-hidden="true">01</a> <a href="#m2-ecossistema">O ecossistema em um olhar</a></li>
-          <li><a class="toc__num" href="#m2-quatro" tabindex="-1" aria-hidden="true">02</a> <a href="#m2-quatro">As quatro ferramentas</a></li>
+          <li><a class="toc__num" href="#m2-quatro" tabindex="-1" aria-hidden="true">02</a> <a href="#m2-quatro">As seis ferramentas</a></li>
           <li><a class="toc__num" href="#m2-qual" tabindex="-1" aria-hidden="true">03</a> <a href="#m2-qual">Qual usar para cada tarefa</a></li>
           <li><a class="toc__num" href="#m2-conta" tabindex="-1" aria-hidden="true">04</a> <a href="#m2-conta">Conta, versões e privacidade</a></li>
+          <li><a class="toc__num" href="#m2-escola" tabindex="-1" aria-hidden="true">05</a> <a href="#m2-escola">Conta pessoal e conta da escola</a></li>
         </ol>
         <div class="meta-row">
-          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~40 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~50 min</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulo 1</strong></span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Caderno</span>
         </div>
@@ -427,7 +493,7 @@
     <div id="m2-quatro" class="sub sub--wide">
       <div class="measure">
         <span class="sub__num">02</span>
-        <h3 class="sub__title sub__title--grid">As quatro ferramentas</h3>
+        <h3 class="sub__title sub__title--grid">As seis ferramentas</h3>
       </div>
       <div class="tools">
         <div class="tool c1">
@@ -450,7 +516,18 @@
           <p class="tool__desc">Executa tarefas de várias etapas com autonomia — pesquisar, organizar e montar um material do começo ao fim.</p>
           <div class="tool__meta"><strong>Forte em:</strong> tarefas compostas, produção de artefatos prontos.<br><strong>Atenção:</strong> revise cada etapa; a autonomia exige supervisão.</div>
         </div>
+        <div class="tool c2">
+          <div class="tool__head"><span class="tool__name">Gemini</span><span class="tool__tag">Google</span></div>
+          <p class="tool__desc">Integrado ao Google: aparece no Docs, no Drive e no Workspace for Education. Se a sua escola já usa Google Sala de Aula, é o caminho de menor atrito.</p>
+          <div class="tool__meta"><strong>Forte em:</strong> trabalhar sobre documentos que já estão no Drive.<br><strong>Atenção:</strong> o que vale na conta pessoal não vale na conta da escola; confira com a rede.</div>
+        </div>
+        <div class="tool c1">
+          <div class="tool__head"><span class="tool__name">Copilot</span><span class="tool__tag">Microsoft</span></div>
+          <p class="tool__desc">Vem no Windows e no pacote Office. Útil para quem produz no Word e no PowerPoint e não quer sair do ambiente da escola.</p>
+          <div class="tool__meta"><strong>Forte em:</strong> redigir e reorganizar dentro dos arquivos do Office.<br><strong>Atenção:</strong> recursos e limites variam conforme a licença contratada pela rede.</div>
+        </div>
       </div>
+      <p class="after">Seis ferramentas parecem muitas. Não são: escolha <strong>uma</strong> para as próximas semanas, de preferência a que a sua escola já tem contratada.</p>
     </div>
 
     <div id="m2-qual" class="sub">
@@ -463,6 +540,8 @@
           <tr><td>Dar feedback e analisar textos longos de alunos</td><td class="pick__tool c2">Claude</td></tr>
           <tr><td>Pesquisar com fontes confiáveis e atuais</td><td class="pick__tool c4">Perplexity</td></tr>
           <tr><td>Montar um material completo em várias etapas</td><td class="pick__tool c3">Manus</td></tr>
+          <tr><td>Trabalhar sobre documentos que já estão no Drive</td><td class="pick__tool c2">Gemini</td></tr>
+          <tr><td>Redigir no Word e montar slides no PowerPoint</td><td class="pick__tool c1">Copilot</td></tr>
         </tbody>
       </table>
       <p class="after">Regra prática: <strong>domine uma primeiro</strong>. Só migre quando a tarefa pedir algo que ela não faz bem.</p>
@@ -472,7 +551,24 @@
       <span class="sub__num">04</span>
       <h3 class="sub__title">Conta, versões e privacidade</h3>
       <p class="read">Todas oferecem uma versão gratuita suficiente para começar. As versões pagas ampliam limites e liberam modelos mais capazes — útil, mas não indispensável para a formação.</p>
-      <aside class="note"><strong>Antes de digitar.</strong> Nunca insira nome, nota ou qualquer dado que identifique um aluno. Como fazer isso corretamente é o tema do <a href="#modulo-5">Módulo 5 — Ética e LGPD</a>.</aside>
+      <aside class="note"><strong>Antes de digitar.</strong> Nunca insira nome, nota ou qualquer dado que identifique um aluno. Como fazer isso corretamente é o tema do <a href="#modulo-6">Módulo 6 — Ética e LGPD</a>.</aside>
+    </div>
+
+    <div id="m2-escola" class="sub">
+      <span class="sub__num">05</span>
+      <h3 class="sub__title">Conta pessoal e conta da escola</h3>
+      <p class="read">Existe uma diferença que quase ninguém explica e que muda tudo na escola: a <strong>conta pessoal</strong>, que você cria com seu e-mail, e a <strong>conta institucional</strong>, contratada pela rede de ensino (como o Google Workspace for Education ou o Microsoft 365 Education). São contratos diferentes, com regras diferentes sobre o que acontece com aquilo que você digita.</p>
+      <p class="read">As políticas mudam de ano para ano, então não decore: aprenda a conferir. Antes de levar qualquer ferramenta para a turma, responda a estas quatro perguntas.</p>
+      <table class="pick">
+        <thead><tr><th scope="col">Antes de usar com a turma, confirme…</th><th scope="col">Onde olhar</th></tr></thead>
+        <tbody>
+          <tr><td>Se as suas conversas são usadas para treinar o modelo</td><td>Configurações da conta, em Privacidade ou Controles de dados</td></tr>
+          <tr><td>A idade mínima exigida e quem é o titular da conta</td><td>Termos de uso da ferramenta e política da rede de ensino</td></tr>
+          <tr><td>Se o histórico fica salvo e como apagar</td><td>Configurações, em Histórico ou Excluir conversas</td></tr>
+          <tr><td>Se a sua rede já tem contrato com alguma ferramenta</td><td>Coordenação pedagógica ou setor de tecnologia</td></tr>
+        </tbody>
+      </table>
+      <p class="after">Regra prática enquanto a resposta não vem: <strong>use a ferramenta para o seu trabalho docente</strong>, com material anonimizado, e não peça que alunos criem conta em serviço não contratado pela escola. O Módulo 6 trata do que a lei exige.</p>
     </div>
 
     <div class="measure block">
@@ -513,9 +609,11 @@
           <li><a class="toc__num" href="#m3-porque" tabindex="-1" aria-hidden="true">01</a> <a href="#m3-porque">Do texto ao material de aula</a></li>
           <li><a class="toc__num" href="#m3-quatro" tabindex="-1" aria-hidden="true">02</a> <a href="#m3-quatro">Canva, Kahoot!, Gamma e NotebookLM</a></li>
           <li><a class="toc__num" href="#m3-fluxo" tabindex="-1" aria-hidden="true">03</a> <a href="#m3-fluxo">Um fluxo encadeado</a></li>
+          <li><a class="toc__num" href="#m3-acessibilidade" tabindex="-1" aria-hidden="true">04</a> <a href="#m3-acessibilidade">Material acessível para todos</a></li>
+          <li><a class="toc__num" href="#m3-imagens" tabindex="-1" aria-hidden="true">05</a> <a href="#m3-imagens">Imagens geradas: o que dá para publicar</a></li>
         </ol>
         <div class="meta-row">
-          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~35 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~45 min</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulo 2</strong></span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Caderno</span>
         </div>
@@ -571,6 +669,35 @@
       <aside class="note note--end"><strong>O professor no comando.</strong> A cada etapa você revisa, ajusta e decide. As ferramentas aceleram a produção; a intenção pedagógica continua sua.</aside>
     </div>
 
+    <div id="m3-acessibilidade" class="sub">
+      <span class="sub__num">04</span>
+      <h3 class="sub__title">Material acessível para todos</h3>
+      <p class="read">Material acessível não é material para “alunos especiais”: é material que funciona para a turma inteira. A IA barateia justamente as tarefas que antes ficavam de fora por falta de tempo.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Descrição de imagem.</strong> Peça um texto alternativo curto para cada figura do seu slide. Serve ao leitor de tela e também a quem está lendo no celular, com a imagem travando.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Versão em leitura fácil.</strong> Frases curtas, uma ideia por parágrafo, vocabulário do cotidiano — sem cortar o conteúdo.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Legenda e transcrição.</strong> Vídeo usado em aula com transcrição vira material de estudo e resolve a sala barulhenta.</span></div>
+        <div class="row-card"><span class="row-card__num">04</span><span class="row-card__text"><strong>Contraste e tamanho.</strong> Ao montar slides, peça poucas linhas por tela e cores de alto contraste. O gerador tende ao enfeite; você pede o legível.</span></div>
+      </div>
+      <div class="prompt-card" data-prompt-card>
+        <div class="prompt-card__head"><div class="prompt-card__title">Prompt de acessibilidade</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+        <p class="prompt-card__text">Reescreva este material em leitura fácil para <span class="slot">[ano]</span>: frases de até 15 palavras, uma ideia por parágrafo e vocabulário cotidiano. Mantenha todos os conceitos. Ao final, escreva a descrição em texto de cada imagem citada.</p>
+      </div>
+      <aside class="note note--end"><strong>Revisão humana é obrigatória aqui.</strong> Simplificação automática às vezes apaga o conceito junto com a palavra difícil. Leia pensando no aluno específico para quem você adaptou.</aside>
+    </div>
+
+    <div id="m3-imagens" class="sub">
+      <span class="sub__num">05</span>
+      <h3 class="sub__title">Imagens geradas: o que dá para publicar</h3>
+      <p class="read">Gerar imagem ficou fácil, e é aí que o cuidado aumenta. Três limites simples evitam problema com a escola e com as famílias.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Nada de rosto de aluno.</strong> Não envie fotos de crianças e adolescentes para gerar ou editar imagem, nem para “melhorar” um cartaz da turma.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Nada de personagem protegido.</strong> Pedir “no estilo” de um desenho famoso pode produzir material que a escola não pode publicar. Para uso interno em sala o risco é menor; em rede social, não.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Diga que foi gerado por IA.</strong> Uma linha na lateral do material resolve, e ensina a transparência que você cobra do aluno.</span></div>
+      </div>
+      <p class="after">Bancos de imagem com licença aberta continuam sendo a via mais segura quando o material vai circular fora da escola.</p>
+    </div>
+
     <div class="measure block">
       <div class="caderno">
         <div class="field-head">
@@ -609,10 +736,12 @@
           <li><a class="toc__num" href="#m4-tpack" tabindex="-1" aria-hidden="true">01</a> <a href="#m4-tpack">TPACK aplicado à prática</a></li>
           <li><a class="toc__num" href="#m4-ciclo" tabindex="-1" aria-hidden="true">02</a> <a href="#m4-ciclo">A IA no ciclo da aula</a></li>
           <li><a class="toc__num" href="#m4-inclusao" tabindex="-1" aria-hidden="true">03</a> <a href="#m4-inclusao">Inclusão e diferenciação</a></li>
-          <li><a class="toc__num" href="#m4-exercicio" tabindex="-1" aria-hidden="true">04</a> <a href="#m4-exercicio">Exercício: desenhe uma sequência</a></li>
+          <li><a class="toc__num" href="#m4-areas" tabindex="-1" aria-hidden="true">04</a> <a href="#m4-areas">Exemplos por área do conhecimento</a></li>
+          <li><a class="toc__num" href="#m4-quando-nao" tabindex="-1" aria-hidden="true">05</a> <a href="#m4-quando-nao">Quando não usar IA</a></li>
+          <li><a class="toc__num" href="#m4-exercicio" tabindex="-1" aria-hidden="true">06</a> <a href="#m4-exercicio">Exercício: desenhe uma sequência</a></li>
         </ol>
         <div class="meta-row">
-          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~50 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~60 min</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulos 1–3</strong></span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Exercício + caderno</span>
         </div>
@@ -654,8 +783,47 @@
       <p class="after">Diferenciar deixa de ser um luxo de tempo e passa a ser parte do fluxo — sempre revisada por você.</p>
     </div>
 
-    <div id="m4-exercicio" class="sub">
+    <div id="m4-areas" class="sub">
       <span class="sub__num">04</span>
+      <h3 class="sub__title">Exemplos por área do conhecimento</h3>
+      <p class="read read--gap">Quatro prompts prontos, um por área, pensados para tarefas que professores realmente fazem. Troque o que está em destaque e ajuste ao seu contexto.</p>
+      <div class="stack">
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Linguagens</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Aja como professor de Língua Portuguesa do <span class="slot">[ano]</span>. A partir deste texto do aluno, escreva um feedback em três partes: o que funcionou, dois pontos a melhorar com exemplo reescrito e uma pergunta que leve o aluno a revisar sozinho. Não reescreva o texto inteiro: <span class="slot">[colar texto anonimizado]</span></p>
+        </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Matemática</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Crie 4 problemas de <span class="slot">[conteúdo]</span> para o <span class="slot">[ano]</span> situados em contextos do dia a dia de <span class="slot">[cidade/bairro]</span>. Para cada um, mostre a resolução passo a passo e indique o erro mais provável do aluno e como intervir.</p>
+        </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Ciências da Natureza</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Planeje uma investigação de 50 min sobre <span class="slot">[tema]</span> para o <span class="slot">[ano]</span> usando apenas materiais de baixo custo. Inclua a pergunta investigativa, o passo a passo, os cuidados de segurança e como registrar os dados.</p>
+        </div>
+        <div class="prompt-card" data-prompt-card>
+          <div class="prompt-card__head"><div class="prompt-card__title">Ciências Humanas</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+          <p class="prompt-card__text">Monte um debate sobre <span class="slot">[tema]</span> para o <span class="slot">[ano]</span> com duas posições bem fundamentadas, três fontes que eu deva conferir antes e critérios de avaliação da argumentação. Indique onde o tema exige cuidado com a diversidade da turma.</p>
+        </div>
+      </div>
+      <p class="after">Note o que os quatro têm em comum: pedem <strong>o processo</strong>, não só o produto, e deixam a decisão final com você.</p>
+    </div>
+
+    <div id="m4-quando-nao" class="sub">
+      <span class="sub__num">05</span>
+      <h3 class="sub__title">Quando não usar IA</h3>
+      <p class="read">Saber recusar a ferramenta é parte da competência. Há situações em que usar IA piora o trabalho, e vale reconhecê-las de antemão.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Quando envolve dados de aluno.</strong> Parecer, laudo, ata de conselho e relatório individual ficam fora — sempre.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Quando a decisão é sobre uma pessoa.</strong> Nota, retenção, encaminhamento e avaliação de conduta são responsabilidade humana, e não se delegam.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Quando o vínculo é o conteúdo.</strong> Bilhete de retorno a uma família, conversa sobre luto, acolhimento de conflito. Texto gerado se percebe, e o efeito é o oposto do pretendido.</span></div>
+        <div class="row-card"><span class="row-card__num">04</span><span class="row-card__text"><strong>Quando você não domina o assunto.</strong> Sem repertório para revisar, você não tem como perceber o erro — e vai levá-lo para a turma.</span></div>
+        <div class="row-card"><span class="row-card__num">05</span><span class="row-card__text"><strong>Quando conferir dá mais trabalho que fazer.</strong> Tarefa curta e bem conhecida costuma sair mais rápido à mão.</span></div>
+      </div>
+      <aside class="note note--end"><strong>Um bom teste.</strong> Pergunte-se: eu assinaria isso? Se a resposta depender de uma revisão que você não vai ter tempo de fazer, não use.</aside>
+    </div>
+
+    <div id="m4-exercicio" class="sub">
+      <span class="sub__num">06</span>
       <h3 class="sub__title">Exercício: desenhe uma sequência</h3>
       <p class="read">Escolha um tema da sua próxima semana e descreva, em poucas linhas, como a IA entraria em <em>planejar</em>, <em>ensinar</em> e <em>avaliar</em> — indicando a ferramenta em cada etapa.</p>
       <div class="exercise">
@@ -689,33 +857,188 @@
 
     <div class="measure mod-foot" data-print-hide>
       <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-4" aria-pressed="false">Marcar como concluído</button></div>
-      <div class="mod-foot__group"><a class="pill" href="#modulo-3"><span aria-hidden="true">←</span> Complementares</a><a class="pill" href="#modulo-5">Ética e LGPD <span aria-hidden="true">→</span></a></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-3"><span aria-hidden="true">←</span> Complementares</a><a class="pill" href="#modulo-5">O aluno e a IA <span aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
   <!-- MÓDULO 5 -->
-  <section id="modulo-5" class="sec sec--alt" data-spy="modulo-5" aria-label="Módulo 5 — Ética, LGPD e direitos">
+  <section id="modulo-5" class="sec sec--alt" data-spy="modulo-5" aria-label="Módulo 5 — O aluno e a IA">
     <div class="measure">
       <div class="kicker"><span class="kicker__label">Módulo 05</span><span class="kicker__rule"></span></div>
+      <h2 class="mod-title">O Aluno e a IA</h2>
+      <p class="lede">Seus alunos já usam IA, com ou sem combinado. A pergunta deixou de ser se eles vão usar, e passou a ser o que a sua atividade mede e o que vocês combinaram.</p>
+
+      <div class="overview">
+        <div class="label">Neste módulo</div>
+        <ol class="toc">
+          <li><a class="toc__num" href="#m5-muda" tabindex="-1" aria-hidden="true">01</a> <a href="#m5-muda">O que muda quando o aluno também usa</a></li>
+          <li><a class="toc__num" href="#m5-detectores" tabindex="-1" aria-hidden="true">02</a> <a href="#m5-detectores">Por que os detectores não resolvem</a></li>
+          <li><a class="toc__num" href="#m5-redesenho" tabindex="-1" aria-hidden="true">03</a> <a href="#m5-redesenho">Redesenhar a atividade</a></li>
+          <li><a class="toc__num" href="#m5-combinados" tabindex="-1" aria-hidden="true">04</a> <a href="#m5-combinados">Combinados com a turma</a></li>
+          <li><a class="toc__num" href="#m5-suspeita" tabindex="-1" aria-hidden="true">05</a> <a href="#m5-suspeita">Quando surge uma suspeita</a></li>
+        </ol>
+        <div class="meta-row">
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~40 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Pré-requisito: <strong>Módulo 4</strong></span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Exercício + caderno</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="m5-muda" class="sub">
+      <span class="sub__num">01</span>
+      <h3 class="sub__title">O que muda quando o aluno também usa</h3>
+      <p class="read">Até aqui a trilha tratou da IA como ferramenta do professor. Mas ela chegou ao aluno primeiro, pelo celular, e sem combinado nenhum. Proibir por decreto não funciona: não há como fiscalizar, e a proibição sozinha ensina a esconder, não a usar com critério.</p>
+      <p class="read">O ponto que realmente muda é outro: <strong>algumas atividades deixaram de medir o que diziam medir</strong>. Um resumo feito em casa, uma redação sobre tema genérico, uma lista de perguntas respondidas fora da aula — tudo isso a IA entrega em segundos. Se a nota media o produto, ela agora mede o acesso à ferramenta.</p>
+      <p class="read">A saída não é uma corrida atrás de fraude. É recolocar a avaliação onde ela sempre deveria estar: no <strong>processo</strong>, no <strong>pensamento</strong> e naquilo que só aquele aluno, naquela turma, poderia produzir.</p>
+      <aside class="note"><strong>Também é competência.</strong> A UNESCO publicou em 2024 um marco de competências em IA para estudantes. Ensinar a usar com critério passou a fazer parte do currículo, não é desvio dele.</aside>
+    </div>
+
+    <div id="m5-detectores" class="sub">
+      <span class="sub__num">02</span>
+      <h3 class="sub__title">Por que os detectores não resolvem</h3>
+      <p class="read">A primeira reação costuma ser procurar um detector de texto por IA. É um caminho ruim, e por motivos que já foram medidos.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Eles erram contra quem escreve de forma mais simples.</strong> Um estudo publicado em 2023 testou sete detectores com redações escritas por pessoas: <strong>61,3%</strong> dos textos de quem não tinha o inglês como primeira língua foram marcados como IA (Liang et al., 2023).</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>A própria OpenAI desligou o detector dela</strong>, em 2023, por baixa taxa de acerto. Quem fez o modelo não conseguiu fazer o detector.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>A conta não fecha.</strong> Numa escola, mesmo um índice pequeno de erro significa acusar injustamente alunos reais, com nome e família — em geral os que escrevem de modo mais previsível, incluindo alunos ainda em formação como leitores e escritores e alunos neurodivergentes.</span></div>
+      </div>
+      <p class="after">Um número de detector não é prova. Serve, no máximo, como motivo para conversar — e conversa é o assunto da subseção 05.</p>
+    </div>
+
+    <div id="m5-redesenho" class="sub sub--wide">
+      <div class="measure">
+        <span class="sub__num">03</span>
+        <h3 class="sub__title sub__title--grid">Redesenhar a atividade</h3>
+        <p class="read read--gap-sm">Seis movimentos que devolvem sentido à tarefa. Não exigem tecnologia nenhuma: exigem decisão pedagógica.</p>
+      </div>
+      <div class="tools">
+        <div class="tool c1">
+          <div class="tool__head"><span class="tool__name">Processo visível</span><span class="tool__tag">Rascunho</span></div>
+          <p class="tool__desc">Peça o caminho, não só o resultado: anotações, versão inicial, o que mudou e por quê. O percurso é difícil de terceirizar e é onde a aprendizagem aparece.</p>
+        </div>
+        <div class="tool c2">
+          <div class="tool__head"><span class="tool__name">Ancorar no local</span><span class="tool__tag">Contexto</span></div>
+          <p class="tool__desc">Dados do bairro, uma entrevista com a família, um problema da escola, a aula de ontem. A IA não conhece o que só existe ali.</p>
+        </div>
+        <div class="tool c4">
+          <div class="tool__head"><span class="tool__name">Oralidade</span><span class="tool__tag">Defesa</span></div>
+          <p class="tool__desc">Três minutos explicando as próprias escolhas valem mais que dez páginas. Quem entendeu, sustenta; quem colou, trava.</p>
+        </div>
+        <div class="tool c3">
+          <div class="tool__head"><span class="tool__name">Crítica ao texto da IA</span><span class="tool__tag">Inversão</span></div>
+          <p class="tool__desc">Entregue você a resposta pronta da IA e peça que a turma encontre erros, vieses e lacunas. Avalia leitura crítica e ensina o limite da ferramenta.</p>
+        </div>
+        <div class="tool c1">
+          <div class="tool__head"><span class="tool__name">Produção em aula</span><span class="tool__tag">Presença</span></div>
+          <p class="tool__desc">Parte do trabalho acontece na sua frente, no papel ou no computador da escola. O que vai para casa é preparação ou revisão.</p>
+        </div>
+        <div class="tool c2">
+          <div class="tool__head"><span class="tool__name">Declaração de uso</span><span class="tool__tag">Transparência</span></div>
+          <p class="tool__desc">O aluno registra em duas linhas o que pediu à IA e o que fez com a resposta. Transforma o uso escondido em objeto de conversa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="m5-combinados" class="sub">
+      <span class="sub__num">04</span>
+      <h3 class="sub__title">Combinados com a turma</h3>
+      <p class="read">Regra vaga gera conflito. O mais eficaz é definir, <strong>por atividade</strong>, qual dos três níveis vale — e dizer isso no enunciado, não só no primeiro dia de aula.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Sem IA</strong> — a tarefa mede algo que você precisa ver sem apoio: leitura, cálculo, escrita autoral. Feita em aula, com material à vista.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Com IA declarada</strong> — pode usar, desde que registre o que pediu e o que mudou na resposta. É o nível mais útil na maior parte dos trabalhos.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>IA como parceira</strong> — o uso é o próprio objeto da aula: comparar respostas, checar fatos, avaliar a qualidade do que a máquina devolveu.</span></div>
+      </div>
+      <p class="read read--gap-sm">Um combinado curto, escrito com a turma e colado no mural, resolve mais que qualquer detector:</p>
+      <div class="prompt-card" data-prompt-card>
+        <div class="prompt-card__head"><div class="prompt-card__title">Modelo de combinado</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+        <p class="prompt-card__text">Nesta turma, usar IA é permitido quando o enunciado disser “com IA declarada”. Nesse caso, entregue junto: 1) o que você pediu à IA; 2) o que a resposta trouxe; 3) o que você mudou e por quê. Trabalho entregue como seu, sem revisão e sem declaração, será refeito — não como punição, mas porque a tarefa não foi cumprida. Dados de colegas, notas e informações pessoais nunca entram na ferramenta.</p>
+      </div>
+      <p class="after">Combine também o que acontece quando alguém não cumpre. Consequência dita antes é regra; dita depois, parece perseguição.</p>
+    </div>
+
+    <div id="m5-suspeita" class="sub">
+      <span class="sub__num">05</span>
+      <h3 class="sub__title">Quando surge uma suspeita</h3>
+      <p class="read">Você leu um texto que não parece daquele aluno. Antes de qualquer conclusão, lembre que a sua percepção também erra — e que uma acusação injusta custa caro na relação com a turma.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Converse em particular</strong> e comece por perguntas de processo: como escolheu o tema, o que descartou, onde travou.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>Peça para explicar um trecho</strong> com as próprias palavras. Quem escreveu, explica; quem colou, costuma não saber o que o parágrafo quer dizer.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Ofereça o caminho de volta</strong>: refazer com apoio, entregar a declaração de uso, ou defender o trabalho oralmente.</span></div>
+        <div class="row-card"><span class="row-card__num">04</span><span class="row-card__text"><strong>Registre o combinado</strong> da conversa e o prazo. Se o caso se repetir, você terá histórico, não impressão.</span></div>
+      </div>
+      <div class="pair">
+        <div class="pair__cell"><div class="pair__label c1">✓ FUNCIONA</div><p class="pair__text">“Me explica como você chegou a essa conclusão?”</p></div>
+        <div class="pair__cell"><div class="pair__label c3">✕ EVITE</div><p class="pair__text">“O detector deu 90% de IA, então você copiou.”</p></div>
+      </div>
+      <aside class="note note--end"><strong>Boa-fé primeiro.</strong> Um aluno que melhorou de repente pode ter estudado, pedido ajuda em casa ou usado IA com honestidade. Trate a conversa como diagnóstico de aprendizagem, não como inquérito.</aside>
+    </div>
+
+    <div id="m5-exercicio" class="sub">
+      <span class="sub__num">06</span>
+      <h3 class="sub__title">Exercício: escreva o seu combinado</h3>
+      <p class="read">Escolha uma atividade real da sua próxima semana. Diga qual dos três níveis vale nela, o que o aluno precisa entregar junto e o que acontece se o combinado não for cumprido.</p>
+      <div class="exercise">
+        <div class="field-head field-head--roomy">
+          <label class="exercise__label" for="ex-mod5">Meu combinado</label>
+          <span class="count" data-count-for="ex-mod5">0 palavras</span>
+        </div>
+        <textarea id="ex-mod5" class="exercise__field" data-notebook rows="6" placeholder="Atividade:  ...&#10;Nível de uso:  ...&#10;O que entregar junto:  ...&#10;Se não cumprir:  ..."></textarea>
+      </div>
+    </div>
+
+    <div class="measure block">
+      <div class="caderno">
+        <div class="field-head">
+          <label class="caderno__label" for="caderno-mod5"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 5</label>
+          <span class="count" data-count-for="caderno-mod5">0 palavras</span>
+        </div>
+        <p class="caderno__hint" id="caderno-mod5-hint">Qual atividade sua a IA já tornou frágil? Como você vai redesenhá-la?</p>
+        <textarea id="caderno-mod5" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod5-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="measure refs">
+      <div class="label label--muted">Referências deste módulo</div>
+      <ol class="refs__list">
+        <li>LIANG, W. et al. GPT detectors are biased against non-native English writers. <em>Patterns</em>, v. 4, n. 7, 2023.</li>
+        <li>UNESCO. <em>AI competency framework for students</em>. Paris: UNESCO, 2024.</li>
+        <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
+      </ol>
+    </div>
+
+    <div class="measure mod-foot" data-print-hide>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-5" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-4"><span aria-hidden="true">←</span> Aplicação</a><a class="pill" href="#modulo-6">Ética e LGPD <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- MÓDULO 6 -->
+  <section id="modulo-6" class="sec" data-spy="modulo-6" aria-label="Módulo 6 — Ética, LGPD e direitos">
+    <div class="measure">
+      <div class="kicker"><span class="kicker__label">Módulo 06</span><span class="kicker__rule"></span></div>
       <h2 class="mod-title">Ética, LGPD e Direitos</h2>
       <p class="lede">Usar IA com responsabilidade é parte da competência docente. Três frentes exigem cuidado: os princípios éticos, os dados dos alunos e os direitos autorais.</p>
 
       <div class="overview">
         <div class="label">Neste módulo</div>
         <ol class="toc">
-          <li><a class="toc__num" href="#m5-principios" tabindex="-1" aria-hidden="true">01</a> <a href="#m5-principios">Princípios éticos</a></li>
-          <li><a class="toc__num" href="#m5-lgpd" tabindex="-1" aria-hidden="true">02</a> <a href="#m5-lgpd">LGPD na sala de aula</a></li>
-          <li><a class="toc__num" href="#m5-direitos" tabindex="-1" aria-hidden="true">03</a> <a href="#m5-direitos">Direitos autorais e materiais gerados</a></li>
+          <li><a class="toc__num" href="#m6-principios" tabindex="-1" aria-hidden="true">01</a> <a href="#m6-principios">Princípios éticos</a></li>
+          <li><a class="toc__num" href="#m6-lgpd" tabindex="-1" aria-hidden="true">02</a> <a href="#m6-lgpd">LGPD na sala de aula</a></li>
+          <li><a class="toc__num" href="#m6-lei" tabindex="-1" aria-hidden="true">03</a> <a href="#m6-lei">O que a lei brasileira já diz</a></li>
+          <li><a class="toc__num" href="#m6-direitos" tabindex="-1" aria-hidden="true">04</a> <a href="#m6-direitos">Direitos autorais e materiais gerados</a></li>
+          <li><a class="toc__num" href="#m6-vies" tabindex="-1" aria-hidden="true">05</a> <a href="#m6-vies">Viés na prática</a></li>
+          <li><a class="toc__num" href="#m6-familias" tabindex="-1" aria-hidden="true">06</a> <a href="#m6-familias">Conversar com as famílias</a></li>
         </ol>
         <div class="meta-row">
-          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~40 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~55 min</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Transversal a toda a trilha</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Checklist + caderno</span>
         </div>
       </div>
     </div>
 
-    <div id="m5-principios" class="sub">
+    <div id="m6-principios" class="sub">
       <span class="sub__num">01</span>
       <h3 class="sub__title">Princípios éticos</h3>
       <p class="read read--gap-sm">O guia da UNESCO (Holmes et al., 2024) resume o uso responsável em compromissos que cabem no dia a dia da escola:</p>
@@ -727,7 +1050,7 @@
       </div>
     </div>
 
-    <div id="m5-lgpd" class="sub">
+    <div id="m6-lgpd" class="sub">
       <span class="sub__num">02</span>
       <h3 class="sub__title">LGPD na sala de aula</h3>
       <p class="read">A <strong>Lei Geral de Proteção de Dados</strong> (Lei nº 13.709/2018) trata dados de crianças e adolescentes como especialmente sensíveis. A regra de ouro é simples: <strong>não insira em ferramentas de IA nada que identifique um aluno</strong>. Confira seu preparo:</p>
@@ -747,8 +1070,21 @@
       <aside class="note note--end"><strong>Dica prática.</strong> Precisa de feedback sobre o texto de um aluno? Remova o nome e qualquer dado identificável antes de colar. Trabalhe sempre com material anonimizado.</aside>
     </div>
 
-    <div id="m5-direitos" class="sub">
+    <div id="m6-lei" class="sub">
       <span class="sub__num">03</span>
+      <h3 class="sub__title">O que a lei brasileira já diz</h3>
+      <p class="read">Não existe, até aqui, uma lei específica de inteligência artificial em vigor no Brasil. Mas isso não quer dizer terreno livre: três normas já valem e alcançam o uso escolar.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>LGPD (Lei 13.709/2018).</strong> O artigo 14 trata dados de crianças e adolescentes no seu melhor interesse, exigindo consentimento específico do responsável em boa parte dos casos. Na prática: dado de aluno não entra em ferramenta de IA.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>ECA (Lei 8.069/1990).</strong> Protege imagem, identidade e privacidade de crianças e adolescentes. Vale para foto de turma, produção de aluno e qualquer material que você publique.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Política Nacional de Educação Digital (Lei 14.533/2023).</strong> Coloca o letramento digital e informacional como parte da educação básica, com eixos de inclusão, educação digital escolar e capacitação. É o respaldo legal para esta formação existir.</span></div>
+      </div>
+      <p class="read read--after-block">A regulação específica está em andamento: o <strong>PL 2338/2023</strong>, que organiza o uso de IA por níveis de risco, foi aprovado pelo Senado e segue em tramitação na Câmara dos Deputados. Enquanto isso, a orientação prática não muda — anonimizar, supervisionar e ser transparente já atende ao que se desenha.</p>
+      <aside class="note note--end"><strong>E a sua rede?</strong> Municípios, estados e redes privadas vêm publicando as próprias diretrizes de uso de IA. Pergunte à coordenação se já existe uma: ela prevalece sobre qualquer recomendação genérica, inclusive as deste material.</aside>
+    </div>
+
+    <div id="m6-direitos" class="sub">
+      <span class="sub__num">04</span>
       <h3 class="sub__title">Direitos autorais e materiais gerados</h3>
       <p class="read">Dois lados merecem atenção. Ao <strong>usar</strong> a IA, não a alimente com obras de terceiros protegidas sem autorização. Ao <strong>publicar</strong> o que ela ajudou a criar, saiba que o material gerado por IA tem status autoral incerto — revise, personalize e assuma a autoria do resultado final.</p>
       <div class="pair">
@@ -757,14 +1093,41 @@
       </div>
     </div>
 
+    <div id="m6-vies" class="sub">
+      <span class="sub__num">05</span>
+      <h3 class="sub__title">Viés na prática</h3>
+      <p class="read"><a class="gloss" href="#termo-vies" title="Ver no glossário">Viés</a> não é um defeito ocasional: é consequência do treino. O modelo aprendeu com textos humanos e devolve o que é mais frequente neles. Na escola isso aparece de formas concretas.</p>
+      <div class="rows">
+        <div class="row-card"><span class="row-card__num">01</span><span class="row-card__text"><strong>Nos exemplos.</strong> Peça dez situações-problema e observe os nomes, as profissões e os arranjos de família que aparecem. Costuma faltar diversidade — e sobrar padrão.</span></div>
+        <div class="row-card"><span class="row-card__num">02</span><span class="row-card__text"><strong>No recorte do conteúdo.</strong> Temas brasileiros, africanos e indígenas costumam vir mais rasos que os europeus e norte-americanos, porque há menos material de treino sobre eles.</span></div>
+        <div class="row-card"><span class="row-card__num">03</span><span class="row-card__text"><strong>Na correção.</strong> Pedir avaliação de redação pode reproduzir preferência por uma norma de escrita e penalizar variedade linguística legítima do aluno.</span></div>
+      </div>
+      <p class="read read--after-block">Três hábitos reduzem o problema, sem eliminá-lo:</p>
+      <div class="pair">
+        <div class="pair__cell"><div class="pair__label c1">✓ FAÇA</div><p class="pair__text">Peça explicitamente diversidade de nomes, regiões e contextos; peça fontes brasileiras; leia pensando em quem é a sua turma.</p></div>
+        <div class="pair__cell"><div class="pair__label c3">✕ EVITE</div><p class="pair__text">Levar o material direto para a sala; usar a IA como árbitro de correção; tratar a resposta como neutra por ser automática.</p></div>
+      </div>
+    </div>
+
+    <div id="m6-familias" class="sub">
+      <span class="sub__num">06</span>
+      <h3 class="sub__title">Conversar com as famílias</h3>
+      <p class="read">Transparência evita a maior parte do desgaste. Famílias reagem mal ao que descobrem por acaso e bem ao que foi explicado antes — especialmente quando a explicação deixa claro que <strong>nenhum dado do filho foi para a ferramenta</strong>.</p>
+      <div class="prompt-card" data-prompt-card>
+        <div class="prompt-card__head"><div class="prompt-card__title">Modelo de comunicado</div><button type="button" class="btn-copy" data-copy-prompt>Copiar</button></div>
+        <p class="prompt-card__text">Famílias, neste semestre venho usando ferramentas de inteligência artificial no meu planejamento, para criar exemplos, adaptar textos e preparar atividades. Três compromissos: 1) nenhum dado pessoal de estudante é inserido nessas ferramentas; 2) todo material gerado é revisado por mim antes de chegar à turma; 3) avaliação, nota e acompanhamento continuam sendo decisão minha, nunca da máquina. Quando os estudantes puderem usar IA em alguma atividade, isso estará escrito no enunciado, junto do que devem entregar. Estou à disposição para conversar.</p>
+      </div>
+      <p class="after">Adapte ao tom da sua escola e leve à coordenação antes de enviar. Se a rede já tiver uma diretriz, cite-a no texto.</p>
+    </div>
+
     <div class="measure block">
       <div class="caderno">
         <div class="field-head">
-          <label class="caderno__label" for="caderno-mod5"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 5</label>
-          <span class="count" data-count-for="caderno-mod5">0 palavras</span>
+          <label class="caderno__label" for="caderno-mod6"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 6</label>
+          <span class="count" data-count-for="caderno-mod6">0 palavras</span>
         </div>
-        <p class="caderno__hint" id="caderno-mod5-hint">Qual regra deste módulo você precisa mudar já na sua prática atual?</p>
-        <textarea id="caderno-mod5" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod5-hint"></textarea>
+        <p class="caderno__hint" id="caderno-mod6-hint">Qual regra deste módulo você precisa mudar já na sua prática atual?</p>
+        <textarea id="caderno-mod6" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod6-hint"></textarea>
       </div>
     </div>
 
@@ -772,40 +1135,43 @@
       <div class="label label--muted">Referências deste módulo</div>
       <ol class="refs__list">
         <li>BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em> — Lei Geral de Proteção de Dados Pessoais (<a class="gloss" href="#termo-lgpd" title="Ver no glossário">LGPD</a>). Brasília, 2018.</li>
+        <li>BRASIL. <em>Lei nº 14.533, de 11 de janeiro de 2023</em> — Política Nacional de Educação Digital. Brasília, 2023.</li>
+        <li>BRASIL. <em>Lei nº 8.069, de 13 de julho de 1990</em> — Estatuto da Criança e do Adolescente. Brasília, 1990.</li>
         <li>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. UNESCO, 2024.</li>
       </ol>
     </div>
 
     <div class="measure mod-foot" data-print-hide>
-      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-5" aria-pressed="false">Marcar como concluído</button></div>
-      <div class="mod-foot__group"><a class="pill" href="#modulo-4"><span aria-hidden="true">←</span> Aplicação</a><a class="pill" href="#modulo-6">Implementação <span aria-hidden="true">→</span></a></div>
+      <div class="mod-foot__group"><button type="button" class="btn-done" data-done="modulo-6" aria-pressed="false">Marcar como concluído</button></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-5"><span aria-hidden="true">←</span> O aluno e a IA</a><a class="pill" href="#modulo-7">Implementação <span aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
-  <!-- MÓDULO 6 -->
-  <section id="modulo-6" class="sec" data-spy="modulo-6" aria-label="Módulo 6 — Implementação">
+  <!-- MÓDULO 7 -->
+  <section id="modulo-7" class="sec sec--alt" data-spy="modulo-7" aria-label="Módulo 7 — Implementação">
     <div class="measure">
-      <div class="kicker"><span class="kicker__label">Módulo 06</span><span class="kicker__rule"></span></div>
+      <div class="kicker"><span class="kicker__label">Módulo 07</span><span class="kicker__rule"></span></div>
       <h2 class="mod-title">Trilha de Implementação</h2>
       <p class="lede">Saber não basta — é preciso começar. Este módulo transforma a trilha em um plano de 12 semanas, com checklist, quiz final e fechamento de percurso.</p>
 
       <div class="overview">
         <div class="label">Neste módulo</div>
         <ol class="toc">
-          <li><a class="toc__num" href="#m6-timeline" tabindex="-1" aria-hidden="true">01</a> <a href="#m6-timeline">12 semanas, quatro fases</a></li>
-          <li><a class="toc__num" href="#m6-checklist" tabindex="-1" aria-hidden="true">02</a> <a href="#m6-checklist">Checklist de implementação</a></li>
-          <li><a class="toc__num" href="#m6-quiz" tabindex="-1" aria-hidden="true">03</a> <a href="#m6-quiz">Quiz final</a></li>
-          <li><a class="toc__num" href="#m6-declaracao" tabindex="-1" aria-hidden="true">04</a> <a href="#m6-declaracao">Fechamento de percurso</a></li>
+          <li><a class="toc__num" href="#m7-timeline" tabindex="-1" aria-hidden="true">01</a> <a href="#m7-timeline">12 semanas, quatro fases</a></li>
+          <li><a class="toc__num" href="#m7-escola" tabindex="-1" aria-hidden="true">02</a> <a href="#m7-escola">Levar a trilha para a escola</a></li>
+          <li><a class="toc__num" href="#m7-checklist" tabindex="-1" aria-hidden="true">03</a> <a href="#m7-checklist">Checklist de implementação</a></li>
+          <li><a class="toc__num" href="#m7-quiz" tabindex="-1" aria-hidden="true">04</a> <a href="#m7-quiz">Quiz final</a></li>
+          <li><a class="toc__num" href="#m7-declaracao" tabindex="-1" aria-hidden="true">05</a> <a href="#m7-declaracao">Fechamento de percurso</a></li>
         </ol>
         <div class="meta-row">
-          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~30 min</span>
+          <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-clock"/></svg> ~45 min</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-flag"/></svg> Encerra a trilha</span>
           <span class="meta"><svg class="icon" width="14" height="14"><use href="#i-pencil"/></svg> Quiz + fechamento</span>
         </div>
       </div>
     </div>
 
-    <div id="m6-timeline" class="sub">
+    <div id="m7-timeline" class="sub">
       <span class="sub__num">01</span>
       <h3 class="sub__title sub__title--grid">12 semanas, quatro fases</h3>
       <p class="read read--gap-sm">Comece pequeno e sustente o hábito. Um trimestre é suficiente para sair do zero a um uso confiante em sala.</p>
@@ -813,12 +1179,25 @@
         <li><div class="timeline__phase">Semanas 1–3 · Explorar</div><p>Escolha uma ferramenta (Módulo 2) e use-a para uma tarefa simples por semana. Sem pressa: familiarize-se.</p></li>
         <li><div class="timeline__phase">Semanas 4–6 · Planejar</div><p>Aplique a engenharia de prompts (Módulo 1) para planejar uma aula real por semana, sempre revisando.</p></li>
         <li><div class="timeline__phase">Semanas 7–9 · Integrar</div><p>Encadeie ferramentas (Módulo 3) e diferencie materiais (Módulo 4). A IA entra no ciclo completo da aula.</p></li>
-        <li><div class="timeline__phase">Semanas 10–12 · Consolidar</div><p>Revise sua prática à luz da ética e da <a class="gloss" href="#termo-lgpd" title="Ver no glossário">LGPD</a> (Módulo 5) e compartilhe o que funcionou com colegas.</p></li>
+        <li><div class="timeline__phase">Semanas 10–12 · Consolidar</div><p>Revise sua prática à luz da ética e da <a class="gloss" href="#termo-lgpd" title="Ver no glossário">LGPD</a> (Módulo 6) e compartilhe o que funcionou com colegas.</p></li>
       </ol>
     </div>
 
-    <div id="m6-checklist" class="sub">
+    <div id="m7-escola" class="sub">
       <span class="sub__num">02</span>
+      <h3 class="sub__title">Levar a trilha para a escola</h3>
+      <p class="read read--gap-sm">Uso individual se perde na rotina; uso combinado vira prática da escola. Se você quiser puxar isso com os colegas, quatro encontros de uma hora dão conta — e o material de apoio é esta própria trilha.</p>
+      <ol class="steps">
+        <li><span class="steps__num">1</span><span class="steps__text"><strong>Abrir a conversa</strong> — cada um conta o que já usa e o que teme. Termina com a leitura conjunta do Módulo 0.</span></li>
+        <li><span class="steps__num">2</span><span class="steps__text"><strong>Oficina de prompts</strong> — cada professor traz uma tarefa real e sai com um prompt testado (Módulos 1 e 2).</span></li>
+        <li><span class="steps__num">3</span><span class="steps__text"><strong>Combinados com os alunos</strong> — a escola define os níveis de uso e como isso aparece nos enunciados (Módulo 5).</span></li>
+        <li><span class="steps__num">4</span><span class="steps__text"><strong>Ética e dados</strong> — revisão do que não entra na ferramenta e redação do comunicado às famílias (Módulo 6).</span></li>
+      </ol>
+      <aside class="note note--end"><strong>Comece pequeno.</strong> Três colegas interessados produzem mais que um decreto de formação obrigatória para o grupo inteiro.</aside>
+    </div>
+
+    <div id="m7-checklist" class="sub">
+      <span class="sub__num">03</span>
       <h3 class="sub__title">Checklist de implementação</h3>
       <p class="read">Marque o que você já consegue fazer com autonomia. É o retrato do seu percurso — fica salvo neste dispositivo.</p>
       <div class="checklist" data-checklist="impl">
@@ -833,14 +1212,16 @@
           <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Diferenciar um material para diferentes níveis</span></button>
           <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Avaliar criticamente uma resposta da IA</span></button>
           <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Usar IA respeitando ética e LGPD</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Combinar com a turma quando e como a IA pode ser usada</span></button>
+          <button type="button" class="check" data-print-keep aria-pressed="false"><span class="check__box" aria-hidden="true"></span><span class="check__label">Explicar à escola e às famílias como uso IA</span></button>
         </div>
       </div>
     </div>
 
-    <div id="m6-quiz" class="sub">
-      <span class="sub__num">03</span>
+    <div id="m7-quiz" class="sub">
+      <span class="sub__num">04</span>
       <h3 class="sub__title">Quiz final</h3>
-      <p class="read read--gap-sm">Três perguntas para consolidar o essencial da trilha. Toque na alternativa que julgar correta.</p>
+      <p class="read read--gap-sm">Cinco perguntas para consolidar o essencial da trilha. Toque na alternativa que julgar correta.</p>
       <div class="quiz">
         <div class="quiz__item" data-correct="1" data-ok="Isso mesmo" data-why="papel, contexto, tarefa e formato formam a anatomia de um bom prompt (Módulo 1).">
           <p class="quiz__q" id="quiz-q1"><span class="quiz__num">01</span>Um bom prompt para uso pedagógico deve conter, no mínimo:</p>
@@ -860,7 +1241,7 @@
           </div>
           <p class="quiz__fb" aria-live="polite"></p>
         </div>
-        <div class="quiz__item" data-correct="1" data-ok="Exato" data-why="dados de crianças e adolescentes são sensíveis; anonimize sempre (Módulo 5).">
+        <div class="quiz__item" data-correct="1" data-ok="Exato" data-why="dados de crianças e adolescentes são sensíveis; anonimize sempre (Módulo 6).">
           <p class="quiz__q" id="quiz-q3"><span class="quiz__num">03</span>Segundo a LGPD, dados pessoais de alunos:</p>
           <div class="quiz__opts" role="group" aria-labelledby="quiz-q3">
             <button type="button" class="opt" data-print-keep aria-pressed="false">Podem ser inseridos livremente em qualquer IA</button>
@@ -869,15 +1250,33 @@
           </div>
           <p class="quiz__fb" aria-live="polite"></p>
         </div>
+        <div class="quiz__item" data-correct="2" data-ok="Isso" data-why="detectores erram muito, sobretudo com quem escreve de forma mais previsível; a conversa sobre o processo é o caminho (Módulo 5).">
+          <p class="quiz__q" id="quiz-q4"><span class="quiz__num">04</span>Diante da suspeita de que um trabalho foi feito por IA, o mais adequado é:</p>
+          <div class="quiz__opts" role="group" aria-labelledby="quiz-q4">
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Usar um detector e zerar a nota se o índice for alto</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Ignorar, já que não há como provar</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Conversar em particular e pedir que explique o processo</button>
+          </div>
+          <p class="quiz__fb" aria-live="polite"></p>
+        </div>
+        <div class="quiz__item" data-correct="1" data-ok="Exatamente" data-why="o material gerado é rascunho: a revisão e a decisão pedagógica continuam sendo do professor (Módulos 0 e 4).">
+          <p class="quiz__q" id="quiz-q5"><span class="quiz__num">05</span>Sobre o material que a IA produz para a sua aula:</p>
+          <div class="quiz__opts" role="group" aria-labelledby="quiz-q5">
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Pode ir direto para a turma se o prompt foi bem escrito</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Precisa de revisão sua antes de chegar aos alunos</button>
+            <button type="button" class="opt" data-print-keep aria-pressed="false">Só precisa de revisão quando trata de conteúdo novo</button>
+          </div>
+          <p class="quiz__fb" aria-live="polite"></p>
+        </div>
       </div>
       <p class="quiz__score" id="quiz-score" aria-live="polite"></p>
       <div class="quiz__reset" id="quiz-reset-wrap" hidden><button type="button" class="btn" id="quiz-reset">Refazer quiz</button></div>
     </div>
 
-    <div id="m6-declaracao" class="sub">
-      <span class="sub__num">04</span>
+    <div id="m7-declaracao" class="sub">
+      <span class="sub__num">05</span>
       <h3 class="sub__title">Fechamento de percurso</h3>
-      <p class="read">Esta trilha não emite certificado: não há instituição por trás dela para autenticar nada. O que fica é o que você produziu ao longo dos sete módulos — e isso está abaixo, pronto para exportar.</p>
+      <p class="read">Esta trilha não emite certificado: não há instituição por trás dela para autenticar nada. O que fica é o que você produziu ao longo dos oito módulos — e isso está abaixo, pronto para exportar.</p>
       <label class="field-label" for="cert-name">Seu nome</label>
       <p class="field-hint" id="cert-name-hint">Aparece no topo do caderno exportado. Fica salvo apenas neste navegador.</p>
       <input id="cert-name" class="field" type="text" autocomplete="name" placeholder="Seu nome completo" aria-describedby="cert-name-hint">
@@ -911,22 +1310,22 @@
     <div class="measure block">
       <div class="caderno">
         <div class="field-head">
-          <label class="caderno__label" for="caderno-mod6"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 6</label>
-          <span class="count" data-count-for="caderno-mod6">0 palavras</span>
+          <label class="caderno__label" for="caderno-mod7"><svg class="icon" width="15" height="15"><use href="#i-pencil"/></svg> Caderno do cursista — Módulo 7</label>
+          <span class="count" data-count-for="caderno-mod7">0 palavras</span>
         </div>
-        <p class="caderno__hint" id="caderno-mod6-hint">Qual é o seu primeiro passo concreto na semana 1? Comprometa-se por escrito.</p>
-        <textarea id="caderno-mod6" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod6-hint"></textarea>
+        <p class="caderno__hint" id="caderno-mod7-hint">Qual é o seu primeiro passo concreto na semana 1? Comprometa-se por escrito.</p>
+        <textarea id="caderno-mod7" class="caderno__field" data-notebook rows="5" placeholder="Minhas anotações..." aria-describedby="caderno-mod7-hint"></textarea>
       </div>
     </div>
 
     <div class="measure mod-foot" data-print-hide>
       <div class="mod-foot__group">
-        <button type="button" class="btn-done" data-done="modulo-6" aria-pressed="false">Marcar como concluído</button>
+        <button type="button" class="btn-done" data-done="modulo-7" aria-pressed="false">Marcar como concluído</button>
         <button type="button" class="btn" id="print-trilha">Imprimir a trilha</button>
         <button type="button" class="btn btn--solid btn--icon" id="export-caderno" aria-describedby="popup-warn"><svg class="icon" width="15" height="15"><use href="#i-download"/></svg> Exportar caderno (PDF)</button>
       </div>
       <p class="popup-warn" id="popup-warn" role="alert" hidden>O navegador bloqueou a janela de exportação. Libere pop-ups para este site e toque em “Exportar caderno” novamente.</p>
-      <div class="mod-foot__group"><a class="pill" href="#modulo-5"><span aria-hidden="true">←</span> Ética e LGPD</a><a class="pill" href="#referencias">Referências <span aria-hidden="true">→</span></a></div>
+      <div class="mod-foot__group"><a class="pill" href="#modulo-6"><span aria-hidden="true">←</span> Ética e LGPD</a><a class="pill" href="#referencias">Referências <span aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
@@ -941,12 +1340,17 @@
         <div id="termo-prompt"><dt>Prompt</dt><dd>A instrução que você dá à IA. Um bom prompt tem papel, contexto, tarefa e formato (Módulo 1).</dd></div>
         <div id="termo-token"><dt>Token</dt><dd>Unidade de texto que o modelo processa — aproximadamente pedaços de palavras. Modelos têm limite de tokens por conversa.</dd></div>
         <div id="termo-data-de-corte"><dt>Data de corte</dt><dd>A data até a qual o modelo foi treinado. Ele não conhece eventos posteriores, salvo se buscar na web.</dd></div>
-        <div id="termo-lgpd"><dt>LGPD</dt><dd>Lei Geral de Proteção de Dados (Lei 13.709/2018). Proíbe inserir dados que identifiquem alunos em ferramentas de IA (Módulo 5).</dd></div>
+        <div id="termo-lgpd"><dt>LGPD</dt><dd>Lei Geral de Proteção de Dados (Lei 13.709/2018). Proíbe inserir dados que identifiquem alunos em ferramentas de IA (Módulo 6).</dd></div>
         <div id="termo-llm"><dt>LLM</dt><dd>Modelo de Linguagem de Grande Escala — a tecnologia por trás de ChatGPT, Claude e afins.</dd></div>
         <div id="termo-tpack"><dt>TPACK</dt><dd>Modelo que une conhecimento de conteúdo, pedagógico e tecnológico. Boa aula com IA vive no encontro dos três (Módulo 4).</dd></div>
         <div id="termo-engenharia-de-prompt"><dt>Engenharia de prompt</dt><dd>Prática de estruturar instruções para obter respostas melhores e mais úteis da IA (Módulo 1).</dd></div>
-        <div id="termo-vies"><dt>Viés</dt><dd>Distorções que a IA pode reproduzir de seus dados de treino. Exige olhar crítico do professor (Módulo 5).</dd></div>
+        <div id="termo-vies"><dt>Viés</dt><dd>Distorções que a IA pode reproduzir de seus dados de treino. Exige olhar crítico do professor (Módulo 6).</dd></div>
         <div id="termo-agente"><dt>Agente</dt><dd>IA que executa tarefas de várias etapas com autonomia, como o Manus (Módulo 2).</dd></div>
+        <div id="termo-ia-generativa"><dt>IA generativa</dt><dd>Sistemas que produzem texto, imagem, áudio ou código a partir de instruções em linguagem natural. É a família de ferramentas de que trata esta trilha.</dd></div>
+        <div id="termo-janela-de-contexto"><dt>Janela de contexto</dt><dd>Quanto de texto a IA consegue considerar de uma vez. Ao passar do limite, ela esquece o começo da conversa — por isso vale recomeçar quando a resposta perder o fio.</dd></div>
+        <div id="termo-multimodal"><dt>Multimodal</dt><dd>Ferramenta que aceita e produz mais de um tipo de material: texto, imagem, áudio. É o que permite enviar a foto de uma página e pedir uma atividade a partir dela.</dd></div>
+        <div id="termo-detector"><dt>Detector de texto por IA</dt><dd>Serviço que estima se um texto foi gerado por IA. Erra bastante, sobretudo com quem escreve de forma mais previsível, e não serve como prova (Módulo 5).</dd></div>
+        <div id="termo-anonimizar"><dt>Anonimizar</dt><dd>Remover nome, matrícula, escola e qualquer detalhe que permita identificar a pessoa, antes de inserir um material na IA (Módulo 6).</dd></div>
       </dl>
     </div>
   </section>
@@ -959,10 +1363,16 @@
       <p class="lede lede--sm">Normalizadas conforme a ABNT NBR 6023. Cada módulo remete a estas fontes.</p>
       <ol class="bib">
         <li><span class="bib__num">01</span><span>BRASIL. <em>Base Nacional Comum Curricular</em>: educação é a base. Brasília: MEC, 2018.</span></li>
-        <li><span class="bib__num">02</span><span>BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em>. Lei Geral de Proteção de Dados Pessoais (LGPD). Brasília: Presidência da República, 2018.</span></li>
-        <li><span class="bib__num">03</span><span>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. Paris: UNESCO, 2024.</span></li>
-        <li><span class="bib__num">04</span><span>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge: a framework for teacher knowledge. <em>Teachers College Record</em>, v. 108, n. 6, p. 1017–1054, 2006.</span></li>
-        <li><span class="bib__num">05</span><span>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada: usos críticos e contextualizados das tecnologias. 2019.</span></li>
+        <li><span class="bib__num">02</span><span>BRASIL. <em>Lei nº 8.069, de 13 de julho de 1990</em>. Estatuto da Criança e do Adolescente. Brasília: Presidência da República, 1990.</span></li>
+        <li><span class="bib__num">03</span><span>BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em>. Lei Geral de Proteção de Dados Pessoais (LGPD). Brasília: Presidência da República, 2018.</span></li>
+        <li><span class="bib__num">04</span><span>BRASIL. <em>Lei nº 14.533, de 11 de janeiro de 2023</em>. Institui a Política Nacional de Educação Digital. Brasília: Presidência da República, 2023.</span></li>
+        <li><span class="bib__num">05</span><span>BRASIL. Ministério da Educação. Conselho Nacional de Educação. <em>Resolução CNE/CEB nº 1, de 4 de outubro de 2022</em>: normas sobre Computação na Educação Básica, complemento à BNCC. Brasília, 2022.</span></li>
+        <li><span class="bib__num">06</span><span>HOLMES, W. et al. <em>Guidance for generative AI in education and research</em>. Paris: UNESCO, 2024.</span></li>
+        <li><span class="bib__num">07</span><span>LIANG, W. et al. GPT detectors are biased against non-native English writers. <em>Patterns</em>, v. 4, n. 7, 2023.</span></li>
+        <li><span class="bib__num">08</span><span>MISHRA, P.; KOEHLER, M. J. Technological pedagogical content knowledge: a framework for teacher knowledge. <em>Teachers College Record</em>, v. 108, n. 6, p. 1017–1054, 2006.</span></li>
+        <li><span class="bib__num">09</span><span>MOURA, A.; CARVALHO, A. A. A.; MION, R. A. Letramento digital como prática situada: usos críticos e contextualizados das tecnologias. 2019.</span></li>
+        <li><span class="bib__num">10</span><span>UNESCO. <em>AI competency framework for students</em>. Paris: UNESCO, 2024.</span></li>
+        <li><span class="bib__num">11</span><span>UNESCO. <em>AI competency framework for teachers</em>. Paris: UNESCO, 2024.</span></li>
       </ol>
       <div class="cite">
         <div class="label label--tight">Como citar esta obra</div>
@@ -984,7 +1394,7 @@
 
   <footer class="site-foot">
     <div class="measure">
-      Ferramentas de IA na Educação Básica — v2.0 · Adryan Cavalcante Cosmo<br>
+      Ferramentas de IA na Educação Básica — v2.1 · Adryan Cavalcante Cosmo<br>
       Licença <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" rel="license noopener">CC BY 4.0</a> (Atribuição)
     </div>
   </footer>

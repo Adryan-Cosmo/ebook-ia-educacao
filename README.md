@@ -1,17 +1,31 @@
 # Ferramentas de IA na Educação Básica
 
-Trilha formativa progressiva para professores: do letramento digital à engenharia de prompts, com base em TPACK, BNCC e no guia da UNESCO. Leitura de cerca de 2 horas, em sete módulos.
+Trilha formativa progressiva para professores: do letramento digital à engenharia de prompts, com base em TPACK, BNCC e no guia da UNESCO. Leitura de cerca de 3 horas, em oito módulos.
 
-**v2.0** · Adryan Cavalcante Cosmo · Licença [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br)
+**v2.1** · Adryan Cavalcante Cosmo · Licença [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br)
 
 ## O que tem na trilha
 
-Um documento único de rolagem contínua: capa, home da trilha, módulos 0 a 6, glossário e referências. Sobre a leitura há uma camada de aprendizagem:
+Um documento único de rolagem contínua: capa, home da trilha, módulos 0 a 7, glossário e referências.
+
+| Módulo | Conteúdo |
+| --- | --- |
+| 0 · Fundamentos | IA generativa na escola, letramento digital, BNCC e o que a IA não faz |
+| 1 · Engenharia de Prompts | Anatomia do prompt, padrões prontos, refino em conversa, avaliação crítica e erros comuns |
+| 2 · Ferramentas de IA | ChatGPT, Claude, Perplexity, Manus, Gemini e Copilot; conta pessoal e conta da escola |
+| 3 · Ferramentas Complementares | Canva, Kahoot!, Gamma, NotebookLM, acessibilidade e direitos sobre imagens |
+| 4 · Aplicação Pedagógica | TPACK aplicado, ciclo da aula, inclusão, exemplos por área e quando não usar IA |
+| 5 · O Aluno e a IA | Integridade, limites dos detectores, redesenho de atividades e combinados com a turma |
+| 6 · Ética, LGPD e Direitos | Princípios, LGPD, ECA, Política Nacional de Educação Digital, viés e comunicação às famílias |
+| 7 · Implementação | 12 semanas, formação com colegas, checklist, quiz e fechamento de percurso |
+
+Sobre a leitura há uma camada de aprendizagem:
 
 - caderno de anotações por módulo, com contador de palavras;
-- exercício de construção de prompt e exercício de avaliação crítica (alucinação, viés, desatualização);
+- três exercícios: construção de prompt, sequência didática e combinado de uso com a turma;
+- exercício de avaliação crítica (alucinação, viés, desatualização);
 - checklists de proteção de dados (LGPD) e de implementação;
-- quiz final de três questões;
+- quiz final de cinco questões;
 - marcação de módulo concluído e painel "O que você produziu";
 - busca por atalho (`Ctrl K` / `⌘K`), tema claro/escuro;
 - backup do progresso em arquivo `.json`, exportação do caderno em PDF e impressão da trilha.
@@ -50,6 +64,20 @@ Os arquivos em `design/` são referências, não código de produção:
 - `Ebook Trilha IA v2.dc.html` + `support.js`: protótipo-fonte do design.
 - `Trilha IA - versão offline.html`: o mesmo protótipo empacotado num arquivo único que abre sem internet.
 - `Auditoria UX - Trilha IA.dc.html`: auditoria de UX/UI que originou as correções.
+
+### Conteúdo acrescentado na v2.1
+
+O handoff cobre a edição de sete módulos. Esta versão amplia o conteúdo, mantendo a estrutura e as decisões de design:
+
+- **Módulo 5 novo — O Aluno e a IA**, com integridade acadêmica, limites dos detectores (Liang et al., 2023), redesenho de atividades, três níveis de uso combinados com a turma e um roteiro para conversar sobre suspeita de uso. Os antigos módulos 5 e 6 passaram a 6 e 7.
+- **Módulo 0**: subseção sobre o que a IA não faz.
+- **Módulo 1**: refino da resposta em conversa, sete erros comuns e três padrões de prompt a mais (rubrica, explicação alternativa e adaptação).
+- **Módulo 2**: Gemini e Copilot, e uma subseção sobre conta pessoal, conta institucional e tratamento de dados.
+- **Módulo 3**: material acessível (descrição de imagem, leitura fácil, legenda) e direitos sobre imagens geradas.
+- **Módulo 4**: prompts por área do conhecimento e uma subseção sobre quando não usar IA.
+- **Módulo 6**: LGPD (art. 14), ECA, Política Nacional de Educação Digital, estado do PL 2338/2023, viés na prática e modelo de comunicado às famílias.
+- **Módulo 7**: roteiro de quatro encontros para formar colegas; checklist com 8 itens; quiz com 5 questões.
+- **Glossário** com 15 termos e **referências** com 11 fontes.
 
 ### Diferenças em relação ao protótipo
 
