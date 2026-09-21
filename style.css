@@ -643,6 +643,8 @@ main:focus { outline: none; }
 .read:last-child { margin-bottom: 0; }
 .read--gap { margin-bottom: 1.6em; }
 .read--gap-sm { margin-bottom: 1.4em; }
+/* Parágrafo que retoma a leitura depois de um bloco (grade, lista, card). */
+.read--after-block { margin-top: 26px; }
 .read strong,
 .lede strong { color: var(--ink); }
 
