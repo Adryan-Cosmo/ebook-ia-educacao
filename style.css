@@ -25,9 +25,9 @@
   --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
 
-  --measure: 672px;
-  --wide: 820px;
-  --gutter: clamp(16px, 4vw, 40px);
+  --measure: 780px;
+  --wide: 1100px;
+  --gutter: clamp(20px, 4vw, 56px);
   --sidenav-w: 248px;
   --topbar-h: 54px;
 
@@ -912,11 +912,11 @@ main:focus { outline: none; }
 }
 .anatomy__sup { font: 600 11px var(--mono); color: var(--c); }
 
-/* Na medida de 672px, minmax(210px) dava 3+1 com uma trilha vazia;
-   260px garante 2×2 (mesma regra do painel de fechamento). */
+/* Quatro células precisam fechar em 2×2 em qualquer medida de leitura:
+   por isso o mínimo é largo (e limitado a 100% no celular). */
 .anatomy-key {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
   gap: 1px;
   margin-top: 1px;
   border: 1px solid var(--rule);
@@ -1100,9 +1100,11 @@ input::placeholder { color: var(--muted); opacity: 1; }
 .backup__msg:empty { margin: 0; }
 
 /* Ferramentas */
+/* No máximo três colunas, mesmo em tela larga: acima disso o card
+   fica estreito demais para o texto que carrega. */
 .tools {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 32%, 440px), 1fr));
   gap: 16px;
 }
 .tool {
@@ -1401,7 +1403,7 @@ input::placeholder { color: var(--muted); opacity: 1; }
 .panel__date { font: 400 12px/1 var(--mono); color: var(--muted); }
 .panel__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
   gap: 1px;
   margin: 0;
 }
@@ -1542,6 +1544,16 @@ input::placeholder { color: var(--muted); opacity: 1; }
 
 @media (min-width: 1081px) {
   .scrim { display: none !important; }
+}
+
+/* Em telas largas, a medida de leitura e os blocos crescem junto,
+   para o conteúdo ocupar a tela sem encostar nas bordas. */
+@media (min-width: 1440px) {
+  :root { --measure: 840px; --wide: 1280px; --gutter: 64px; }
+}
+
+@media (min-width: 1760px) {
+  :root { --measure: 900px; --wide: 1460px; --gutter: 80px; }
 }
 
 @media (max-width: 640px) {
