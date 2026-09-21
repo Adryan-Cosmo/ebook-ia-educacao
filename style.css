@@ -468,7 +468,14 @@ main:focus { outline: none; }
 .sec--cover { padding: clamp(40px, 9vh, 110px) var(--gutter) clamp(48px, 8vh, 90px); }
 .sec--intro { padding: clamp(30px, 5vh, 60px) var(--gutter) clamp(40px, 7vh, 80px); }
 
-.measure { max-width: var(--measure); margin-left: auto; margin-right: auto; }
+/* Texto e blocos largos compartilham a mesma borda esquerda: a coluna de
+   leitura alinha pelo início do bloco largo, em vez de se centralizar
+   sozinha (o que deixaria as bordas esquerdas desencontradas). */
+.measure {
+  max-width: var(--measure);
+  margin-left: max(0px, calc((100% - var(--wide)) / 2));
+  margin-right: auto;
+}
 .wide { max-width: var(--wide); margin-left: auto; margin-right: auto; }
 .block { margin-top: 56px; }
 
@@ -738,10 +745,10 @@ main:focus { outline: none; }
 
 .sub {
   max-width: var(--measure);
-  margin: 56px auto 0;
+  margin: 56px auto 0 max(0px, calc((100% - var(--wide)) / 2));
   scroll-margin-top: 70px;
 }
-.sub--wide { max-width: var(--wide); }
+.sub--wide { max-width: var(--wide); margin-left: auto; }
 
 .sub__num { font: 500 13px/1 var(--mono); color: var(--accent); }
 
