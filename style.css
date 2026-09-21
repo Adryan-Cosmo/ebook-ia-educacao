@@ -25,7 +25,9 @@
   --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
 
-  --measure: 780px;
+  /* Texto e blocos largos têm a mesma largura: todo o conteúdo
+     ocupa a tela por igual, centralizado. */
+  --measure: var(--wide);
   --wide: 1100px;
   --gutter: clamp(20px, 4vw, 56px);
   --sidenav-w: 248px;
@@ -468,14 +470,7 @@ main:focus { outline: none; }
 .sec--cover { padding: clamp(40px, 9vh, 110px) var(--gutter) clamp(48px, 8vh, 90px); }
 .sec--intro { padding: clamp(30px, 5vh, 60px) var(--gutter) clamp(40px, 7vh, 80px); }
 
-/* Texto e blocos largos compartilham a mesma borda esquerda: a coluna de
-   leitura alinha pelo início do bloco largo, em vez de se centralizar
-   sozinha (o que deixaria as bordas esquerdas desencontradas). */
-.measure {
-  max-width: var(--measure);
-  margin-left: max(0px, calc((100% - var(--wide)) / 2));
-  margin-right: auto;
-}
+.measure { max-width: var(--measure); margin-left: auto; margin-right: auto; }
 .wide { max-width: var(--wide); margin-left: auto; margin-right: auto; }
 .block { margin-top: 56px; }
 
@@ -519,7 +514,7 @@ main:focus { outline: none; }
 .cover-title em { font-style: italic; color: var(--accent); }
 
 .cover-sub {
-  max-width: 640px;
+  max-width: 900px;
   margin: .7em 0 0;
   font: 400 clamp(19px, 2.4vw, 26px)/1.5 var(--serif);
   color: var(--ink-soft);
@@ -745,10 +740,10 @@ main:focus { outline: none; }
 
 .sub {
   max-width: var(--measure);
-  margin: 56px auto 0 max(0px, calc((100% - var(--wide)) / 2));
+  margin: 56px auto 0;
   scroll-margin-top: 70px;
 }
-.sub--wide { max-width: var(--wide); margin-left: auto; }
+.sub--wide { max-width: var(--wide); }
 
 .sub__num { font: 500 13px/1 var(--mono); color: var(--accent); }
 
@@ -1556,11 +1551,14 @@ input::placeholder { color: var(--muted); opacity: 1; }
 /* Em telas largas, a medida de leitura e os blocos crescem junto,
    para o conteúdo ocupar a tela sem encostar nas bordas. */
 @media (min-width: 1440px) {
-  :root { --measure: 840px; --wide: 1280px; --gutter: 64px; }
+  :root { --wide: 1280px; --gutter: 64px; }
 }
 
 @media (min-width: 1760px) {
-  :root { --measure: 900px; --wide: 1460px; --gutter: 80px; }
+  :root { --wide: 1460px; --gutter: 80px; }
+  /* Com a largura máxima, as quatro células cabem numa linha só. */
+  .anatomy-key,
+  .panel__grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (max-width: 640px) {
