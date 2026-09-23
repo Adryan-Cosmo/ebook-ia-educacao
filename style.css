@@ -28,7 +28,7 @@
   /* Texto e blocos largos têm a mesma largura: todo o conteúdo
      ocupa a tela por igual, centralizado. */
   --measure: var(--wide);
-  --wide: 1100px;
+  --wide: 1000px;
   --gutter: clamp(20px, 4vw, 56px);
   --sidenav-w: 248px;
   --topbar-h: 54px;
@@ -240,7 +240,7 @@ main:focus { outline: none; }
   background: rgba(0, 0, 0, .35);
 }
 
-.app { padding-left: 280px; min-height: 100vh; }
+.app { padding-left: 248px; min-height: 100vh; }
 
 /* --------------------------------------------------------------------------
    Cabeçalho fixo
@@ -1551,14 +1551,11 @@ input::placeholder { color: var(--muted); opacity: 1; }
 /* Em telas largas, a medida de leitura e os blocos crescem junto,
    para o conteúdo ocupar a tela sem encostar nas bordas. */
 @media (min-width: 1440px) {
-  :root { --wide: 1280px; --gutter: 64px; }
+  :root { --gutter: 64px; }
 }
 
 @media (min-width: 1760px) {
-  :root { --wide: 1460px; --gutter: 80px; }
-  /* Com a largura máxima, as quatro células cabem numa linha só. */
-  .anatomy-key,
-  .panel__grid { grid-template-columns: repeat(4, 1fr); }
+  :root { --gutter: 80px; }
 }
 
 @media (max-width: 640px) {
